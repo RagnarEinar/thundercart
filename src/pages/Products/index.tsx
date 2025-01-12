@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CrudProductState,
@@ -10,6 +10,8 @@ import Loader from "../../components/Loader";
 import {
   CataLogWrapper,
   ContentWrapper,
+  NoProducts,
+  ProductsPageContainer,
   ProductsWrapper,
   SearchIconWrapper,
   SearchInput,
@@ -43,7 +45,9 @@ const Products: React.FC = () => {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const isBaseRoute = location.pathname.includes("/products/productDetails");
+  const isProductDetailsRoute = location.pathname.includes(
+    "/products/productDetails"
+  );
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -62,41 +66,45 @@ const Products: React.FC = () => {
 
   return (
     <Wrapper>
-      <SearchWrapper>
-        <SearchInput
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-        <SearchIconWrapper>
-            <CiSearch size={20} />
-          </SearchIconWrapper>
-      </SearchWrapper>
-      {isBaseRoute ? (
+      {isProductDetailsRoute ? (
         <Outlet />
       ) : (
-        <ContentWrapper>
-          <Sidebar />
-          <ProductsWrapper>
-            {userDetails?.role === "admin" && (
-              <AddButton onClick={add}>Add New Product</AddButton>
-            )}
-            <CataLogWrapper>
-              {filteredProducts.length > 0 ? (
-                <CataLogItem productList={filteredProducts} />
-              ) : (
-                <div>No Products Available</div>
-              )}
-            </CataLogWrapper>
-          </ProductsWrapper>
-          {isModalOpen && (
-            <ProductForm
-              selectedProduct={selectedProduct}
-              onClose={closeModal}
+        <ProductsPageContainer>
+          <SearchWrapper>
+            <SearchInput
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={handleSearchChange}
             />
-          )}
-        </ContentWrapper>
+            <SearchIconWrapper>
+              <CiSearch size={20} />
+            </SearchIconWrapper>
+          </SearchWrapper>
+          <ContentWrapper>
+            <Sidebar />
+            <ProductsWrapper>
+              {userDetails?.role === "admin" && (
+                <AddButton onClick={add}>Add New Product</AddButton>
+              )}
+              <CataLogWrapper>
+                {filteredProducts.length > 0 ? (
+                  <CataLogItem productList={filteredProducts} />
+                ) : (
+                  <NoProducts>
+                    Sorry, No Products Available , please check back later
+                  </NoProducts>
+                )}
+              </CataLogWrapper>
+            </ProductsWrapper>
+            {isModalOpen && (
+              <ProductForm
+                selectedProduct={selectedProduct}
+                onClose={closeModal}
+              />
+            )}
+          </ContentWrapper>
+        </ProductsPageContainer>
       )}
     </Wrapper>
   );

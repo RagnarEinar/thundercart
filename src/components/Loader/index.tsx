@@ -1,10 +1,13 @@
-import React from 'react'
-import { CustomLoader } from './styled.components'
+import React from "react";
+import { FullPageLoader, Logo } from "./styled.components";
+import thunderLoaderlogo from "../../assets/thunderLoaderlogo.png";
 
-const Loader = () => {
+const Loader: React.FC = () => {
   return (
-   <CustomLoader/>
-  )
-}
+    <FullPageLoader>
+      <Logo src={thunderLoaderlogo} alt="Logo" />
+    </FullPageLoader>
+  );
+};
 
-export default Loader
+export default Loader;

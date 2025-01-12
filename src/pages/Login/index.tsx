@@ -1,12 +1,25 @@
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginState, signInRequest } from "../../data/slices/login";
 import { RootState } from "../../data/store";
 import Loader from "../../components/Loader";
 import { resetRegister } from "../../data/slices/register";
+import {
+  Container,
+  Title,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  ErrorMessage,
+  ButtonContainer,
+  LoginButton,
+  SignUpText,
+  SignUpLink,
+  ForgotPasswordLink,
+} from "./styled.components"; // Import the Message styled component
 
 export interface LoginFormInputs {
   email: string;
@@ -19,6 +32,7 @@ const Login: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogging, userDetails, error } = useSelector<RootState, LoginState>(
@@ -30,16 +44,21 @@ const Login: React.FC = () => {
     dispatch(signInRequest(data));
   };
 
+  const handleForgotPassword = () => {
+    navigate("/forgetpassword");
+  };
+
   useEffect(() => {
     if (userDetails && userDetails.email !== "") {
-      toast.success("Signin Successful");
+      console.log("Login successful. Redirecting...");
+
       if (userDetails.role === "admin") {
         navigate("/admin");
       } else {
-        navigate("/profile");
+        navigate("/products");
       }
     } else if (error !== null) {
-      toast.error("Login Failed");
+      console.log("Login Failed. Please check your credentials.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDetails, error]);
@@ -49,19 +68,12 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "0 auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-      }}
-    >
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="email">Email:</label>
-          <input
+    <Container>
+      <Title>Login</Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormGroup>
+          <Label htmlFor="email">Email:</Label>
+          <Input
             type="email"
             id="email"
             {...register("email", {
@@ -72,14 +84,12 @@ const Login: React.FC = () => {
               },
             })}
           />
-          {errors.email && (
-            <p style={{ color: "red" }}>{errors.email.message}</p>
-          )}
-        </div>
+          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+        </FormGroup>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="password">Password:</label>
-          <input
+        <FormGroup>
+          <Label htmlFor="password">Password:</Label>
+          <Input
             type="password"
             id="password"
             {...register("password", {
@@ -91,22 +101,24 @@ const Login: React.FC = () => {
             })}
           />
           {errors.password && (
-            <p style={{ color: "red" }}>{errors.password.message}</p>
+            <ErrorMessage>{errors.password.message}</ErrorMessage>
           )}
-        </div>
+        </FormGroup>
 
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-          }}
-        >
-          Login
-        </button>
-      </form>
-    </div>
+        <ButtonContainer>
+          <LoginButton type="submit">Login</LoginButton>
+          <SignUpText>
+            Don't have an account ?
+            <SignUpLink onClick={() => navigate("/register")}>
+              Register
+            </SignUpLink>
+          </SignUpText>
+          <ForgotPasswordLink onClick={handleForgotPassword}>
+            Forgot Password ?
+          </ForgotPasswordLink>
+        </ButtonContainer>
+      </Form>
+    </Container>
   );
 };
 

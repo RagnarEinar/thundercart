@@ -8,15 +8,11 @@ import {
   DiscountedPercent,
   PrdImage,
   ItemDesc,
-  ItemSumm,
   ButtonContainer,
   EditButton,
   DeleteButton,
-  ItemRating,
-  ItemReviews,
   CatalogItemContainer,
   CatalogItem,
-  AddButton,
   CataLogWrapper,
   Ruppeeicon,
   FreeDelivery,
@@ -75,7 +71,7 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
   };
 
   const goToProductDetails = (prduniqueid: string) => {
-    if (userDetails?.role === "customer") {
+    if (userDetails?.role !== "admin") {
       navigate(`productDetails/${prduniqueid}`);
     }
   };

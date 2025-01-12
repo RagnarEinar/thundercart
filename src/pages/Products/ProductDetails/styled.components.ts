@@ -7,11 +7,15 @@ export const Wrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px ${({ theme }) => theme.lightBoxShadow};
+
+  @media (max-width: 786px) {
+    flex-direction: column;
+  }
 `;
 
 export const ImageContainer = styled.div`
-  flex: 1;
+  flex: 3;
   display: flex;
   justify-content: center;
   align-items: center;

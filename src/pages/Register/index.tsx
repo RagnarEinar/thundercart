@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { registerRequest, RegisterState } from "../../data/slices/register";
 import { RootState } from "../../data/store";
 import Loader from "../../components/Loader";
 import { useNavigate } from "react-router";
+import {
+  Container,
+  Title,
+  FormGroup,
+  Label,
+  Input,
+  ErrorMessage,
+  Form,
+  SignUpButton,
+  ButtonContainer,
+  SignUpText,
+  SignUpLink,
+} from "../Login/styled.components";
 
 interface RegisterFormInputs {
   name: string;
@@ -19,13 +31,16 @@ const Register: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormInputs>();
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isRegistering, registeredUser, error } = useSelector<
     RootState,
     RegisterState
   >((s) => s.register);
+
   const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
     setIsSubmitted(true);
     dispatch(registerRequest(data));
@@ -34,10 +49,10 @@ const Register: React.FC = () => {
   useEffect(() => {
     if (isSubmitted) {
       if (registeredUser && registeredUser.email !== "") {
-        toast.success("Registration Successful");
+        console.log("Registration successful! Redirecting...");
         navigate("/login");
       } else if (error !== null) {
-        toast.error("Registration Failed");
+        console.log("Registration Failed. Please try again.");
       }
     }
   }, [registeredUser, error, navigate, isSubmitted]);
@@ -47,29 +62,22 @@ const Register: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "0 auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-      }}
-    >
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="name">Name:</label>
-          <input
+    <Container>
+      <Title>Register</Title>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormGroup>
+          <Label htmlFor="name">Name:</Label>
+          <Input
             type="text"
             id="name"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
-        </div>
+          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+        </FormGroup>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="email">Email:</label>
-          <input
+        <FormGroup>
+          <Label htmlFor="email">Email:</Label>
+          <Input
             type="email"
             id="email"
             {...register("email", {
@@ -80,14 +88,12 @@ const Register: React.FC = () => {
               },
             })}
           />
-          {errors.email && (
-            <p style={{ color: "red" }}>{errors.email.message}</p>
-          )}
-        </div>
+          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+        </FormGroup>
 
-        <div style={{ marginBottom: "10px" }}>
-          <label htmlFor="password">Password:</label>
-          <input
+        <FormGroup>
+          <Label htmlFor="password">Password:</Label>
+          <Input
             type="password"
             id="password"
             {...register("password", {
@@ -99,22 +105,18 @@ const Register: React.FC = () => {
             })}
           />
           {errors.password && (
-            <p style={{ color: "red" }}>{errors.password.message}</p>
+            <ErrorMessage>{errors.password.message}</ErrorMessage>
           )}
-        </div>
-
-        <button
-          type="submit"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#28a745",
-            color: "#fff",
-          }}
-        >
-          Register
-        </button>
-      </form>
-    </div>
+        </FormGroup>
+        <ButtonContainer>
+          <SignUpButton type="submit">Register</SignUpButton>
+          <SignUpText>
+            Already have an account ?
+            <SignUpLink onClick={() => navigate("/login")}>Login here</SignUpLink>
+          </SignUpText>
+        </ButtonContainer>
+      </Form>
+    </Container>
   );
 };
 

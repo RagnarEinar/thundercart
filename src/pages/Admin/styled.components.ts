@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 
 export const AdminOptions = styled.div`
   display: flex;
+  margin-top: 20px;
 `;
 
 export const ManageProducts = styled.button`
@@ -43,6 +44,5 @@ export const ManageOrders = styled.button`
 `;
 
 export const OutletWrapper = styled.div`
-  padding: 20px;
-  margin: auto;
+  padding: 20px 0px 0px 0px;
 `;

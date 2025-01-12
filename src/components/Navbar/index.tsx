@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from "react";
-import {
-  List,
-  ListWrapper,
-  Nav,
-  Link,
-  ThemeButton,
-  NavWrapper,
-  NavLogo,
-  RagnarImg,
-  CartWrapper,
-  HamWrapper,
-  LogoutButton,
-} from "./styled.components";
-import { CiLight, CiDark, CiShoppingCart } from "react-icons/ci";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { ThemeContextType } from "../../utils/theme/CustomThemeProvider";
-import logoipsum from "../../assets/logoipsum.svg";
 import { signOut } from "firebase/auth";
-import { auth } from "../../config/firebase";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { auth } from "../../config/firebase";
 import { LoginState, signOut as LogOut } from "../../data/slices/login";
 import { RootState } from "../../data/store";
+import {
+  NavItem,
+  NavLinkStyled,
+  LogoutButtonStyled,
+  NavbarWrapper,
+  Nav,
+  LogoContainer,
+  LogoText,
+  NavItemsContainer,
+  NavLinksWrapper,
+  ThemeToggleButton,
+  HamburgerWrapper,
+  SunIcon,
+} from "./styled.components";
+import { IoMoon } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ThemeContextType } from "../../utils/theme/CustomThemeProvider";
+import { useState } from "react";
+import CartIcon from "../CartIcon";
+
+import { useEffect, useRef } from "react";
 
 const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
   const [showHamList, setShowHamList] = useState(false);
@@ -31,6 +34,8 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const navbarRef = useRef<HTMLDivElement | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -46,82 +51,84 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
     navigate("/cart");
   };
 
-
   const renderNavLinks = () => {
+    let links = [];
+
     if (!userDetails || userDetails.email === "") {
-      // Not logged in
-      return (
-        <>
-          <List>
-            <Link to="/">Home</Link>
-          </List>
-          <List>
-            <Link to="/products">Products</Link>
-          </List>
-          <List>
-            <Link to="/register">Register</Link>
-          </List>
-          <List>
-            <Link to="/login">Login</Link>
-          </List>
-        </>
-      );
+      links = [
+        { to: "/", label: "Home" },
+        { to: "/products", label: "Products" },
+        { to: "/register", label: "Register" },
+        { to: "/login", label: "Login" },
+      ];
     } else if (userDetails.role === "admin") {
-      // Logged in as admin
-      return (
-        <>
-          <List>
-            <Link to="/">Home</Link>
-          </List>
-          <List>
-            <Link to="/admin">Dashboard</Link>
-          </List>
-          <List>
-            <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-          </List>
-        </>
-      );
+      links = [
+        { to: "/", label: "Home" },
+        { to: "/admin", label: "Dashboard" },
+      ];
     } else {
-      // Logged in as customer
-      return (
-        <>
-          <List>
-            <Link to="/">Home</Link>
-          </List>
-          <List>
-            <Link to="/products">Products</Link>
-          </List>
-          <List>
-            <Link to="/profile">Profile</Link>
-          </List>
-          <List>
-            <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-          </List>
-          <CartWrapper>
-            <CiShoppingCart onClick={goToCart} />{" "}
-          </CartWrapper>
-        </>
-      );
+      links = [
+        { to: "/", label: "Home" },
+        { to: "/products", label: "Products" },
+        { to: "/profile", label: "Profile" },
+      ];
     }
+
+    return links.map((link) => (
+      <NavItem key={link.to}>
+        <NavLinkStyled to={link.to}>{link.label}</NavLinkStyled>
+      </NavItem>
+    ));
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target as Node)
+      ) {
+        setShowHamList(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <NavWrapper>
+    <NavbarWrapper ref={navbarRef}>
       <Nav>
-        <NavLogo>
-          <RagnarImg src={logoipsum} alt="Logo" />
-        </NavLogo>
-        <ListWrapper>{renderNavLinks()}</ListWrapper>
-        <ThemeButton onClick={toggleTheme}>
-          {isDarkMode ? <CiLight /> : <CiDark />}
-        </ThemeButton>
-        {/* <HamWrapper>
-            <GiHamburgerMenu
-              onClick={() => setShowHamList(!showHamList)}
-            />
-          </HamWrapper> */}
+        <LogoContainer onClick={() => navigate("/")}>
+          <LogoText>ThunderCart</LogoText>
+        </LogoContainer>
+
+        <NavLinksWrapper className={showHamList ? "active" : ""}>
+          {renderNavLinks()}
+          {userDetails && (
+            <NavItem>
+              <LogoutButtonStyled onClick={handleLogout}>
+                Logout
+              </LogoutButtonStyled>
+            </NavItem>
+          )}
+        </NavLinksWrapper>
+
+        <NavItemsContainer>
+          {userDetails && userDetails.role === "customer" && (
+            <CartIcon itemCount={5} onClick={goToCart} />
+          )}
+          <ThemeToggleButton onClick={toggleTheme}>
+            {isDarkMode ? <SunIcon /> : <IoMoon />}
+          </ThemeToggleButton>
+          <HamburgerWrapper onClick={() => setShowHamList(!showHamList)}>
+            <GiHamburgerMenu />
+          </HamburgerWrapper>
+        </NavItemsContainer>
       </Nav>
-    </NavWrapper>
+    </NavbarWrapper>
   );
 };
 

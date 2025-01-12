@@ -18,7 +18,7 @@ export const ModalContent = styled.div`
   border-radius: 8px;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 8px ${({ theme }) => theme.mediumBoxShadow};
   max-height: 80vh;
   overflow-y: auto;
   scrollbar-width: none;
@@ -68,7 +68,7 @@ export const DropDown = styled.select`
   color: #333;
   cursor: pointer;
   transition: border-color 0.3s, background-color 0.3s;
-   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 4px 8px ${({ theme }) => theme.mediumBoxShadow};
 
   &:focus {
     background-color:rgba(255, 255, 255, 0.91)

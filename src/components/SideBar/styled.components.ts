@@ -1,73 +1,88 @@
 import styled from "styled-components";
 
+export const SidebarWrapper = styled.div``;
+
 export const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: rgb(255, 255, 255);
-  position: sticky;
-  top: 0;
-  left: 0;
-  padding: 10px;
-  border-radius: 10px;
+  width: 300px;
+  padding: 20px;
+  box-shadow: 0 6px 20px ${({ theme }) => theme.heavyBoxShadow};
+  border-radius: 12px;
   overflow-y: auto;
-  width: 250px;
-  gap: 16px;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  background-color: ${({ theme }) => theme.sidebarBackground};
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  font-weight: bold;
+  padding-bottom: 16px;
+  justify-content: space-between;
 `;
 
 export const SidebarHeader = styled.h3`
-  margin: 0px;
-  font-size: 18px;
-  font-weight: bold;
-  color: rgb(0, 0, 0);
+  font-size: 1.5rem;
+`;
+
+export const FilterClearText = styled.h2`
+  font-size: 1.1rem;
+  align-self: self-end;
+  color: rgba(2, 208, 244, 0.9);
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+  }
 `;
 
 export const FilterSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  @media (max-width: 786px) {
-    flex-direction: row;
-    width: 100%;
-    margin: auto;
-  }
+  gap: 24px;
 `;
 
 export const FilterSection = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: rgba(107, 105, 105, 0.09);
+  padding: 16px;
+  gap: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px ${({ theme }) => theme.mediumBoxShadow};
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px ${({ theme }) => theme.heavyBoxShadow};
+    transform: translateY(-4px);
+  }
 `;
 
 export const FilterLabel = styled.label`
-  display: block;
-  margin-bottom: 15px;
-  font-weight: bold;
-  font-size: 14px;
-  font-family: cursive;
-  color: rgba(0, 0, 0, 0.98);
+  font-weight: 600;
+  font-size: 1.2rem;
 `;
 
 export const CategoryDropdown = styled.select`
-  cursor: pointer;
+  background-color: ${({ theme }) => theme.sidebarBackground || "#fff"};
+  color: ${({ theme }) => theme.color || "#333"};
   font-size: 16px;
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-`;
-export const FilterInput = styled.input`
-  width: calc(100% - 20px);
-  padding: 8px 10px;
-  margin-bottom: 10px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-`;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
 
-export const SliderContainer = styled.div`
-  display: flex;
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px 2px rgba(0, 123, 255, 0.25);
+  }
+
+  &:hover {
+    border-color: #0056b3;
+  }
 `;
 
 export const RangeSlider = styled.input`
@@ -75,72 +90,83 @@ export const RangeSlider = styled.input`
   width: 100%;
   height: 8px;
   outline: none;
-  transition: background 0.3s;
-  margin: 0px 0px 5px 0px;
-  background: rgba(255, 255, 255, 0.93);
+  margin-bottom: 8px;
+  background: linear-gradient(
+    90deg,
+    #ff7b00,
+    #ff7b00 ${({ value }) => `${value}%`},
+    #ccc
+  );
+  border-radius: 4px;
+`;
+
+export const SliderContainer = styled.div`
+  display: flex;
 `;
 
 export const SliderPrice = styled.div`
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
+  color: #555;
 `;
 
 export const AvailabilityOption = styled.div`
   display: flex;
   flex-direction: column;
-`;
+  gap: 12px; /* Slightly larger gap for better spacing */
 
-export const CheckboxContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
+  label {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer; /* Make the label clickable */
 
-export const CheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  cursor: pointer;
+    input {
+      margin-right: 12px;
+      accent-color: rgba(85, 0, 255, 0.9);
+    }
+
+    &:active {
+      transform: scale(0.98); /* Slight shrink effect on click */
+    }
+  }
 `;
 
 export const RatingContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
 `;
 
-export const SliderInput = styled.input`
-  width: 100%;
-  margin: 10px 0;
-  cursor: pointer;
+export const RatingOption = styled.div`
+  margin-bottom: 8px;
+
+  input[type="radio"] {
+    margin-right: 12px;
+    accent-color: rgba(85, 0, 255, 0.9);
+  }
 `;
 
 export const FilterButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  @media (max-width: 786px) {
-    flex-direction: column;
-    width: 100%;
-    margin: auto;
-  }
-`;
-export const ApplyButton = styled.button`
-  background-color: rgba(255, 7, 7, 1);
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
+  margin: 20px auto 10px auto;
 `;
 
-export const ClearButton = styled.button`
-  background-color: rgba(47, 28, 170, 0.89);
+export const ApplyButton = styled.button`
+  background-color: #007bff;
   color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-size: 14px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.1px;
   cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
 `;
