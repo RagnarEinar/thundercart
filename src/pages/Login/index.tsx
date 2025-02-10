@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginState, signInRequest } from "../../data/slices/login";
+import { LoginState, resetLogin, signInRequest } from "../../data/slices/login";
 import { RootState } from "../../data/store";
-import Loader from "../../components/Loader";
 import { resetRegister } from "../../data/slices/register";
 import {
   Container,
@@ -19,7 +18,9 @@ import {
   SignUpText,
   SignUpLink,
   ForgotPasswordLink,
-} from "./styled.components"; // Import the Message styled component
+  Wrapper,
+} from "./styled.components";
+import { toast } from "react-toastify";
 
 export interface LoginFormInputs {
   email: string;
@@ -32,16 +33,18 @@ const Login: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
+  const [hasError, setHasError] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLogging, userDetails, error } = useSelector<RootState, LoginState>(
-    (s) => s.login
+  const { userDetails, error } = useSelector<RootState, LoginState>(
+    (state) => state.login
   );
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     dispatch(resetRegister());
     dispatch(signInRequest(data));
+    setHasError(false);
   };
 
   const handleForgotPassword = () => {
@@ -49,76 +52,82 @@ const Login: React.FC = () => {
   };
 
   useEffect(() => {
-    if (userDetails && userDetails.email !== "") {
+    if (userDetails?.email) {
       console.log("Login successful. Redirecting...");
+      toast.success("Login successful...");
 
-      if (userDetails.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/products");
-      }
-    } else if (error !== null) {
-      console.log("Login Failed. Please check your credentials.");
+      const targetRoute = userDetails.role === "admin" ? "/admin" : "/products";
+      navigate(targetRoute);
+    } else if (error) {
+      console.error("Login failed:", error);
+      toast.dismiss();
+      toast.error("Login failed, Please retry later...");
+      setHasError(true);
+      dispatch(resetLogin());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userDetails, error]);
+  }, [userDetails, error, navigate, dispatch]);
 
-  if (isLogging) {
-    return <Loader />;
-  }
+  const renderErrorMessage = (message?: string) => {
+    return message ? <ErrorMessage>{message}</ErrorMessage> : null;
+  };
 
   return (
-    <Container>
-      <Title>Login</Title>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormGroup>
-          <Label htmlFor="email">Email:</Label>
-          <Input
-            type="email"
-            id="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "Invalid email address",
-              },
-            })}
-          />
-          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-        </FormGroup>
+    <Wrapper>
+      <Container hasError={hasError}>
+        <Title>Login</Title>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          {/* Email Field */}
+          <FormGroup>
+            <Label htmlFor="email">Email :</Label>
+            <Input
+              placeholder="Email"
+              type="email"
+              id="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Invalid email address",
+                },
+              })}
+            />
+            {renderErrorMessage(errors.email?.message)}
+          </FormGroup>
 
-        <FormGroup>
-          <Label htmlFor="password">Password:</Label>
-          <Input
-            type="password"
-            id="password"
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            })}
-          />
-          {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
-          )}
-        </FormGroup>
+          {/* Password Field */}
+          <FormGroup>
+            <Label htmlFor="password">Password :</Label>
+            <Input
+              placeholder="Password"
+              type="password"
+              id="password"
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long",
+                },
+              })}
+            />
+            {renderErrorMessage(errors.password?.message)}
+          </FormGroup>
 
-        <ButtonContainer>
-          <LoginButton type="submit">Login</LoginButton>
-          <SignUpText>
-            Don't have an account ?
-            <SignUpLink onClick={() => navigate("/register")}>
-              Register
-            </SignUpLink>
-          </SignUpText>
-          <ForgotPasswordLink onClick={handleForgotPassword}>
-            Forgot Password ?
-          </ForgotPasswordLink>
-        </ButtonContainer>
-      </Form>
-    </Container>
+          {/* Buttons and Links */}
+          <ButtonContainer>
+            <LoginButton type="submit">Login</LoginButton>
+            <SignUpText>
+              Don't have an account?{" "}
+              <SignUpLink onClick={() => navigate("/register")}>
+                Register
+              </SignUpLink>
+            </SignUpText>
+            <ForgotPasswordLink onClick={handleForgotPassword}>
+              Forgot Password?
+            </ForgotPasswordLink>
+          </ButtonContainer>
+        </Form>
+      </Container>
+    </Wrapper>
   );
 };
 

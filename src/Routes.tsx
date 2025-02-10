@@ -39,11 +39,11 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const AppRoutes: React.FC = () => {
   const dispatch = useDispatch();
-  const { userDetails } = useSelector<RootState, LoginState>((s) => s.login);
+  // const { userDetails } = useSelector<RootState, LoginState>((s) => s.login);
 
   useEffect(() => {
-    listenForAuthChanges(dispatch, userDetails);
-  }, [dispatch, userDetails]);
+    listenForAuthChanges(dispatch);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -92,7 +92,10 @@ const AppRoutes: React.FC = () => {
             <Route path="users" element={<UsersList />} />
           </Route>
 
-          <Route path="*" element={<PageNotFound>404 - Page Not Found</PageNotFound>} />
+          <Route
+            path="*"
+            element={<PageNotFound>404 - Page Not Found</PageNotFound>}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -19,8 +19,8 @@ export const FullPageLoader = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 130px;
-  height: 130px;
+  width: 50px;
+  height: 50px;
   animation: logoSpin 3s ease-in-out infinite, glow 1.5s ease-in-out infinite;
   filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.8));
 
@@ -49,8 +49,6 @@ export const Logo = styled.img`
   }
 
   @media (max-width: 768px) {
-    width: 90px;
-    height: 90px;
     margin: 30px;
   }
 `;

@@ -1,14 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "../slices/login";
 import registerReducer from "../slices/register";
-import productsRegister from "../slices/products";
-import ordersRegister from "../slices/orders";
+import productsReducer from "../slices/products";
+import cartsandOrdersReducer from "../slices/cartsandOrders";
 
 const rootReducer = combineReducers({
   login: loginReducer,
   register: registerReducer,
-  products: productsRegister,
-  orders: ordersRegister,
+  products: productsReducer,
+  cartandOders: cartsandOrdersReducer,
 });
 
 export default rootReducer;

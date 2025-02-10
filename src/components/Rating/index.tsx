@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 const RatingWrapper = styled.div`
   display: flex;
-  padding: 2px 4px;
+  padding: 5px;
   background: rgb(17, 122, 1);
   border-radius: 4px;
   gap: 4px;
@@ -24,7 +24,7 @@ const RatingWrapper = styled.div`
 `;
 
 const RatingNumber = styled.p`
-  font-size: 14px;
+  font-size: 10px;
   color: rgb(255, 255, 255);
   margin: 0px;
 `;
@@ -35,6 +35,7 @@ const StarIcon = styled.i`
   margin: 0px;
 `;
 const RatingCount = styled.p`
+  font-size: 12px;
   color: rgba(81, 48, 48, 0.96);
   margin: 0px;
 `;

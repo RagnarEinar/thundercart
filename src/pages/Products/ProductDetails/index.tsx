@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ProductDetailsState,
   ProductsState,
@@ -10,11 +10,9 @@ import {
   ProductName,
   ProductSummary,
   ProductDescription,
-  ProductCategory,
   PriceDetails,
   OriginalPrice,
   DiscountedPrice,
-  Quantity,
   ProductRating,
   ProductReviews,
   ReviewList,
@@ -22,87 +20,160 @@ import {
   DetailsButtonContainer,
   AddToCart,
   Back,
+  SpecialPrice,
+  RatingHeading,
+  AddToCartWrapper,
+  Tooltip,
+  NoRating,
 } from "./styled.components";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../data/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import cart2 from "../../../assets/cart2.png";
+import {
+  addItemToCart,
+  CartsandOrdersState,
+  resetCartErrorState,
+} from "../../../data/slices/cartsandOrders";
+import { LoginState } from "../../../data/slices/login";
+import Rating from "../../../components/Rating";
+import ErrorModal from "../../../components/ErrorModel";
 
 export interface ProductDetailsProps {
   product: ProductDetailsState;
 }
 
 const ProductDetails: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [errorHeader, seterrorHeader] = useState("");
+  const [errorBody, seterrorBody] = useState("");
+  const [errorPrimaryText, setErrorPrimaryText] = useState("");
+  const dispatch = useDispatch();
+  const { userDetails } = useSelector<RootState, LoginState>((s) => s.login);
+
   const { allProducts } = useSelector<RootState, ProductsState>(
     (s) => s.products
   );
+
+  const { cartItems, error, isLoading } = useSelector<
+    RootState,
+    CartsandOrdersState
+  >((s) => s.cartandOders);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const product = allProducts.find((p) => p.prduniqueid === id);
 
+  const handleClose = () => {
+    dispatch(resetCartErrorState());
+    setShowModal(false);
+  };
+
+  const addToCart = (item: ProductDetailsState) => {
+    console.log("Added cart item", item);
+    if (!cartItems.some((cart) => cart.item.prduniqueid === item.prduniqueid)) {
+      dispatch(addItemToCart({ item, userSelectedQuantity: 1 }));
+    } else {
+      navigate("/cart");
+    }
+  };
+
+  useEffect(() => {
+    dispatch(resetCartErrorState());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (error && error !== "User not authenticated") {
+      seterrorHeader("Failed to Update Cart");
+      seterrorBody("Please try again later...");
+      setShowModal(true);
+    }
+  }, [error]);
+
   if (!product) {
-    return <div>Product not found!</div>;
+    return (
+      <ErrorModal
+        header={"Product detail not available"}
+        body={"Please try again later..."}
+        onClose={handleClose}
+      />
+    );
   }
 
   const {
     prdname,
     prddesc,
     prdsummary,
-    prdimg,
     orgprice,
     discountedprice,
-    category,
-    quantity,
     rating,
     reviews,
   } = product;
 
-  const addToCart = (item: ProductDetailsState) => {
-    console.log("Added cart item", item);
-  };
-
   return (
     <Wrapper>
       <ImageContainer>
-        <ProductImage src={cart2} alt={prdname} />
+        <ProductImage src={cart2 || "placeholder.png"} alt={prdname} />
       </ImageContainer>
       <DetailsContainer>
         <ProductName>{prdname}</ProductName>
-        <ProductSummary>{prdsummary}</ProductSummary>
         <ProductDescription>{prddesc}</ProductDescription>
-        <ProductCategory>Category: {category}</ProductCategory>
+        <ProductSummary>{prdsummary}</ProductSummary>
+
         <PriceDetails>
+          <SpecialPrice>Special Price : </SpecialPrice>
           <OriginalPrice>₹{orgprice}</OriginalPrice>
           <DiscountedPrice>₹{discountedprice}</DiscountedPrice>
         </PriceDetails>
-        <Quantity>Available Quantity: {quantity}</Quantity>
         <ProductRating>
-          <strong>Rating:</strong>
-          {Array.isArray(rating) && rating.length > 0
-            ? (rating.reduce((a, b) => a + b) / rating.length).toFixed(1)
-            : "No Ratings yet"}
+          <RatingHeading>Rating:</RatingHeading>
+          {rating.length > 0 ? (
+            <Rating
+              rating={
+                rating.reduce((acc, rating) => acc + rating, 0) / rating.length
+              }
+              ratingCount={rating.length}
+            />
+          ) : (
+            <NoRating>No Rating yet</NoRating>
+          )}
         </ProductRating>
         <ProductReviews>
-          <strong>Reviews:</strong>
+          <RatingHeading>Reviews:</RatingHeading>
           <ReviewList>
-            {Array.isArray(reviews) &&
-              reviews.length > 0 ?
-              reviews.map((review, index) => <li key={index}>{review}</li>):"No Reviews yet"}
+            {Array.isArray(reviews) && reviews.length > 0 ? (
+              reviews
+                .slice(0, 5)
+                .map((review, index) => <li key={index}>{review}</li>)
+            ) : (
+              <NoRating>No Reviews yet</NoRating>
+            )}
           </ReviewList>
         </ProductReviews>
         <DetailsButtonContainer>
           <Back onClick={() => navigate(-1)}>Back</Back>
-          <AddToCart
-            disabled={false}
-            onClick={() => {
-              addToCart(product);
-            }}
-          >
-            Add To Cart
-          </AddToCart>
+          <AddToCartWrapper>
+            <AddToCart
+              disabled={!userDetails || isLoading}
+              onClick={() => addToCart(product)}
+            >
+              {cartItems.some((cart) => cart.item.prduniqueid === id)
+                ? "Go to Cart"
+                : "Add to Cart"}
+            </AddToCart>
+            {!userDetails && (
+              <Tooltip>Please log in to enable the cart</Tooltip>
+            )}
+          </AddToCartWrapper>
         </DetailsButtonContainer>
       </DetailsContainer>
+      {showModal && (
+        <ErrorModal
+          header={errorHeader}
+          body={errorBody}
+          onClose={handleClose}
+        />
+      )}
     </Wrapper>
   );
 };

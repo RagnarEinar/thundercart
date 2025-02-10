@@ -3,11 +3,12 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
+  ErrorMessage,
   FgTitle,
   ForgetPasswordButton,
   ForgetPasswordContainer,
   Input,
-  Message,
+  Wrapper,
 } from "../styled.components";
 
 const ForgotPassword: React.FC = () => {
@@ -37,21 +38,23 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <Container>
-      <ForgetPasswordContainer>
-      <FgTitle>Forgot Password ?</FgTitle>
-      <Input
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <ForgetPasswordButton onClick={handleForgotPassword}>
-        Send Reset Email
-      </ForgetPasswordButton>
-      {message && <Message>{message}</Message>}
-      </ForgetPasswordContainer>
-    </Container>
+    <Wrapper>
+      <Container>
+        <ForgetPasswordContainer>
+          <FgTitle>Forgot Password ?</FgTitle>
+          <Input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <ForgetPasswordButton onClick={handleForgotPassword}>
+            Send Reset Email
+          </ForgetPasswordButton>
+          {message && <ErrorMessage>{message}</ErrorMessage> }
+        </ForgetPasswordContainer>
+      </Container>
+    </Wrapper>
   );
 };
 

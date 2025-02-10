@@ -44,5 +44,5 @@ export const ManageOrders = styled.button`
 `;
 
 export const OutletWrapper = styled.div`
-  padding: 20px 0px 0px 0px;
+  padding: 0px;
 `;

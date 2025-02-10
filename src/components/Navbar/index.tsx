@@ -25,12 +25,17 @@ import { useState } from "react";
 import CartIcon from "../CartIcon";
 
 import { useEffect, useRef } from "react";
+import { CartsandOrdersState } from "../../data/slices/cartsandOrders";
 
 const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
   const [showHamList, setShowHamList] = useState(false);
   const { userDetails } = useSelector<RootState, LoginState>(
     (state) => state.login
   );
+
+    const { cartItems } = useSelector<RootState, CartsandOrdersState>(
+      (s) => s.cartandOders
+    );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -97,6 +102,7 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  
 
   return (
     <NavbarWrapper ref={navbarRef}>
@@ -118,7 +124,7 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
 
         <NavItemsContainer>
           {userDetails && userDetails.role === "customer" && (
-            <CartIcon itemCount={5} onClick={goToCart} />
+            <CartIcon itemCount={cartItems.length} onClick={goToCart} />
           )}
           <ThemeToggleButton onClick={toggleTheme}>
             {isDarkMode ? <SunIcon /> : <IoMoon />}

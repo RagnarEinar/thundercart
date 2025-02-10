@@ -36,8 +36,10 @@ export interface FilterObjectState {
   rating: number;
   discount: number;
 }
-
-const Sidebar: React.FC = () => {
+interface SideBarProps {
+  setShowFilter?: () => void;
+}
+const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
   const [category, setCategory] = useState<string>("");
   const [priceRange, setPriceRange] = useState<PriceRangeProps>({
     min: 0,
@@ -55,6 +57,7 @@ const Sidebar: React.FC = () => {
     setRating(0);
     setDiscount(0);
     dispatch(resetFilteredProducts());
+    setShowFilter && setShowFilter();
   };
 
   const applyFilters = () => {
@@ -67,6 +70,7 @@ const Sidebar: React.FC = () => {
         discount,
       })
     );
+    setShowFilter && setShowFilter();
     console.log({ category, priceRange, availability, rating, discount });
   };
 
@@ -168,7 +172,7 @@ const Sidebar: React.FC = () => {
           <FilterSection>
             <FilterLabel>Rating</FilterLabel>
             <RatingContainer>
-              {[5, 4, 3, 2, 1].map((rate) => (
+              {[4, 3, 2, 1].map((rate) => (
                 <RatingOption key={rate}>
                   <input
                     type="radio"

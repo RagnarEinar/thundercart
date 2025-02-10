@@ -16,7 +16,6 @@ export const NavbarWrapper = styled.div`
   }
 `;
 
-
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -31,11 +30,11 @@ export const LogoContainer = styled.div`
 export const LogoText = styled.h1`
   color: rgba(255, 106, 0, 0.94);
   font-size: 2rem;
-  margin: 10px 0px 10px 20px;
+  margin: 10px 0px 10px 10px;
   font-weight: 700;
   @media (max-width: 768px) {
-    margin: 5px 0px 5px 10px;
-    font-size: 1.8rem;
+    margin: 5px 0px 5px 5px;
+    font-size: 1.5rem;
   }
 `;
 
@@ -71,12 +70,13 @@ export const NavItem = styled.li`
 export const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   color: ${({ theme }) => theme.text};
-  font-size: 1.5rem;
-  padding: 10px;
+  font-size: 1.3rem;
+  padding: 5px 5px;
+  border-radius: 10px;
 
   &.active {
     color: lime;
-    font-weight: bold;
+    font-weight: 600;
   }
 `;
 
@@ -86,7 +86,7 @@ export const LogoutButtonStyled = styled.button`
   border: none;
   color: rgba(253, 0, 0, 0.96);
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 10px;
 `;
 
@@ -100,7 +100,7 @@ export const ThemeToggleButton = styled.button`
   border: none;
   color: ${({ theme }) => theme.text};
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-left: 15px;
   @media (max-width: 768px) {
     margin-right: 15px;

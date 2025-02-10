@@ -4,6 +4,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   updateDoc,
 } from "firebase/firestore";
@@ -15,6 +16,9 @@ import { FilterObjectState } from "../../../components/SideBar";
 export const getProducts = async (): Promise<ProductDetailsState[]> => {
   try {
     const querySnapshot = await getDocs(collection(db, "Products"));
+    if (querySnapshot.empty) {
+      throw new Error("Collection 'Productss' is empty or does not exist.");
+    }
     const productsList: ProductDetailsState[] = [];
 
     querySnapshot.forEach((doc) => {
@@ -27,13 +31,15 @@ export const getProducts = async (): Promise<ProductDetailsState[]> => {
         prdimg: data.prdimg,
         orgprice: data.orgprice,
         discountedprice: data.discountedprice,
-        quantity: data.quantity,
+        availableQuantity: data.availableQuantity,
         reviews: data.reviews,
         category: data.category,
         rating: data.rating,
       });
     });
-
+    if (productsList.length === 0) {
+      throw new Error("No products found in the collection.");
+    }
     return productsList;
   } catch (error) {
     console.error("Error fetching products: ", error);
@@ -54,8 +60,10 @@ export const createProduct = async (
       prdimg: product.prdimg,
       orgprice: product.orgprice,
       discountedprice: product.discountedprice,
-      quantity: product.quantity,
+      availableQuantity: product.availableQuantity,
       category: product.category,
+      rating: [],
+      reviews: [],
     });
     console.log("Product created with id", docRef.id);
   } catch (e) {
@@ -75,6 +83,17 @@ export const modifyProduct = async (
       "Products",
       updatedProduct.prduniqueid as string
     );
+    const productSnapshot = await getDoc(productRef); // Use getDoc for single document
+
+    if (!productSnapshot.exists()) {
+      throw new Error("Product not found");
+    }
+
+    const currentProductData = productSnapshot.data();
+
+    // Get the existing reviews and ratings, or default to empty arrays if they don't exist
+    const existingReviews = currentProductData?.reviews || [];
+    const existingRatings = currentProductData?.rating || [];
     await updateDoc(productRef, {
       prdname: updatedProduct.prdname,
       prddesc: updatedProduct.prddesc,
@@ -82,8 +101,10 @@ export const modifyProduct = async (
       prdimg: updatedProduct.prdimg,
       orgprice: updatedProduct.orgprice,
       discountedprice: updatedProduct.discountedprice,
-      quantity: updatedProduct.quantity,
+      availableQuantity: updatedProduct.availableQuantity,
       category: updatedProduct.category,
+      reviews: existingReviews, // Keep old reviews
+      rating: existingRatings, // Keep old ratings
     });
     console.log("Product updated successfully");
   } catch (e) {
@@ -153,7 +174,7 @@ export const getFilterProd = (
 
       const matchesAvailability =
         filters.availability === null ||
-        product.quantity > 0 === filters.availability;
+        product.availableQuantity > 0 === filters.availability;
 
       const matchesRating =
         !filters.rating ||

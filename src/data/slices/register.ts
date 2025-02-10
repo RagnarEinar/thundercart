@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface RegisteredUserState {
   name: string;
   email: string;
+  address: string;
 }
 export interface RegisterState {
   isRegistering: boolean;
@@ -22,9 +23,16 @@ const registerSlice = createSlice({
   reducers: {
     registerRequest: (
       state,
-      action: PayloadAction<{ email: string; password: string; name: string }>
+      action: PayloadAction<{
+        email: string;
+        password: string;
+        name: string;
+        address: string;
+      }>
     ) => {
       state.isRegistering = true;
+      state.registeredUser = null;
+      state.error = null;
     },
     registerSuccess: (state, action: PayloadAction<RegisteredUserState>) => {
       state.isRegistering = false;
@@ -36,7 +44,8 @@ const registerSlice = createSlice({
     },
     resetRegister: (state) => {
       state.isRegistering = false;
-      state = initialState;
+      state.registeredUser = null;
+      state.error = null;
     },
   },
 });

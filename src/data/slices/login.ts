@@ -27,9 +27,10 @@ const loginSlice = createSlice({
       action: PayloadAction<{ email: string; password: string }>
     ) => {
       state.isLogging = true;
+      state.userDetails = null;
       state.error = null;
     },
-    signInSuccess: (state, action) => {
+    signInSuccess: (state, action: PayloadAction<UserState>) => {
       state.isLogging = false;
       state.userDetails = action.payload;
     },
@@ -42,10 +43,20 @@ const loginSlice = createSlice({
       state.userDetails = null;
       state.error = null;
     },
+    resetLogin: (state) => {
+      state.isLogging = false;
+      state.userDetails = null;
+      state.error = null;
+    },
   },
 });
 
-export const { signInRequest, signInSuccess, signInFailure, signOut } =
-  loginSlice.actions;
+export const {
+  signInRequest,
+  signInSuccess,
+  signInFailure,
+  signOut,
+  resetLogin,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

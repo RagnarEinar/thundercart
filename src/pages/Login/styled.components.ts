@@ -1,184 +1,171 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  margin: 30px auto;
-  background-color: ${({ theme }) => theme.background};
-  box-shadow: 
-    0 10px 20px ${({ theme }) => theme.heavyBoxShadow}, 
-    0 -10px 20px ${({ theme }) => theme.heavyBoxShadow},
-    10px 0 20px ${({ theme }) => theme.heavyBoxShadow}, 
-    -10px 0 20px ${({ theme }) => theme.heavyBoxShadow};
-  border-radius: 10px;
+const shake = keyframes`
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-15px); }
+  50% { transform: translateX(15px); }
+  75% { transform: translateX(-15px); }
 `;
 
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 67px);
+  padding: 10px;
+  width: 100%;
+    font-size: 1rem;
+     @media (max-width: 768px) {  font-size: 0.8rem;}
+  }
+`;
+
+export const Container = styled.div<{ hasError?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  border-radius: 10px;
+  margin: 15px auto;
+  background-color: ${({ theme }) => theme.sidebarBackground};
+  box-shadow: 0 10px 20px ${({ theme }) => theme.heavyBoxShadow};
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      animation: ${shake} 0.3s ease;
+    `}
+  @media (max-width: 440px) {
+    width: 100%;
+  }
+`;
 
 export const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: #333;
+  color: ${({ theme }) => theme.color};
   text-align: center;
-  margin: 25px auto;
+  margin: 10px 0px;
+  font-style: italic;
+  line-height: 1.4;
 `;
 
 export const Form = styled.form`
   width: 100%;
-  max-width: 400px;
-  padding: 20px 40px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 `;
 
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 10px 10px 0px 30px;
+  gap: 5px;
 `;
 
 export const Label = styled.label`
-  font-size: 1.3rem;
-  color: #666;
-  margin-bottom: 8px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.color};
+  line-height: 1.3;
+  font-style: italic;
 `;
 
 export const Input = styled.input`
   padding: 12px 16px;
-  font-size: 1.2rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s ease;
 
+  border: 1px solid ${({ theme }) => theme.mediumBoxShadow};
+  border-radius: 15px;
+  width: 90%;
+  margin: 0px auto;
+  font-style: italic;
+  border: none;
   &:focus {
-    border-color: #4e73df;
+    outline: 0.5px solid rgba(45, 223, 255, 0.92);
   }
 `;
 
 export const ErrorMessage = styled.span`
-  font-size: 1.2rem;
-  color: #e74c3c;
-  margin-top: 10px;
+  color: rgb(234, 26, 26);
+  margin: 8px auto 0px auto;
+  line-height: 1.5;
+  font-style: italic;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  margin-bottom: 25px;
 `;
 
-export const LoginButton = styled.button`
-  background-color: #4e73df;
-  color: white;
-  padding: 14px;
-  font-size: 1.3rem;
+export const Button = styled.button`
+  background-color: ${({ theme }) => theme.cartAddToCartBtnBackground};
+  color: ${({ theme }) => theme.cartBtnTextColor};
+  padding: 10px;
+  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
   cursor: pointer;
-  align-self: center;
-  width: 60%;
-  transition: background-color 0.3s ease;
-  margin: 15px 0px;
-
-  &:hover {
-    background-color: #2e59d9;
-  }
+  width: 180px;
+  margin: 5px auto;
+  text-align: center;
+  font-style: italic;
+  box-shadow: 0 10px 10px ${({ theme }) => theme.mediumBoxShadow};
 `;
 
-export const SignUpButton = styled.button`
-  background-color: #4e73df;
-  color: white;
-  padding: 14px;
-  font-size: 1.3rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  align-self: center;
-  width: 60%;
-  transition: background-color 0.3s ease;
-  margin: 15px 0px;
-
-  &:hover {
-    background-color: #2e59d9;
-  }
-`;
+export const LoginButton = Button;
+export const SignUpButton = Button;
 
 export const SignUpText = styled.p`
-  font-size: 1.2rem;
   text-align: center;
-  color: #666;
+  color: ${({ theme }) => theme.color};
+  font-weight: 500;
+  font-style: italic;
 `;
 
 export const SignUpLink = styled.span`
-  color: #4e73df;
+  color: ${({ theme }) => theme.cartAddToCartBtnColor};
+
   cursor: pointer;
-  font-weight: 500;
-  margin-left: 10px;
+  font-weight: 600;
+  margin-left: 5px;
+  font-style: italic;
 
   &:hover {
     text-decoration: underline;
   }
 `;
 
-export const ForgotPasswordLink = styled.span`
-  font-size: 1.2rem;
-  color: #4e73df;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 10px;
-
-  &:hover {
-    text-decoration: underline;
-  }
+export const ForgotPasswordLink = styled(SignUpLink)`
+  margin: 10px auto 0px auto;
 `;
 
 export const ForgetPasswordContainer = styled.div`
   width: 100%;
-  max-width: 400px;
-  padding: 0px 40px 20px 20px;
+  padding: 0 30px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
 export const FgTitle = styled.h1`
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: ${({ theme }) => theme.color};
   text-align: center;
-  margin: 25px auto;
+  margin: 20px 0;
+  line-height: 1.4;
+  font-size: 1rem;
+  font-style: italic;
 `;
 
-export const ForgetPasswordButton = styled.button`
-  padding: 12px 15px;
-  background-color: #4e73df;
-  color: white;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  align-self: center;
-  width: 60%;
-  transition: background-color 0.3s ease;
-  margin: 10px 0px;
-
-  &:hover {
-    background-color: #2e59d9;
-  }
-`;
-
-export const Message = styled.div`
-  margin-top: 40px;
-  font-weight: bold;
-  text-align: center;
-  color: red;
-  font-size: 1.3rem;
+export const ForgetPasswordButton = styled(Button)`
+  padding: 12px 14px;
 `;
 
 export const PageNotFound = styled.div`
   text-align: center;
-  color: ${({ theme }) => theme.errorColor};
-  font-size: 18px;
+  color: ${({ theme }) => theme.badgeBackground};
+  font-size: 1.2rem;
   padding: 20px;
+  font-weight: 600;
+  line-height: 1.6;
 `;

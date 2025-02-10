@@ -10,7 +10,7 @@ export interface CrudProductState {
   orgprice: number;
   discountedprice: number;
   category: string;
-  quantity: number;
+  availableQuantity: number;
   rating?: number;
   review?: string;
 }
@@ -24,7 +24,7 @@ export interface ProductDetailsState {
   orgprice: number;
   discountedprice: number;
   category: string;
-  quantity: number;
+  availableQuantity: number;
   rating: number[];
   reviews: string[];
 }
@@ -56,6 +56,7 @@ const productsSlice = createSlice({
     fetchProducts: (state) => {
       state.isLoading = true;
       state.isReadSuccess = false;
+      state.isWriteSuccess = false;
       state.error = null;
     },
     fetchProductsSuccess: (
@@ -66,6 +67,7 @@ const productsSlice = createSlice({
       state.isReadSuccess = true;
       state.allProducts = action.payload;
       state.filteredProducts = action.payload;
+      state.error = null;
     },
     fetchProductsFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
@@ -83,7 +85,6 @@ const productsSlice = createSlice({
     },
     addProductFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.isWriteSuccess = false;
       state.error = action.payload;
     },
     updateProduct: (state, action: PayloadAction<CrudProductState>) => {
@@ -97,7 +98,6 @@ const productsSlice = createSlice({
     },
     updateProductFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.isWriteSuccess = false;
       state.error = action.payload;
     },
     deleteProduct: (state, action: PayloadAction<string>) => {
@@ -119,13 +119,12 @@ const productsSlice = createSlice({
       state.isWriteSuccess = false;
       state.error = null;
     },
-    addProductRatingSuccess: (state, action: PayloadAction<string>) => {
+    addProductRatingSuccess: (state) => {
       state.isLoading = false;
-      state.isWriteSuccess = true;
+      //TODO state.isWriteSuccess = true;
     },
     addProductRatingFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.isWriteSuccess = false;
       state.error = action.payload;
     },
     addProductReview: (state, action: PayloadAction<string>) => {
@@ -133,17 +132,17 @@ const productsSlice = createSlice({
       state.isWriteSuccess = false;
       state.error = null;
     },
-    addProductReviewSuccess: (state, action: PayloadAction<string>) => {
+    addProductReviewSuccess: (state) => {
       state.isLoading = false;
-      state.isWriteSuccess = true;
+      //TODO state.isWriteSuccess = true;
     },
     addProductReviewFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.isWriteSuccess = false;
       state.error = action.payload;
     },
     getFilteredProducts: (state, action: PayloadAction<FilterObjectState>) => {
       state.isReadSuccess = false;
+      state.error = null;
     },
     getFilteredProductsSuccess: (
       state,
@@ -153,7 +152,6 @@ const productsSlice = createSlice({
       state.filteredProducts = action.payload;
     },
     getFilteredProductsFailure: (state, action) => {
-      state.isReadSuccess = false;
       state.filteredProductsError = action.payload;
     },
     resetFilteredProducts: (state) => {

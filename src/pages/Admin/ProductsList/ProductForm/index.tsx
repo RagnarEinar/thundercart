@@ -32,7 +32,7 @@ const ProductForm: React.FC<ProductFormState> = ({
     orgprice: 0,
     discountedprice: 0,
     category: "",
-    quantity: 0,
+    availableQuantity: 0,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -182,7 +182,7 @@ const ProductForm: React.FC<ProductFormState> = ({
               type="number"
               id="quantity"
               name="quantity"
-              value={productData.quantity}
+              value={productData.availableQuantity}
               onChange={handleChange}
             />
             {errors.quantity && <Error>{errors.quantity}</Error>}

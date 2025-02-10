@@ -30,7 +30,7 @@ import {
   ProductDetailsState,
 } from "../../../data/slices/products";
 import ProductForm from "../../Admin/ProductsList/ProductForm";
-import { FormatProductdetailsToCrudState } from "./utils";
+import { FormatProductdetailsToCrudState, getDiscountPercent } from "./utils";
 import { useNavigate } from "react-router";
 import Rating from "../../../components/Rating";
 
@@ -51,15 +51,6 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
     setIsModalOpen(false);
     setSelectedProduct(null);
   };
-
-  const getDiscountPercent = (
-    orgprice: number,
-    discountedprice: number
-  ): string => {
-    const discountPercent = ((orgprice - discountedprice) / orgprice) * 100;
-    return discountPercent.toFixed(0).toString();
-  };
-
   const updateProduct = (product: ProductDetailsState) => {
     const result: CrudProductState = FormatProductdetailsToCrudState(product);
     setSelectedProduct(result);
@@ -94,16 +85,21 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
             <ItemDetails>
               <ItemName>{item.prdname}</ItemName>
               <ItemDesc>{item.prddesc}</ItemDesc>
-              <Rating rating={4.5} ratingCount={2444} />
+              {item.rating.length > 0 && (
+                <Rating
+                  rating={
+                    item.rating.reduce((acc, rating) => acc + rating, 0) /
+                    item.rating.length
+                  }
+                  ratingCount={item.rating.length}
+                />
+              )}
               <PriceContainer>
                 <DiscountedPrice>
                   <Ruppeeicon />
                   {item.discountedprice}
                 </DiscountedPrice>
-                <OrgPrice>
-                  <Ruppeeicon />
-                  {item.orgprice}
-                </OrgPrice>
+                <OrgPrice>{item.orgprice}</OrgPrice>
                 <DiscountedPercent>
                   {getDiscountPercent(item.orgprice, item.discountedprice)}% off
                 </DiscountedPercent>

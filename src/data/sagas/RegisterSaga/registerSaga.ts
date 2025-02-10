@@ -10,7 +10,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 function* fireBaseRegister(action: ReturnType<typeof registerRequest>) {
   try {
-    const { email, password, name } = action.payload;
+    const { email, password, name, address } = action.payload;
     const userCredential: Awaited<
       ReturnType<typeof createUserWithEmailAndPassword>
     > = yield call(createUserWithEmailAndPassword, auth, email, password);
@@ -21,10 +21,11 @@ function* fireBaseRegister(action: ReturnType<typeof registerRequest>) {
           email: userCredential.user.email,
           name: name,
           role: "customer",
+          address: address,
         });
       }
       auth.signOut();
-      yield put(registerSuccess({ name, email }));
+      yield put(registerSuccess({ name, email, address }));
     } catch (e) {
       yield put(registerFailure(e as string));
     }

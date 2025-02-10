@@ -15,6 +15,14 @@ export const FormatProductdetailsToCrudState = (
     orgprice: item.orgprice,
     discountedprice: item.discountedprice,
     category: item.category,
-    quantity: item.quantity,
+    availableQuantity: item.availableQuantity,
   };
+};
+
+export const getDiscountPercent = (
+  orgprice: number,
+  discountedprice: number
+): string => {
+  const discountPercent = ((orgprice - discountedprice) / orgprice) * 100;
+  return discountPercent.toFixed(0).toString();
 };
