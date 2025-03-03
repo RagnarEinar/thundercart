@@ -21,10 +21,9 @@ import {
 import { IoMoon } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ThemeContextType } from "../../utils/theme/CustomThemeProvider";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import CartIcon from "../CartIcon";
-
-import { useEffect, useRef } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import { CartsandOrdersState } from "../../data/slices/cartsandOrders";
 
 const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
@@ -32,14 +31,12 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
   const { userDetails } = useSelector<RootState, LoginState>(
     (state) => state.login
   );
-
-    const { cartItems } = useSelector<RootState, CartsandOrdersState>(
-      (s) => s.cartandOders
-    );
+  const { cartItems } = useSelector<RootState, CartsandOrdersState>(
+    (s) => s.cartandOrders
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const navbarRef = useRef<HTMLDivElement | null>(null);
 
   const handleLogout = async () => {
@@ -81,7 +78,9 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
 
     return links.map((link) => (
       <NavItem key={link.to}>
-        <NavLinkStyled to={link.to}>{link.label}</NavLinkStyled>
+        <NavLinkStyled to={link.to} onClick={() => setShowHamList(false)}>
+          {link.label}
+        </NavLinkStyled>
       </NavItem>
     ));
   };
@@ -102,7 +101,6 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
 
   return (
     <NavbarWrapper ref={navbarRef}>
@@ -129,8 +127,11 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
           <ThemeToggleButton onClick={toggleTheme}>
             {isDarkMode ? <SunIcon /> : <IoMoon />}
           </ThemeToggleButton>
-          <HamburgerWrapper onClick={() => setShowHamList(!showHamList)}>
-            <GiHamburgerMenu />
+          <HamburgerWrapper
+            onClick={() => setShowHamList(!showHamList)}
+            $showHamList={showHamList}
+          >
+            {showHamList ? <AiOutlineClose /> : <GiHamburgerMenu />}
           </HamburgerWrapper>
         </NavItemsContainer>
       </Nav>

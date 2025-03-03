@@ -126,38 +126,6 @@ export const dropProduct = async (prduid: string): Promise<void> => {
   }
 };
 
-export const addRating = async (
-  prduid: string,
-  rating: number
-): Promise<void> => {
-  try {
-    const productRef = doc(db, "Products", prduid);
-    await updateDoc(productRef, {
-      rating: arrayUnion(rating),
-    });
-    console.log("rating added successfully");
-  } catch (e) {
-    console.error("Error while updating rating", e);
-    throw new Error("Error while updating rating");
-  }
-};
-
-export const addReview = async (
-  prduid: string,
-  review: string
-): Promise<void> => {
-  try {
-    const productRef = doc(db, "Products", prduid);
-    await updateDoc(productRef, {
-      reviews: arrayUnion(review),
-    });
-    console.log("reviews added successfully");
-  } catch (e) {
-    console.error("Error while updating reviews", e);
-    throw new Error("Error while updating reviews");
-  }
-};
-
 export const getFilterProd = (
   products: ProductDetailsState[],
   filters: FilterObjectState

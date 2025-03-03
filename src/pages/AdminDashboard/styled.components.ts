@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "../Login/styled.components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -10,34 +11,25 @@ export const AdminOptions = styled.div`
   margin-top: 20px;
 `;
 
-export const ManageProducts = styled.button`
-  padding: 20px 10px;
+export const ManageProducts = styled(Button)`
   margin: auto;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
+  
   &:hover {
     cursor: pointer;
   }
 `;
 
-export const ManageUsers = styled.button`
-  padding: 20px 10px;
+export const ManageUsers = styled(Button)`
   margin: auto;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
+  
   &:hover {
     cursor: pointer;
   }
 `;
 
-export const ManageOrders = styled.button`
-  padding: 20px 10px;
+export const ManageOrders = styled(Button)`
   margin: auto;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
+  
   &:hover {
     cursor: pointer;
   }

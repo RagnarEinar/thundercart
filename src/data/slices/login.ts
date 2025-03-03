@@ -48,6 +48,17 @@ const loginSlice = createSlice({
       state.userDetails = null;
       state.error = null;
     },
+    updateAddress: (state, action: PayloadAction<string>) => {
+      state.error = null;
+    },
+    updateAddressSuccess: (state, action: PayloadAction<string>) => {
+      if (state.userDetails) {
+        state.userDetails.address = action.payload;
+      }
+    },
+    updateAddressFailure: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -57,6 +68,9 @@ export const {
   signInFailure,
   signOut,
   resetLogin,
+  updateAddress,
+  updateAddressSuccess,
+  updateAddressFailure,
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

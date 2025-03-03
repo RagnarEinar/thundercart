@@ -8,7 +8,6 @@ import { resetRegister } from "../../data/slices/register";
 import {
   Container,
   Title,
-  Form,
   FormGroup,
   Label,
   Input,
@@ -17,17 +16,19 @@ import {
   LoginButton,
   SignUpText,
   SignUpLink,
-  ForgotPasswordLink,
   Wrapper,
+  LoginForm,
 } from "./styled.components";
 import { toast } from "react-toastify";
+import ForgotPassword, { ForgotPasswordLink } from "./ForgotPassword";
+import Loader from "../../components/Loader";
 
 export interface LoginFormInputs {
   email: string;
   password: string;
 }
-
 const Login: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -37,7 +38,7 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { userDetails, error } = useSelector<RootState, LoginState>(
+  const { userDetails, error, isLogging } = useSelector<RootState, LoginState>(
     (state) => state.login
   );
 
@@ -48,19 +49,15 @@ const Login: React.FC = () => {
   };
 
   const handleForgotPassword = () => {
-    navigate("/forgetpassword");
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
     if (userDetails?.email) {
-      console.log("Login successful. Redirecting...");
       toast.success("Login successful...");
-
       const targetRoute = userDetails.role === "admin" ? "/admin" : "/products";
       navigate(targetRoute);
     } else if (error) {
-      console.error("Login failed:", error);
-      toast.dismiss();
       toast.error("Login failed, Please retry later...");
       setHasError(true);
       dispatch(resetLogin());
@@ -70,15 +67,17 @@ const Login: React.FC = () => {
   const renderErrorMessage = (message?: string) => {
     return message ? <ErrorMessage>{message}</ErrorMessage> : null;
   };
+  if (isLogging) {
+    return <Loader message="Logging in..."/>;
+  }
 
   return (
     <Wrapper>
-      <Container hasError={hasError}>
+      <Container $hasError={hasError}>
         <Title>Login</Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          {/* Email Field */}
+        <LoginForm onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
-            <Label htmlFor="email">Email :</Label>
+            <Label htmlFor="email">Email : </Label>
             <Input
               placeholder="Email"
               type="email"
@@ -94,7 +93,6 @@ const Login: React.FC = () => {
             {renderErrorMessage(errors.email?.message)}
           </FormGroup>
 
-          {/* Password Field */}
           <FormGroup>
             <Label htmlFor="password">Password :</Label>
             <Input
@@ -112,11 +110,10 @@ const Login: React.FC = () => {
             {renderErrorMessage(errors.password?.message)}
           </FormGroup>
 
-          {/* Buttons and Links */}
           <ButtonContainer>
             <LoginButton type="submit">Login</LoginButton>
             <SignUpText>
-              Don't have an account?{" "}
+              Don't have an account ?
               <SignUpLink onClick={() => navigate("/register")}>
                 Register
               </SignUpLink>
@@ -125,8 +122,11 @@ const Login: React.FC = () => {
               Forgot Password?
             </ForgotPasswordLink>
           </ButtonContainer>
-        </Form>
+        </LoginForm>
       </Container>
+      {isModalOpen && (
+        <ForgotPassword closeModal={() => setIsModalOpen(false)} />
+      )}
     </Wrapper>
   );
 };

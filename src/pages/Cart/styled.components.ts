@@ -1,260 +1,305 @@
-import { styled } from "styled-components";
+import { FaRupeeSign } from "react-icons/fa";
+import styled from "styled-components";
+import { Button } from "../Login/styled.components";
 
 export const Wrapper = styled.div`
-  width: 100%;
-  padding: 20px;
-  background-color: ${({ theme }) => theme.sidebarBackground};
-
-  @media (max-width: 500px) {
-    padding: 10px;
-  }
-`;
-
-export const CenterWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: calc(100vh - 67px);
-  padding: 10px;
-  width: 100%;
-
-  button {
-    width: 250px;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px ${({ theme }) => theme.lightBoxShadow};
+  @media (max-width: 568px) {
+    padding: 1rem;
+    margin: 1rem 0rem 0rem 0rem;
   }
 `;
 
 export const CartWrapper = styled.div`
-  padding: 30px;
+  width: 100%;
   max-width: 1200px;
-  margin: auto;
-  background-color: ${({ theme }) => theme.hoverBackground};
-  border-radius: 12px;
-
-  @media (max-width: 500px) {
-    padding: 30px 10px;
-  }
 `;
 
 export const CartHeader = styled.h2`
-  background-color: ${({ theme }) => theme.sidebarBackground};
   text-align: center;
-  color: rgba(29, 18, 240, 0.95);
-  font-size: 24px;
-  margin-bottom: 40px;
-  font-weight: 600;
-  padding: 10px;
-  border-radius: 10px;
+  font-size: 1.3jjrem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: 568px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 1rem;
+
+  @media (min-width: 868px) {
+    flex-direction: row;
+  }
 `;
 
 export const CartItemsList = styled.div`
+  flex: 2;
   display: flex;
   flex-direction: column;
-  align-self: center;
-  gap: 15px;
-  width: 100%;
-  max-width: 800px;
+  gap: 1rem;
 `;
 
 export const CartItemWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  background-color: ${({ theme }) => theme.sidebarBackground};
-  padding: 20px 10px;
-  border-radius: 10px;
+  padding: 1rem;
+  // border: 0.5px solid rgba(214, 212, 212, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px ${({ theme }) => theme.lightBoxShadow};
 
-  @media (max-width: 600px) {
+  @media (max-width: 868px) {
     flex-direction: column;
-    justify-content: space-between;
-    gap: 30px;
+    gap: 20px;
+  }
+
+  @media (max-width: 568px) {
+    padding: 0.5rem;
   }
 `;
 
 export const ItemContent = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 30px;
-
-  @media (max-width: 600px) {
+  cursor: pointer;
+  flex: 2;
+  @media (max-width: 868px) {
+    width: 100%;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 30px;
-    max-width: 100%;
-  }
-`;
-
-export const ItemName = styled.p`
-  display: flex;
-  align-self: center;
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.color};
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-style: italic;
-  word-wrap: break-word;
-  white-space: normal;
-
-  &:hover {
-    cursor: pointer;
+    justify-content: space-around;
   }
 `;
 
 export const ItemImage = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 10px;
-
-  @media (max-width: 600px) {
+  border-radius: 8px;
+  border: 0.5px solid lightgrey;
+  @media (min-width: 568px) and (max-width: 868px) {
     width: 150px;
     height: 100px;
+  }
+`;
+
+export const DetailsWrapper = styled.div`
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0px auto;
+  @media (max-width: 868px) {
+    margin: unset;
+  }
+`;
+
+export const ItemName = styled.p`
+  font-size: 1.1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media (max-width: 568px) {
+    font-size: 0.8rem;
   }
 `;
 
 export const ItemQuantity = styled.div`
   display: flex;
   align-items: center;
-  align-self: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 600;
-
-  @media (max-width: 500px) {
-    flex-direction: column;
+  gap: 0.5rem;
+  margin: 5px 0px;
+  @media (max-width: 568px) {
+    font-size: 0.7rem;
   }
-`;
-
-export const Quantity = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.cartItemSummColor};
-  font-style: italic;
-  align-self: center;
-`;
-
-export const QuantityButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
 `;
 
 export const PriceContainer = styled.div`
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
-export const QuantityButton = styled.button`
-  padding: 5px 12px;
-  background-color: ${({ theme }) => theme.cartBackBackground};
-  color: ${({ theme }) => theme.cartBtnTextColor};
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  transition: transform 0.2s ease;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-
-  &:active {
-    transform: scale(0.7);
+export const DiscountedPrice = styled.span`
+  font-size: 1rem;
+  @media (max-width: 568px) {
+    font-size: 0.7rem;
   }
 `;
 
-export const RemoveButton = styled.button`
-  width: 130px;
-  padding: 10px 16px;
-  background-color: rgba(255, 6, 6, 0.92);
-  color: ${({ theme }) => theme.cartBtnTextColor};
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 16px;
+export const OrgPrice = styled.span`
+  text-decoration: line-through;
+  color: #757575;
+  align-self: flex-end;
+  font-size: 0.8rem;
+  @media (max-width: 568px) {
+    font-size: 0.6rem;
+  }
+`;
+export const DiscountedPercent = styled.span`
+  color: rgb(17, 241, 13);
+  font-size: 1rem;
+  @media (max-width: 568px) {
+    font-size: 0.7rem;
+  }
+`;
 
+export const QuantityWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  @media (max-width: 868px) {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+`;
+export const Quantity = styled.div`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.cartItemSummColor};
+  align-self: center;
+  @media (max-width: 568px) {
+    font-size: 0.8rem;
+  }
+`;
+export const QuantityButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   &:hover {
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 600px) {
-    width: 80px;
-    font-size: 14px;
+    position: relative;
   }
 `;
 
-export const ErrorMessage = styled.p`
-  color: red;
-  font-size: 16px;
-  text-align: center;
+export const CartRuppeeicon = styled(FaRupeeSign)`
+  font-size: 0.7rem;
+  margin-right: 1px;
+  @media (max-width: 568px) {
+    font-size: 0.5rem;
+  }
+`;
+export const QuantityButton = styled(Button)`
+  background: #f5f5f5;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.color};
+  transition: background 0.2s ease-in-out;
+  &:hover {
+    background: #ddd;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  @media (max-width: 868px) {
+    padding: 0.2rem 0.5rem;
+  }
+`;
+
+export const RemoveButton = styled(Button)`
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  background: #e53935;
+  transition: background 0.2s ease-in-out;
+  &:hover {
+    background: #c62828;
+    transform: scale(1.05);
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const OrderDetailsWrapper = styled.div`
-  align-self: center;
-  background-color: ${({ theme }) => theme.sidebarBackground};
-  padding: 30px;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 500px;
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+  // border: 0.5px solid rgba(214, 212, 212, 0.95);
+  box-shadow: 0 6px 20px ${({ theme }) => theme.lightBoxShadow};
+  max-height: 300px;
 `;
 
 export const OrderDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   h3 {
-    font-size: 28px;
-    color: ${({ theme }) => theme.color};
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  span {
-    font-size: 20px;
-  }
-
-  button {
-    min-width: 50%;
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
   }
 `;
 
 export const SummaryItem = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
-  margin: 20px 0;
-  font-weight: 600;
-  font-style: italic;
-
-  > p {
-    color: ${({ theme }) => theme.cartAddToCartBtnBackground};
+  font-size: 1rem;
+  p {
+    color: lime;
+  }
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
   }
 `;
 
-export const CheckoutButton = styled.button`
+export const ButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  background-color: ${({ theme }) => theme.cartAddToCartBtnBackground};
-  color: ${({ theme }) => theme.cartBtnTextColor};
-  box-shadow: 0 5px 10px ${({ theme }) => theme.heavyBoxShadow};
-  padding: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  margin: 30px auto 0;
-  text-align: center;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+`;
 
+export const CheckoutButton = styled(Button)`
+  background: #2e7d32;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem;
+  width: 90%;
+  transition: background 0.2s ease-in-out;
   &:hover {
-    transform: translateY(-2px);
+    background: #1b5e20;
+    transform: scale(1.05);
   }
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+`;
+
+export const ShowNowButton = styled(Button)`
+  background: #1976d2;
+  padding: 0.5rem 1rem;
+  max-width: 200px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease-in-out;
+  &:hover {
+    background: #1565c0;
+    transform: scale(1.05);
+  }
+`;
+
+export const CenterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+`;
+
+export const Tooltip = styled.span`
+  font-size: 0.75rem;
+  color: red;
+  margin-left: 0.5rem;
 `;

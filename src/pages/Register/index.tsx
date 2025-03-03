@@ -16,12 +16,12 @@ import {
   Label,
   Input,
   ErrorMessage,
-  Form,
   SignUpButton,
   ButtonContainer,
   SignUpText,
   SignUpLink,
   Wrapper,
+  RegisterForm,
 } from "../Login/styled.components";
 import { toast } from "react-toastify";
 
@@ -29,7 +29,7 @@ interface RegisterFormInputs {
   name: string;
   email: string;
   password: string;
-  address: string;  // Add address here
+  address: string; // Add address here
 }
 
 const Register: React.FC = () => {
@@ -43,13 +43,14 @@ const Register: React.FC = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { registeredUser, error } = useSelector<RootState, RegisterState>(
-    (s) => s.register
-  );
+  const { registeredUser, error, isRegistering } = useSelector<
+    RootState,
+    RegisterState
+  >((s) => s.register);
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
-    dispatch(registerRequest(data));
     setHasError(false);
+    dispatch(registerRequest(data));
   };
 
   useEffect(() => {
@@ -69,26 +70,32 @@ const Register: React.FC = () => {
     };
   }, [registeredUser, error, navigate, dispatch]);
 
+  if (isRegistering) {
+    return <Loader message="Registering" />;
+  }
+
   return (
     <Wrapper>
-      <Container hasError={hasError}>
+      <Container $hasError={hasError}>
         <Title>Register</Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <RegisterForm onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
-            <Label htmlFor="name">Name:</Label>
+            <Label htmlFor="name">Name : </Label>
             <Input
               type="text"
               id="name"
+              placeholder="Name"
               {...register("name", { required: "Name is required" })}
             />
             {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
           </FormGroup>
 
           <FormGroup>
-            <Label htmlFor="email">Email:</Label>
+            <Label htmlFor="email">Email :</Label>
             <Input
               type="email"
               id="email"
+              placeholder="sample@email.com"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -103,10 +110,11 @@ const Register: React.FC = () => {
           </FormGroup>
 
           <FormGroup>
-            <Label htmlFor="password">Password:</Label>
+            <Label htmlFor="password">Password :</Label>
             <Input
               type="password"
               id="password"
+              placeholder="Password"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -122,10 +130,11 @@ const Register: React.FC = () => {
 
           {/* Address field */}
           <FormGroup>
-            <Label htmlFor="address">Address:</Label>
+            <Label htmlFor="address">Address :</Label>
             <Input
               type="text"
               id="address"
+              placeholder="Address"
               {...register("address", { required: "Address is required" })}
             />
             {errors.address && (
@@ -136,11 +145,13 @@ const Register: React.FC = () => {
           <ButtonContainer>
             <SignUpButton type="submit">Register</SignUpButton>
             <SignUpText>
-              Already have an account ?{" "}
-              <SignUpLink onClick={() => navigate("/login")}>Login here</SignUpLink>
+              Already have an account ?
+              <SignUpLink onClick={() => navigate("/login")}>
+                Login here
+              </SignUpLink>
             </SignUpText>
           </ButtonContainer>
-        </Form>
+        </RegisterForm>
       </Container>
     </Wrapper>
   );

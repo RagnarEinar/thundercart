@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FaRegSun } from "react-icons/fa";
+import { Button } from "../../pages/Login/styled.components";
 
 export const NavbarWrapper = styled.div`
   background-color: ${({ theme }) => theme.background};
@@ -28,13 +29,13 @@ export const LogoContainer = styled.div`
 `;
 
 export const LogoText = styled.h1`
-  color: rgba(255, 106, 0, 0.94);
-  font-size: 2rem;
+  color: rgba(35, 17, 238, 0.94);
+  font-size: 1.5rem;
   margin: 10px 0px 10px 10px;
   font-weight: 700;
   @media (max-width: 768px) {
     margin: 5px 0px 5px 5px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 `;
 
@@ -44,6 +45,8 @@ export const NavLinksWrapper = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
 
   @media (max-width: 768px) {
     display: ${({ className }) => (className === "active" ? "flex" : "none")};
@@ -52,13 +55,18 @@ export const NavLinksWrapper = styled.ul`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 53px;
+    top: 48px;
     width: 250px;
     right: 0;
     gap: 10px;
     padding: 15px 0px;
-    box-shadow: 0 5px 15px ${({ theme }) => theme.lightBoxShadow};
-    border-radius: 10px;
+    box-shadow: -5px 5px 15px ${({ theme }) => theme.mediumBoxShadow};
+    border-radius: 0px 0px 0px 10px;
+  }
+  @media (max-width: 480px) {
+    padding: 5px 0px 10px 0px;
+    width: 200px;
+    gap: 10px;
   }
 `;
 
@@ -69,25 +77,35 @@ export const NavItem = styled.li`
 
 export const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
-  color: ${({ theme }) => theme.text};
-  font-size: 1.3rem;
+  color: ${({ theme }) => theme.color};
+  font-size: 1.1rem;
   padding: 5px 5px;
   border-radius: 10px;
-
   &.active {
-    color: lime;
-    font-weight: 600;
+    font-size: 1.2rem;
+    padding: 0px;
+    font-weight: 800;
+  }
+  @media (max-width: 480px) {
+    padding: 0px;
+    font-size: 0.8rem;
   }
 `;
 
-export const LogoutButtonStyled = styled.button`
-  font-family: "FontAwesome";
+export const LogoutButtonStyled = styled(Button)`
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
   background-color: transparent;
-  border: none;
-  color: rgba(253, 0, 0, 0.96);
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 10px;
+  color: rgba(253, 0, 0, 1);
+  font-size: 1rem;
+
+  @media (max-width: 768px) {
+    padding: 0px 10px 0px 0px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const NavItemsContainer = styled.div`
@@ -95,16 +113,20 @@ export const NavItemsContainer = styled.div`
   align-items: center;
 `;
 
-export const ThemeToggleButton = styled.button`
+export const ThemeToggleButton = styled(Button)`
   background-color: transparent;
-  border: none;
-  color: ${({ theme }) => theme.text};
-  cursor: pointer;
-  font-size: 1.2rem;
+  color: ${({ theme }) => theme.color};
   margin-left: 15px;
+  border-radius: 50%;
+  &:hover {
+    background-color: ${({ theme }) => theme.hoverBackground};
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
   @media (max-width: 768px) {
     margin-right: 15px;
-    font-size: 1.42rem;
     align-self: center;
   }
 `;
@@ -113,15 +135,18 @@ export const SunIcon = styled(FaRegSun)`
   color: white;
 `;
 
-export const HamburgerWrapper = styled.div`
+export const HamburgerWrapper = styled.div<{ $showHamList: boolean }>`
   display: none;
+
   @media (max-width: 768px) {
     > svg {
-      width: 26px;
-      height: 26px;
+      width: 20px;
+      height: 20px;
       align-self: center;
     }
     display: block;
     cursor: pointer;
+    transition: transform 0.5s ease;
+    transform: ${({ $showHamList }) => ($showHamList ? "rotate(90deg)" : "rotate(0deg)")};
   }
 `;

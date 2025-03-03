@@ -8,6 +8,7 @@ import {
 import { db } from "../../../config/firebase";
 import { CartItemState, OrdersItemState } from "../../slices/cartsandOrders";
 import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
 
 // Get the current authenticated user's ID
 const getUserId = (): string => {
@@ -180,4 +181,96 @@ export const placeOrderInDb = async (): Promise<OrdersItemState[]> => {
   });
 
   return updatedOrders;
+};
+
+export const addRatingInDb = async (
+  prduid: string,
+  orderId: string,
+  rating: number
+): Promise<void> => {
+  try {
+    const userId = getUserId();
+    const userRef = doc(db, "Users", userId);
+    const productRef = doc(db, "Products", prduid);
+
+    // Fetch the user's orders
+    const userSnap = await getDoc(userRef);
+    if (!userSnap.exists()) throw new Error("User not found");
+
+    const userData = userSnap.data();
+    const updatedOrders = userData.orders.map((order: any) => {
+      if (order.orderId === orderId) {
+        return {
+          ...order,
+          orderItems: order.orderItems.map((item: any) =>
+            item.item.prduniqueid === prduid
+              ? { ...item, rating } // ✅ Set rating at the orderItems level
+              : item
+          ),
+        };
+      }
+      return order;
+    });
+
+    // ✅ Update the rating inside user's specific order
+    await updateDoc(userRef, { orders: updatedOrders });
+
+    // ✅ Push the rating into the existing rating array in the product document
+    await updateDoc(productRef, {
+      rating: arrayUnion(rating),
+    });
+
+    console.log("✅ Rating updated successfully in Users and Products DB");
+    toast.success("Rating added succesfully ✅ ");
+  } catch (e) {
+    toast.error("Failed to submit rating");
+    console.error("❌ Error while updating rating", e);
+    throw new Error("Error while updating rating");
+  }
+};
+
+export const addReviewInDb = async (
+  prduid: string,
+  orderId: string,
+  review: string
+): Promise<void> => {
+  try {
+    const userId = getUserId();
+    const userRef = doc(db, "Users", userId);
+    const productRef = doc(db, "Products", prduid);
+
+    // Fetch the user's orders
+    const userSnap = await getDoc(userRef);
+    if (!userSnap.exists()) throw new Error("User not found");
+
+    const userData = userSnap.data();
+    const updatedOrders = userData.orders.map((order: any) => {
+      if (order.orderId === orderId) {
+        return {
+          ...order,
+          orderItems: order.orderItems.map((item: any) =>
+            item.item.prduniqueid === prduid
+              ? { ...item, review } // ✅ Set review at the orderItems level
+              : item
+          ),
+        };
+      }
+      return order;
+    });
+
+    // ✅ Update the review inside user's specific order
+    await updateDoc(userRef, { orders: updatedOrders });
+
+    // ✅ Push the review into the existing reviews array in the product document
+    await updateDoc(productRef, {
+      reviews: arrayUnion(review),
+    });
+
+    console.log("✅ Review updated successfully in Users and Products DB");
+    toast.success("Review added succesfully ✅ ");
+  } catch (e) {
+    toast.error("Failed to submit review");
+    console.error("❌ Error while updating review", e);
+    throw new Error("Error while updating review");
+  }
 };

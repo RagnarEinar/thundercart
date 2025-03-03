@@ -7,8 +7,8 @@ export const CartIconWrapper = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.background};
 
@@ -19,20 +19,20 @@ export const CartIconWrapper = styled.div`
 
 export const CartIconStyled = styled(FaShoppingCart)`
   color: ${({ theme }) => theme.cartIconColor};
-  font-size: 24px;
+  font-size: 20px;
 `;
 
 export const ItemCount = styled.span`
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 1px;
+  right: 1px;
   background-color: ${({ theme }) => theme.badgeBackground};
   color: ${({ theme }) => theme.badgeColor};
   font-size: 10px;
   font-weight: bold;
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;

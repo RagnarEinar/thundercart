@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SidebarWrapper,
   SidebarContainer,
@@ -9,20 +9,22 @@ import {
   FilterLabel,
   CategoryDropdown,
   SliderContainer,
-  RangeSlider,
   SliderPrice,
   AvailabilityOption,
   FilterButtonContainer,
   ApplyButton,
   RatingContainer,
   RatingOption,
-  FilterClearText,
+  RightRangeSlider,
+  LeftRangeSlider,
+  FilterClearButton,
 } from "./styled.components";
 import { useDispatch } from "react-redux";
 import {
   getFilteredProducts,
   resetFilteredProducts,
 } from "../../data/slices/products";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 interface PriceRangeProps {
   min: number;
@@ -49,6 +51,15 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
   const [rating, setRating] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [searchParams] = useSearchParams();
+  const categoryQuery = searchParams.get("category");
+  const priceRangeQuery = searchParams.get("priceRange");
+  const availabilityQuery = searchParams.get("availability");
+  const ratingQuery = searchParams.get("rating");
+  const discountQuery = searchParams.get("discount");
 
   const clearFilters = () => {
     setCategory("");
@@ -58,6 +69,9 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
     setDiscount(0);
     dispatch(resetFilteredProducts());
     setShowFilter && setShowFilter();
+    if (location.pathname === "/products" && location.search) {
+      navigate("/products"); // Remove query parameters
+    }
   };
 
   const applyFilters = () => {
@@ -74,17 +88,51 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
     console.log({ category, priceRange, availability, rating, discount });
   };
 
+  useEffect(() => {
+    if (
+      categoryQuery ||
+      priceRangeQuery ||
+      availabilityQuery ||
+      ratingQuery ||
+      discountQuery
+    ) {
+      setCategory(categoryQuery ?? "");
+
+      setRating(ratingQuery ? Number(ratingQuery) : 0);
+      setDiscount(discountQuery ? Number(discountQuery) : 0);
+      dispatch(
+        getFilteredProducts({
+          category: categoryQuery ?? "",
+          priceRange: { min: 0, max: 10000 },
+          availability: null,
+          rating: ratingQuery ? Number(ratingQuery) : 0,
+          discount: discountQuery ? Number(discountQuery) : 0,
+        })
+      );
+    }
+  }, [
+    dispatch,
+    categoryQuery,
+    priceRangeQuery,
+    availabilityQuery,
+    ratingQuery,
+    discountQuery,
+  ]);
+
   return (
     <SidebarWrapper>
       <SidebarContainer>
         <HeaderContainer>
           <SidebarHeader>Filters</SidebarHeader>
-          <FilterClearText onClick={clearFilters}>Clear All</FilterClearText>
         </HeaderContainer>
+        <FilterButtonContainer>
+          <FilterClearButton onClick={clearFilters}>Clear</FilterClearButton>
+          <ApplyButton onClick={applyFilters}>Apply</ApplyButton>
+        </FilterButtonContainer>
         <FilterSectionWrapper>
           {/* Category Section */}
           <FilterSection>
-            <FilterLabel>Category</FilterLabel>
+            <FilterLabel>CATEGORY</FilterLabel>
             <CategoryDropdown
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -99,12 +147,12 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
 
           {/* Price Range Section */}
           <FilterSection>
-            <FilterLabel>Price Range</FilterLabel>
+            <FilterLabel>PRICE RANGE</FilterLabel>
             <SliderContainer>
-              <RangeSlider
+              <LeftRangeSlider
                 type="range"
-                min="0"
-                max="5000"
+                min={0}
+                max={10000}
                 value={priceRange.min}
                 onChange={(e) =>
                   setPriceRange((prev) => ({
@@ -113,10 +161,10 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
                   }))
                 }
               />
-              <RangeSlider
+              <RightRangeSlider
                 type="range"
-                min="5000"
-                max="10000"
+                min={0}
+                max={10000}
                 value={priceRange.max}
                 onChange={(e) =>
                   setPriceRange((prev) => ({
@@ -133,7 +181,7 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
 
           {/* Availability Section */}
           <FilterSection>
-            <FilterLabel>Availability</FilterLabel>
+            <FilterLabel>AVAILABILITY</FilterLabel>
             <AvailabilityOption>
               <label>
                 <input
@@ -170,7 +218,7 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
 
           {/* Rating Section */}
           <FilterSection>
-            <FilterLabel>Rating</FilterLabel>
+            <FilterLabel>RATING</FilterLabel>
             <RatingContainer>
               {[4, 3, 2, 1].map((rate) => (
                 <RatingOption key={rate}>
@@ -189,21 +237,17 @@ const Sidebar: React.FC<SideBarProps> = ({ setShowFilter }) => {
 
           {/* Discount Section */}
           <FilterSection>
-            <FilterLabel>Discount (%)</FilterLabel>
-            <RangeSlider
+            <FilterLabel>DISCOUNT (%)</FilterLabel>
+            <RightRangeSlider
               type="range"
-              min="0"
-              max="100"
+              min={0}
+              max={100}
               value={discount}
               onChange={(e) => setDiscount(Number(e.target.value))}
             />
             <span>{discount}% or more</span>
           </FilterSection>
         </FilterSectionWrapper>
-
-        <FilterButtonContainer>
-          <ApplyButton onClick={applyFilters}>Apply Filters</ApplyButton>
-        </FilterButtonContainer>
       </SidebarContainer>
     </SidebarWrapper>
   );

@@ -17,9 +17,17 @@ import {
   placeOrderSuccess,
   placeOrderFailure,
   placeOrder,
+  addProductReview,
+  addProductRating,
+  addProductRatingFailure,
+  addProductRatingSuccess,
+  addProductReviewSuccess,
+  addProductReviewFailure,
 } from "../../slices/cartsandOrders";
 import {
   addCartItemToUserDb,
+  addRatingInDb,
+  addReviewInDb,
   fetchCartsandOrdersUserDb,
   placeOrderInDb,
   removeCartItemFromUserDb,
@@ -98,6 +106,42 @@ function* placeFirebaseOrder(action: ReturnType<typeof placeOrder>) {
   }
 }
 
+function* addFirebaseProductReview(
+  action: ReturnType<typeof addProductReview>
+) {
+  try {
+    yield call(
+      addReviewInDb,
+      action.payload.prduid,
+      action.payload.orderId,
+      action.payload.review
+    );
+    yield put(addProductReviewSuccess(action.payload));
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Review submission failed";
+    yield put(addProductReviewFailure(errorMessage));
+  }
+}
+
+function* addFirebaseProductRating(
+  action: ReturnType<typeof addProductRating>
+) {
+  try {
+    yield call(
+      addRatingInDb,
+      action.payload.prduid,
+      action.payload.orderId,
+      action.payload.rating
+    );
+    yield put(addProductRatingSuccess(action.payload));
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Rating submission failed";
+    yield put(addProductRatingFailure(errorMessage));
+  }
+}
+
 function* cartsandOrdersSaga() {
   yield takeEvery(
     "cartsandOrders/fetchCartsandOrders",
@@ -110,6 +154,8 @@ function* cartsandOrdersSaga() {
     updateFirebaseCartItemQuantity
   );
   yield takeEvery("cartsandOrders/placeOrder", placeFirebaseOrder);
+  yield takeEvery("cartsandOrders/addProductReview", addFirebaseProductReview);
+  yield takeEvery("cartsandOrders/addProductRating", addFirebaseProductRating);
 }
 
 export default cartsandOrdersSaga;

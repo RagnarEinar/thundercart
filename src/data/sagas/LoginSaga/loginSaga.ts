@@ -4,8 +4,12 @@ import { auth } from "../../../config/firebase";
 import {
   signInFailure,
   signInRequest,
+  updateAddress,
+  updateAddressFailure,
+  updateAddressSuccess,
   // signInSuccess,
 } from "../../slices/login";
+import { updateAddressInDB } from "./loginCrud";
 // import { doc, DocumentSnapshot, getDoc } from "firebase/firestore";
 
 function* fireBaseLogin(action: ReturnType<typeof signInRequest>) {
@@ -34,8 +38,18 @@ function* fireBaseLogin(action: ReturnType<typeof signInRequest>) {
   }
 }
 
+function* updatefireBaseAddress(action: ReturnType<typeof updateAddress>) {
+  try {
+    const updatedAddress: string = yield call(updateAddressInDB, action.payload);
+    yield put(updateAddressSuccess(updatedAddress));
+  } catch (e) {
+    yield put(updateAddressFailure((e as Error).message));
+  }
+}
+
 function* loginSaga() {
   yield takeEvery("login/signInRequest", fireBaseLogin);
+  yield takeEvery("login/updateAddress", updatefireBaseAddress);
 }
 
 export default loginSaga;

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteItemFromCart,
@@ -6,19 +6,11 @@ import {
   CartsandOrdersState,
   CartItemState,
   fetchCartsandOrders,
-  placeOrder,
-  resetCartErrorState,
 } from "../../data/slices/cartsandOrders";
 import { RootState } from "../../data/store";
 import Loader from "../../components/Loader";
 import cart2 from "../../assets/cart2.png";
 import { getDiscountPercent } from "../Products/CataLogItem/utils";
-import {
-  DiscountedPercent,
-  DiscountedPrice,
-  OrgPrice,
-  Ruppeeicon,
-} from "../Products/CataLogItem/styled.components";
 import {
   Wrapper,
   CartHeader,
@@ -40,33 +32,31 @@ import {
   ItemName,
   PriceContainer,
   CenterWrapper,
+  ButtonContainer,
+  ShowNowButton,
+  DetailsWrapper,
+  QuantityWrapper,
+  DiscountedPrice,
+  OrgPrice,
+  DiscountedPercent,
+  CartRuppeeicon,
 } from "./styled.components";
 import { useNavigate } from "react-router";
-import ErrorModal from "../../components/ErrorModel";
-import { Elements } from "@stripe/react-stripe-js";
-import PaymentForm from "../../components/PaymentForm";
-import { loadStripe } from "@stripe/stripe-js";
+import { Tooltip } from "../Products/ProductDetails/styled.components";
+import { Ruppeeicon } from "../Products/CataLogItem/styled.components";
+import { toast } from "react-toastify";
 
 const Cart: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [errorHeader, setErrorHeader] = useState("");
-  const [errorBody, setErrorBody] = useState("");
-  const [errorPrimaryText, setErrorPrimaryText] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { cartItems, isLoading, error, isOrderPlaced } = useSelector<
+  const { cartItems, isLoading, error } = useSelector<
     RootState,
     CartsandOrdersState
-  >((s) => s.cartandOders);
-
-  const stripePromise = loadStripe("YOUR_STRIPE_PUBLISHABLE_KEY");
+  >((s) => s.cartandOrders);
 
   const handleRemoveItem = (productId: string) => {
     dispatch(deleteItemFromCart(productId));
   };
-  // const handleUpdateQuantity = (productId: string, quantityChange: number) => {
-  //   dispatch(updateItemQuantity({ productId, quantity: quantityChange }));
-  // };
 
   const handleUpdateQuantity = (productId: string, quantity: number) => {
     // Update the local cart state without calling DB
@@ -89,7 +79,7 @@ const Cart: React.FC = () => {
     );
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     // cartItems?.forEach((item) => {
     //   dispatch(
     //     updateItemQuantity({
@@ -98,21 +88,17 @@ const Cart: React.FC = () => {
     //     })
     //   );
     // });
-    dispatch(placeOrder());
+    //dispatch(placeOrder());
+    const cartData = {
+      amount: totalAmount.toFixed(0), // Replace with actual cart total
+      currency: "INR",
+    };
+
+    navigate("/payment", { state: cartData });
   };
 
   const goToProductDetails = (prduniqueid: string) => {
     navigate(`/products/productDetails/${prduniqueid}`);
-  };
-
-  const handleClose = () => {
-    dispatch(resetCartErrorState());
-    setShowModal(false);
-  };
-
-  const goToMyOrders = () => {
-    setShowModal(false);
-    navigate("/profile");
   };
 
   //Memoized calculations for totalAmount, totalItems, and totalSaved
@@ -131,21 +117,6 @@ const Cart: React.FC = () => {
 
     return { totalAmount, totalItems, totalSaved };
   }, [cartItems]); // Ensuring re-calculation when cartItems change
-
-  useEffect(() => {
-    if (isOrderPlaced) {
-      setErrorHeader("Your order placed");
-      setErrorBody(
-        "We have received your order, please track status in myorders..."
-      );
-      setErrorPrimaryText("Check Order Status");
-      setShowModal(true);
-    } else if (error === "Order failed") {
-      setErrorHeader("Order failed to place");
-      setErrorBody("Something went wrong, please try later...");
-      setShowModal(true);
-    }
-  }, [error, isOrderPlaced]);
 
   // Trigger the update when the component unmounts
   // useEffect(() => {
@@ -167,7 +138,14 @@ const Cart: React.FC = () => {
     dispatch(fetchCartsandOrders());
   }, [dispatch]);
 
-  if (isLoading && cartItems.length < 0) return <Loader />;
+  useEffect(() => {
+    if (error) {
+      toast.error("Cart Update error");
+    }
+  }, [error]);
+
+  if (isLoading && cartItems.length < 0)
+    return <Loader message="Fetching cart..." />;
 
   return (
     <Fragment>
@@ -175,77 +153,91 @@ const Cart: React.FC = () => {
         <Wrapper>
           <CartWrapper>
             <CartHeader>
-              Your Bucket List Awaits - Grab Them Before They're Gone!
+              Your Bucket List Awaits -- Grab Them Before They're Gone!
             </CartHeader>
             <CartContainer>
               <CartItemsList>
                 {cartItems?.map((item: CartItemState) => (
                   <CartItemWrapper key={item.item.prduniqueid}>
-                    <ItemContent
-                      onClick={() => {
-                        goToProductDetails(item.item.prduniqueid as string);
-                      }}
-                    >
-                      <ItemImage src={cart2} alt={item.item.prdname} />
-                      <ItemName>{item.item.prdname}</ItemName>
+                    <ItemContent>
+                      <ItemImage
+                        src={cart2}
+                        alt={"Image not available"}
+                        onClick={() => {
+                          goToProductDetails(item.item.prduniqueid as string);
+                        }}
+                      />
+                      {/* //TODO */}
+                      {/* <ItemImage
+                        src={item.item.prdimg}
+                        alt={item.item.prdname}
+                        onClick={() => {
+                          goToProductDetails(item.item.prduniqueid as string);
+                        }}
+                      /> */}
+
+                      <DetailsWrapper>
+                        <ItemName>{item.item.prdname}</ItemName>
+                        <div>
+                          <ItemQuantity>
+                            <Quantity>Price : </Quantity>
+                            <PriceContainer>
+                              <DiscountedPrice>
+                                <CartRuppeeicon />
+                                {item.item.discountedprice *
+                                  item.userSelectedQuantity}
+                              </DiscountedPrice>
+                              <OrgPrice>
+                                {item.item.orgprice * item.userSelectedQuantity}
+                              </OrgPrice>
+                            </PriceContainer>
+                          </ItemQuantity>
+                          <ItemQuantity>
+                            <Quantity>Discount :</Quantity>
+                            <DiscountedPercent>
+                              {getDiscountPercent(
+                                item.item.orgprice,
+                                item.item.discountedprice
+                              )}
+                              % off
+                            </DiscountedPercent>
+                          </ItemQuantity>
+                        </div>
+                      </DetailsWrapper>
                     </ItemContent>
 
-                    <ItemContent>
-                      <ItemQuantity>
-                        <QuantityButtonWrapper>
-                          <QuantityButton
-                            onClick={() => {
-                              item.item.prduniqueid &&
-                                handleUpdateQuantity(item.item.prduniqueid, -1);
-                            }}
-                            disabled={
-                              item.userSelectedQuantity <= 1 || isLoading
-                            }
-                          >
-                            -
-                          </QuantityButton>
-                          <Quantity>{item.userSelectedQuantity}</Quantity>
-                          <QuantityButton
-                            onClick={() => {
-                              item.item.prduniqueid &&
-                                handleUpdateQuantity(item.item.prduniqueid, 1);
-                            }}
-                            disabled={
-                              item.userSelectedQuantity >= 5 || isLoading
-                            }
-                          >
-                            +
-                          </QuantityButton>
-                        </QuantityButtonWrapper>
-                      </ItemQuantity>
+                    <QuantityWrapper>
+                      <QuantityButtonWrapper>
+                        <QuantityButton
+                          onClick={() => {
+                            item.item.prduniqueid &&
+                              handleUpdateQuantity(item.item.prduniqueid, -1);
+                          }}
+                          disabled={item.userSelectedQuantity <= 1 || isLoading}
+                        >
+                          -
+                        </QuantityButton>
+                        <Quantity>{item.userSelectedQuantity}</Quantity>
+                        <QuantityButton
+                          onClick={() => {
+                            item.item.prduniqueid &&
+                              handleUpdateQuantity(item.item.prduniqueid, 1);
+                          }}
+                          disabled={item.userSelectedQuantity >= 5 || isLoading}
+                        >
+                          +
+                        </QuantityButton>
+                        {item.userSelectedQuantity === 5 && (
+                          <Tooltip>Maximum 5 quantity allowed</Tooltip>
+                        )}
+                      </QuantityButtonWrapper>
                       <RemoveButton
                         onClick={() => handleRemoveItem(item.item.prduniqueid!)}
                         disabled={isLoading}
                       >
                         Remove
                       </RemoveButton>
-                    </ItemContent>
-                    <ItemContent>
-                      <Quantity>Price</Quantity>
-                      <PriceContainer>
-                        <DiscountedPrice>
-                          <Ruppeeicon />
-                          {item.item.discountedprice *
-                            item.userSelectedQuantity}
-                        </DiscountedPrice>
-                        <OrgPrice>
-                          {item.item.orgprice * item.userSelectedQuantity}
-                        </OrgPrice>
-                      </PriceContainer>
-
-                      <DiscountedPercent>
-                        {getDiscountPercent(
-                          item.item.orgprice,
-                          item.item.discountedprice
-                        )}
-                        % off
-                      </DiscountedPercent>
-                    </ItemContent>
+                    </QuantityWrapper>
                   </CartItemWrapper>
                 ))}
               </CartItemsList>
@@ -264,6 +256,13 @@ const Cart: React.FC = () => {
                     </span>
                   </SummaryItem>
                   <SummaryItem>
+                    <span>You Saved :</span>
+                    <p>
+                      <Ruppeeicon />
+                      {totalSaved.toFixed(2)}
+                    </p>
+                  </SummaryItem>
+                  <SummaryItem>
                     <span>Shipping :</span>
                     <p>Free</p>
                   </SummaryItem>
@@ -274,16 +273,15 @@ const Cart: React.FC = () => {
                       {totalAmount.toFixed(2)}
                     </span>
                   </SummaryItem>
-                  <SummaryItem>
-                    <span>You Saved :</span>
-                    <p>
-                      <Ruppeeicon />
-                      {totalSaved.toFixed(2)}
-                    </p>
-                  </SummaryItem>
-                  <CheckoutButton onClick={handleCheckout}>
-                    PLACE ORDER
-                  </CheckoutButton>
+
+                  <ButtonContainer>
+                    <CheckoutButton onClick={handleCheckout}>
+                      Place Order
+                    </CheckoutButton>
+                    {/* <ShowNowButton onClick={() => navigate("/products")}>
+                      Add More Items
+                    </ShowNowButton> */}
+                  </ButtonContainer>
                 </OrderDetails>
               </OrderDetailsWrapper>
             </CartContainer>
@@ -292,23 +290,11 @@ const Cart: React.FC = () => {
       ) : (
         <CenterWrapper>
           <CartHeader>Your cart is empty!</CartHeader>
-          <CheckoutButton onClick={() => navigate("/products")}>
+          <ShowNowButton onClick={() => navigate("/products")}>
             Shop Now
-          </CheckoutButton>
+          </ShowNowButton>
         </CenterWrapper>
       )}
-      {showModal && (
-        <ErrorModal
-          header={errorHeader}
-          body={errorBody}
-          primaryBtnText={errorPrimaryText}
-          primaryBtnAction={goToMyOrders}
-          onClose={handleClose}
-        />
-      )}
-      <Elements stripe={stripePromise}>
-        <PaymentForm />
-      </Elements>
     </Fragment>
   );
 };

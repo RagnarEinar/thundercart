@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const [user, loading] = useAuthState(auth);
 
   if (loading) {
-    return <Loader />;
+    return <Loader message="Logging in..."/>;
   }
 
   if (!user) {

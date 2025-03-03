@@ -10,16 +10,15 @@ import { listenForAuthChanges } from "./utils/listenForAuthChanges";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginState } from "./data/slices/login";
 import { RootState } from "./data/store";
-import Admin from "./pages/Admin";
-import ProductsList from "./pages/Admin/ProductsList";
-import OrdersList from "./pages/Admin/OrdersList";
-import UsersList from "./pages/Admin/UsersList";
+import ProductsList from "./pages/AdminDashboard/ProductsList";
+import UsersList from "./pages/AdminDashboard/UsersList";
 import ProductDetails from "./pages/Products/ProductDetails";
 import Cart from "./pages/Cart";
-import ForgotPassword from "./pages/Login/ForgetPassword";
 import Loader from "./components/Loader";
 import { PageNotFound } from "./pages/Login/styled.components";
 import Register from "./pages/Register";
+import Payment from "./components/Payment";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { userDetails } = useSelector<RootState, LoginState>(
@@ -39,7 +38,6 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const AppRoutes: React.FC = () => {
   const dispatch = useDispatch();
-  // const { userDetails } = useSelector<RootState, LoginState>((s) => s.login);
 
   useEffect(() => {
     listenForAuthChanges(dispatch);
@@ -52,7 +50,6 @@ const AppRoutes: React.FC = () => {
           {/* Customer Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/forgetpassword" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<Products />}>
             <Route path="productDetails/:id" element={<ProductDetails />} />
@@ -68,6 +65,15 @@ const AppRoutes: React.FC = () => {
             }
           />
           <Route
+            path="/payment"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/cart"
             element={
               <ProtectedRoute>
@@ -81,15 +87,14 @@ const AppRoutes: React.FC = () => {
             path="/admin"
             element={
               <AdminRoute>
-                <Admin />
+                <AdminDashboard />
               </AdminRoute>
             }
           >
             {/* default admin route */}
-            <Route index element={<Navigate to="products" replace />} />
-            <Route path="products" element={<ProductsList />} />
-            <Route path="orders" element={<OrdersList />} />
-            <Route path="users" element={<UsersList />} />
+            <Route index element={<Navigate to="manageproducts" replace />} />
+            <Route path="manageproducts" element={<ProductsList />} />
+            <Route path="manageusers" element={<UsersList />} />
           </Route>
 
           <Route

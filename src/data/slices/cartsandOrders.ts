@@ -4,6 +4,8 @@ import { ProductDetailsState } from "./products";
 export interface CartItemState {
   item: ProductDetailsState;
   userSelectedQuantity: number;
+  rating?: number | null;
+  review?: string;
 }
 
 export interface OrdersItemState {
@@ -20,6 +22,17 @@ export interface CartsandOrdersState {
   error: string | null;
   isWriteSuccess: boolean;
   isOrderPlaced: boolean;
+}
+export interface AddProductReviewPayload {
+  prduid: string;
+  orderId: string;
+  review: string;
+}
+
+export interface AddProductRatingPayload {
+  prduid: string;
+  orderId: string;
+  rating: number;
 }
 
 const initialState: CartsandOrdersState = {
@@ -134,6 +147,68 @@ const cartsandOrdersSlice = createSlice({
       state.error = action.payload;
     },
 
+    //Rating
+    addProductRating: (
+      state,
+      action: PayloadAction<AddProductRatingPayload>
+    ) => {
+      state.isLoading = true;
+      state.isWriteSuccess = false;
+      state.error = null;
+    },
+    addProductRatingSuccess: (
+      state,
+      action: PayloadAction<AddProductRatingPayload>
+    ) => {
+      state.isLoading = false;
+      state.isWriteSuccess = true;
+      state.isWriteSuccess = true;
+      state.myOrders.forEach((order) => {
+        if (order.orderId === action.payload.orderId) {
+          order.orderItems.forEach((item) => {
+            if (item.item.prduniqueid === action.payload.prduid) {
+              item.rating = action.payload.rating;
+            }
+          });
+        }
+      });
+    },
+    addProductRatingFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    //review
+
+    addProductReview: (
+      state,
+      action: PayloadAction<AddProductReviewPayload>
+    ) => {
+      state.isLoading = true;
+      state.isWriteSuccess = false;
+      state.error = null;
+    },
+    addProductReviewSuccess: (
+      state,
+      action: PayloadAction<AddProductReviewPayload>
+    ) => {
+      state.isLoading = false;
+      state.isWriteSuccess = true;
+      state.myOrders.forEach((order) => {
+        if (order.orderId === action.payload.orderId) {
+          order.orderItems.forEach((item) => {
+            if (item.item.prduniqueid === action.payload.prduid) {
+              item.review = action.payload.review;
+            }
+          });
+        }
+      });
+    },
+    addProductReviewFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     // Reset error state
     resetCartErrorState: (state) => {
       state.error = null;
@@ -158,6 +233,12 @@ export const {
   placeOrderSuccess,
   placeOrderFailure,
   resetCartErrorState,
+  addProductRating,
+  addProductRatingSuccess,
+  addProductRatingFailure,
+  addProductReview,
+  addProductReviewSuccess,
+  addProductReviewFailure,
 } = cartsandOrdersSlice.actions;
 
 export default cartsandOrdersSlice.reducer;

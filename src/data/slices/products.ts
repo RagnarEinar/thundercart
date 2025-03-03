@@ -114,32 +114,7 @@ const productsSlice = createSlice({
       state.isWriteSuccess = false;
       state.error = action.payload;
     },
-    addProductRating: (state, action: PayloadAction<string>) => {
-      state.isLoading = true;
-      state.isWriteSuccess = false;
-      state.error = null;
-    },
-    addProductRatingSuccess: (state) => {
-      state.isLoading = false;
-      //TODO state.isWriteSuccess = true;
-    },
-    addProductRatingFailure: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    addProductReview: (state, action: PayloadAction<string>) => {
-      state.isLoading = true;
-      state.isWriteSuccess = false;
-      state.error = null;
-    },
-    addProductReviewSuccess: (state) => {
-      state.isLoading = false;
-      //TODO state.isWriteSuccess = true;
-    },
-    addProductReviewFailure: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+
     getFilteredProducts: (state, action: PayloadAction<FilterObjectState>) => {
       state.isReadSuccess = false;
       state.error = null;

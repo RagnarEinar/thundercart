@@ -1,14 +1,13 @@
 import { createGlobalStyle } from "styled-components";
-// interface CustomTheme {
-//   background: string;
-//   color: string;
-// }
 
 const lightTheme = {
   background: "rgba(255, 255, 255, 1)", // Pure white
   color: "rgba(0, 0, 0, 0.87)", // Dark text
+  secondaryBackground: "rgba(18, 18, 18, 1)", // Near-black
+  secondaryColor: "rgba(255, 255, 255, 0.97)", // Light text
+  lightColor: "rgba(84, 84, 84, 0.97)",
   hoverBackground: "rgba(240, 240, 240, 1)", // Lighter grey on hover for better contrast
-  cartIconColor: "rgba(51, 51, 51, 1)", // Dark cart icon
+  cartIconColor: "rgba(94, 94, 94, 0.95)", // Dark cart icon
   badgeBackground: "rgba(255, 165, 0, 1)", // Orange badge
   badgeColor: "rgba(255, 255, 255, 1)", // White text on badge
   lightBoxShadow: "rgba(0, 0, 0, 0.1)", // Slightly lighter shadow for a soft look
@@ -26,7 +25,7 @@ const lightTheme = {
   cartEditBtnBackground: "rgba(100, 222, 2, 1)", // Green button for editing
   cartAddBtnBackground: "rgba(4, 49, 248, 1)", // Blue button for adding items
   cartDeleteBtnBackground: "rgba(249, 118, 3, 1)", // Orange delete button background
-  cartAddToCartBtnBackground:  "rgba(28, 248, 72, 0.91)", // Orange background for add to cart button
+  cartAddToCartBtnBackground:  "rgba(133, 246, 63, 0.91)", // Orange background for add to cart button
   cartBackBackground: "rgba(249, 118, 3, 1)", // Orange background for back button
   cartBtnTextColor: "rgba(249, 249, 249, 1)", // White text for buttons
   cartBackBtnColor: "rgba(0, 0, 0, 0.95)", //  White text for buttons
@@ -36,6 +35,9 @@ const lightTheme = {
 const darkTheme = {
   background: "rgba(18, 18, 18, 1)", // Near-black
   color: "rgba(255, 255, 255, 0.97)", // Light text
+  secondaryBackground: "rgba(255, 255, 255, 1)", // Pure white
+  secondarycolor: "rgba(0, 0, 0, 0.87)", // Dark text
+  lightColor: "rgba(204, 200, 200, 0.97)",
   hoverBackground: "rgba(51, 51, 51, 1)", // Dark grey on hover
   cartIconColor: "rgba(249, 249, 249, 1)", // Light cart icon
   badgeBackground: "rgba(93, 153, 198, 1)", // Softer light blue for badges
@@ -64,20 +66,33 @@ const darkTheme = {
 
 const GlobalStyle = createGlobalStyle`
   body {
+    font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.color};
     transition: background-color 0.5s, color 0.5s;
     margin: 0;
     padding: 0;
-    box-sizing:border-box;
-  },
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; /* Bold for headings */
+  }
+
+  p, span, li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400; /* Regular weight for text */
+  }
+
   * {
     margin: 0;
     padding: 0;
-  },
+  }
 
   *, *::before, *::after {
     box-sizing: inherit;
   }
 `;
+
 export { lightTheme, darkTheme, GlobalStyle };

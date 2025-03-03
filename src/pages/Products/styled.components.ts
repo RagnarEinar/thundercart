@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { Button } from "../Login/styled.components";
 
 export const Wrapper = styled.div`
   width: 100%;
   padding: 20px;
   background-color: ${({ theme }) => theme.sidebarBackground};
+
   @media (max-width: 500px) {
     padding: 10px 0px;
   }
@@ -33,9 +35,8 @@ export const ContentWrapper = styled.div`
 export const ProductsWrapper = styled.div`
   background-color: ${({ theme }) => theme.cartListbackground};
   flex: 1;
-  padding: 20px;
+  padding: 0px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px ${({ theme }) => theme.heavyBoxShadow};
   overflow-y: auto; /* Ensures content doesn't overflow */
 `;
 export const SidebarWrapperIB = styled.div`
@@ -48,26 +49,24 @@ export const SidebarWrapperMB = styled.div`
   @media (max-width: 768px) {
     display: flex;
     position: absolute;
-    top: 80px;
+    top: 8px;
     right: 0;
     z-index: 1000;
   }
 `;
 
-export const ShowSideBar = styled.button`
+export const ShowSideBar = styled(Button)`
   display: none;
 
   @media (max-width: 768px) {
     display: block;
-    border: none;
-    border-radius: 10px;
     box-shadow: 0 4px 8px ${({ theme }) => theme.mediumBoxShadow};
-    padding: 5px 10px;
+    padding: 10px;
     width: 80%;
     margin: 10px auto;
-    font-style: italic;
     font-weight: 600;
-    font-size: 0.7rem;
+
+    font-size: 1rem;
     color: rgba(0, 8, 255, 0.91);
     &:hover {
       cursor: pointer;
@@ -77,25 +76,33 @@ export const ShowSideBar = styled.button`
 
 export const CataLogWrapper = styled.div``;
 
+export const SearchContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 8px;
+`;
+
 export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin: 10px auto 20px auto;
-  border: 1px solid ${({ theme }) => theme.borderColor || "#e0e0e0"};
-  border-radius: 30px;
-  padding: 10px;
-  max-width: 450px;
-  width: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for modern look */
+  margin: 8px auto 16px auto;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 6px 12px;
+  max-width: 400px;
+  width: 90%;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
   }
-  @media (max-width: 500px) {
-    max-width: 300px;
-    margin: auto;
-    padding: 5px;
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+    padding: 5px 10px;
   }
 `;
 
@@ -103,14 +110,17 @@ export const SearchInput = styled.input`
   border: none;
   outline: none;
   flex-grow: 1;
-  padding: 5px 15px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
   background-color: transparent;
-  color: ${({ theme }) => theme.color};
-  font-weight: 600;
+  color: #333;
 
   &::placeholder {
-    color: ${({ theme }) => theme.placeholderColor || "#aaa"};
-    font-style: italic;
+    color: #aaa;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 0.85rem;
   }
 `;
 
@@ -119,14 +129,16 @@ export const SearchIconWrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: ${({ theme }) => theme.iconColor || "#888"};
+  color: #777;
   transition: color 0.3s ease;
+  padding: 4px;
+  border-radius: 50%;
 
   &:hover {
-    color: ${({ theme }) => theme.iconHoverColor || "#555"};
+    color: #444;
+    background-color: #eaeaea;
   }
 `;
-
 export const NoProducts = styled.div`
   display: flex;
   justify-content: center;

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CrudProductState,
   fetchProducts,
-  ProductDetailsState,
   ProductsState,
   resetFilteredProducts,
 } from "../../data/slices/products";
@@ -12,7 +11,6 @@ import Loader from "../../components/Loader";
 import {
   CataLogWrapper,
   ContentWrapper,
-  NoProducts,
   ProductsPageContainer,
   ProductsWrapper,
   SearchIconWrapper,
@@ -22,13 +20,18 @@ import {
   ShowSideBar,
   SidebarWrapperIB,
   SidebarWrapperMB,
+  SearchContainer,
 } from "./styled.components";
 import Sidebar from "../../components/SideBar";
 import CataLogItem from "./CataLogItem";
-import { Outlet, useLocation } from "react-router";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router";
 import { LoginState } from "../../data/slices/login";
 import { AddButton } from "./CataLogItem/styled.components";
-import ProductForm from "../Admin/ProductsList/ProductForm"; // Ensure the import is correct
+import ProductForm from "../AdminDashboard/ProductsList/ProductForm"; // Ensure the import is correct
 import { CiSearch } from "react-icons/ci";
 import {
   CartsandOrdersState,
@@ -45,8 +48,9 @@ const Products: React.FC = () => {
     useSelector<RootState, ProductsState>((s) => s.products);
 
   const { cartItems } = useSelector<RootState, CartsandOrdersState>(
-    (s) => s.cartandOders
+    (s) => s.cartandOrders
   );
+  const navigate = useNavigate();
 
   const { userDetails } = useSelector<RootState, LoginState>((s) => s.login);
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,6 +58,8 @@ const Products: React.FC = () => {
   const [selectedProduct, setSelectedProduct] =
     useState<CrudProductState | null>(null);
   const [showSidebar, setShowSidebar] = useState(false);
+
+
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -72,6 +78,7 @@ const Products: React.FC = () => {
 
   const handleClose = () => {
     setShowModal(false);
+    navigate("/");
   };
 
   const add = () => {
@@ -85,6 +92,8 @@ const Products: React.FC = () => {
   const setShowFilter = () => {
     setShowSidebar(!showSidebar);
   };
+
+
 
   // Fetch carts and orders on initial load if cart is empty
   useEffect(() => {
@@ -126,8 +135,14 @@ const Products: React.FC = () => {
     }
   }, [dispatch, isWriteSuccess]);
 
+  useEffect(() => {
+    if (cartItems.length <= 0) {
+      dispatch(fetchCartsandOrders());
+    }
+  }, [cartItems.length, dispatch]);
+
   if (isLoading) {
-    return <Loader />;
+    return <Loader message="Fetching products..." />;
   }
 
   return (
@@ -136,42 +151,70 @@ const Products: React.FC = () => {
         <Outlet />
       ) : (
         <ProductsPageContainer>
-          <SearchWrapper>
-            <SearchInput
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <SearchIconWrapper>
-              <CiSearch size={20} />
-            </SearchIconWrapper>
-          </SearchWrapper>
+          <SearchContainer>
+            <SearchWrapper>
+              <SearchInput
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
+              <SearchIconWrapper>
+                <CiSearch size={20} />
+              </SearchIconWrapper>
+            </SearchWrapper>
+            {userDetails?.role === "admin" && (
+              <AddButton onClick={add}>Add New Product</AddButton>
+            )}
+          </SearchContainer>
+
           <ContentWrapper>
-            <SidebarWrapperIB>
-              <Sidebar />
-            </SidebarWrapperIB>
-            <ShowSideBar onClick={setShowFilter}>
-              {showSidebar ? "Hide Filters" : "Show Filters"}
-            </ShowSideBar>
-            {showSidebar && (
-              <SidebarWrapperMB>
-                <Sidebar setShowFilter={setShowFilter} />
-              </SidebarWrapperMB>
+            {userDetails?.role !== "admin" && (
+              <>
+                <SidebarWrapperIB>
+                  <Sidebar />
+                </SidebarWrapperIB>
+                <ShowSideBar onClick={setShowFilter}>
+                  {showSidebar ? "Hide Filters" : "Show Filters"}
+                </ShowSideBar>
+                {showSidebar && (
+                  <SidebarWrapperMB>
+                    <Sidebar setShowFilter={setShowFilter} />
+                  </SidebarWrapperMB>
+                )}
+              </>
             )}
 
             <ProductsWrapper>
-              {userDetails?.role === "admin" && (
-                <AddButton onClick={add}>Add New Product</AddButton>
-              )}
               <CataLogWrapper>
                 {searchedProducts.length > 0 ? (
                   <CataLogItem productList={searchedProducts} />
                 ) : (
-                  <NoProducts>
-                    No Products available for your query, please check for other
-                    items...
-                  </NoProducts>
+                  // <NoProducts>
+                  //   No Products available for your query, please check for other
+                  //   items...
+                  // </NoProducts>
+                  <>
+                    {!error && (
+                      <ErrorModal
+                        header={"No Matching Products found"}
+                        body={
+                          "No Products available for your query, please check for other  items"
+                        }
+                        onClose={() => {
+                          setSearchQuery("");
+                          dispatch(resetFilteredProducts());
+
+                          if (
+                            location.pathname === "/products" &&
+                            location.search
+                          ) {
+                            navigate("/products"); // Remove query parameters
+                          }
+                        }}
+                      />
+                    )}
+                  </>
                 )}
               </CataLogWrapper>
             </ProductsWrapper>

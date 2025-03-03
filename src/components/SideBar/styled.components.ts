@@ -1,21 +1,19 @@
 import styled from "styled-components";
+import { Button } from "../../pages/Login/styled.components";
 
-export const SidebarWrapper = styled.div`
-  font-style: italic;
-`;
+export const SidebarWrapper = styled.div``;
 
 export const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 250px;
   padding: 20px;
-  box-shadow: 0 6px 20px ${({ theme }) => theme.heavyBoxShadow};
   border-radius: 12px;
   overflow-y: auto;
   z-index: 1000;
-  transition: transform 0.3s ease-in-out;
-  background-color: ${({ theme }) => theme.sidebarBackground};
   @media (max-width: 768px) {
+    background-color: ${({ theme }) => theme.sidebarBackground};
+    box-shadow: 0 6px 20px ${({ theme }) => theme.heavyBoxShadow};
     width: 200px;
   }
 `;
@@ -23,22 +21,12 @@ export const SidebarContainer = styled.div`
 export const HeaderContainer = styled.div`
   display: flex;
   font-weight: bold;
-  padding-bottom: 16px;
-  justify-content: space-between;
 `;
 
 export const SidebarHeader = styled.h3`
-  font-size: 1rem;
-`;
-
-export const FilterClearText = styled.h2`
-  font-size: 0.8rem;
-  align-self: self-end;
-  color: rgba(13, 0, 255, 0.9);
-  &:hover {
-    cursor: pointer;
-    transform: translateY(-4px);
-  }
+  font-size: 1.5rem;
+  margin: auto;
+  padding-bottom: 15px;
 `;
 
 export const FilterSectionWrapper = styled.div`
@@ -58,16 +46,15 @@ export const FilterSection = styled.div`
 
   &:hover {
     box-shadow: 0 4px 16px ${({ theme }) => theme.heavyBoxShadow};
-    transform: translateY(-4px);
   }
   span {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `;
 
 export const FilterLabel = styled.label`
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 700;
 `;
 
 export const CategoryDropdown = styled.select`
@@ -81,7 +68,6 @@ export const CategoryDropdown = styled.select`
   width: 100%;
   transition: all 0.3s ease;
   font-weight: bold;
-  font-style: italic;
 
   &:focus {
     border-color: #007bff;
@@ -94,19 +80,79 @@ export const CategoryDropdown = styled.select`
   }
 `;
 
-export const RangeSlider = styled.input`
+interface SliderProps {
+  min: number;
+  max: number;
+  value: number;
+  minValue?: number;
+  maxValue?: number;
+}
+
+export const LeftRangeSlider = styled.input.attrs({
+  type: "range",
+})<SliderProps>`
   -webkit-appearance: none;
   width: 100%;
   height: 8px;
   outline: none;
   margin-bottom: 8px;
   background: linear-gradient(
-    90deg,
-    rgba(236, 236, 236, 0.95),
-    rgba(18, 255, 14, 0.94) ${({ value }) => `${value}%`},
-    #ccc
+    to right,
+    #ccc ${({ min, max, value }) => `${((value - min) / (max - min)) * 100}%`},
+    rgba(29, 254, 17, 0.94)
+      ${({ min, max, value }) => `${((value - min) / (max - min)) * 100}%`}
   );
-  border-radius: 4px;
+  border-radius: 4px 0px 0px 4px;
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: rgba(23, 211, 86, 0.94);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: rgba(23, 211, 86, 0.94);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+`;
+
+export const RightRangeSlider = styled.input.attrs({
+  type: "range",
+})<SliderProps>`
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  outline: none;
+  margin-bottom: 8px;
+  background: linear-gradient(
+    to right,
+    rgba(29, 254, 17, 0.94)
+      ${({ min, max, value }) => `${((value - min) / (max - min)) * 100}%`},
+    #ccc ${({ min, max, value }) => `${((value - min) / (max - min)) * 100}%`}
+  );
+  border-radius: 0px 4px 4px 0px;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: rgba(23, 211, 86, 0.94);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: rgba(23, 211, 86, 0.94);
+    border-radius: 50%;
+    cursor: pointer;
+  }
 `;
 
 export const SliderContainer = styled.div`
@@ -136,10 +182,6 @@ export const AvailabilityOption = styled.div`
       margin-right: 12px;
       accent-color: rgba(85, 0, 255, 0.9);
     }
-
-    &:active {
-      transform: scale(0.98);
-    }
   }
 `;
 
@@ -158,25 +200,31 @@ export const RatingOption = styled.div`
 `;
 
 export const FilterButtonContainer = styled.div`
-  margin: 20px auto 10px auto;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 `;
 
-export const ApplyButton = styled.button`
-  background-color: #007bff;
-  color: white;
-  padding: 12px 16px;
-  border-radius: 6px;
-  font-size: 0.7rem;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  font-style: italic;
+export const ApplyButton = styled(Button)`
+  background-color: rgba(25, 118, 218, 0.91);
+  transition: background 0.2s ease-in-out;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
 
   &:hover {
-    background-color: rgba(50, 149, 255, 0.93);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: rgba(2, 10, 255, 0.93);
+    transform: scale(1.05);
+  }
+`;
+
+export const FilterClearButton = styled(Button)`
+  background-color: rgba(200, 33, 18, 0.94);
+  transition: background 0.2s ease-in-out;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    background-color: rgba(255, 2, 2, 0.93);
+    transform: scale(1.05);
   }
 `;

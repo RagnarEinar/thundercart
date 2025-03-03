@@ -14,16 +14,16 @@ const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <ThemeProviderContext>
         <CustomThemeProvider>
           <GlobalStyle />
           <ErrorBoundary>
-          <AppRoutes />
+            <AppRoutes />
           </ErrorBoundary>
         </CustomThemeProvider>
       </ThemeProviderContext>
     </Provider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );

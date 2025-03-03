@@ -27,6 +27,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
   handleClose = () => {
     this.setState({ hasError: false, error: null, errorInfo: null });
+    window.location.href = "/"; 
 // Refresh the page to reset the app state
   };
   render() {
