@@ -86,7 +86,7 @@ const Payment: React.FC = () => {
           </Elements>
         </>
       ) : (
-        <Loader message="Initiating payment..." />
+        <Loader message="Initiating payment please expect some delay due to free tier backend..." />
       )}
     </Container>
   );

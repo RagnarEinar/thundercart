@@ -116,6 +116,7 @@ export const NavItemsContainer = styled.div`
 export const ThemeToggleButton = styled(Button)`
   background-color: transparent;
   color: ${({ theme }) => theme.color};
+  padding: 0px;
   margin-left: 15px;
   border-radius: 50%;
   &:hover {
@@ -147,6 +148,7 @@ export const HamburgerWrapper = styled.div<{ $showHamList: boolean }>`
     display: block;
     cursor: pointer;
     transition: transform 0.5s ease;
-    transform: ${({ $showHamList }) => ($showHamList ? "rotate(90deg)" : "rotate(0deg)")};
+    transform: ${({ $showHamList }) =>
+      $showHamList ? "rotate(90deg)" : "rotate(0deg)"};
   }
 `;

@@ -19,11 +19,15 @@ const Container = styled.div`
 
 const Hero = styled.section`
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
   background: linear-gradient(to right, #ff416c, #ff4b2b);
   color: white;
   border-radius: 12px;
   animation: ${fadeIn} 1s ease-in-out;
+
+  @media (max-width: 768px) {
+    padding: 40px 15px;
+  }
 `;
 
 const Button = styled.button`
@@ -45,7 +49,7 @@ const Button = styled.button`
 
 const Categories = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 15px;
   margin: 30px 0;
   text-align: center;
@@ -53,16 +57,16 @@ const Categories = styled.div`
 `;
 
 const CategoryCard = styled.div`
-  background: #f4f4f4;
+  background: ${({ theme }) => theme.background};
   padding: 20px;
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
   animation: ${scaleUp} 0.8s ease-in-out;
+  box-shadow: 0 4px 10px ${({ theme }) => theme.mediumBoxShadow};
 
   &:hover {
-    background: #ddd;
     transform: translateY(-5px);
   }
 `;
@@ -74,16 +78,21 @@ const PromoSection = styled.div`
   margin: 40px 0;
   text-align: center;
   animation: ${fadeIn} 1.5s ease-in-out;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const PromoCard = styled.div`
-  background: white;
+  background: ${({ theme }) => theme.background};
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: 0.3s;
   animation: ${scaleUp} 1s ease-in-out;
+  box-shadow: 0 4px 10px ${({ theme }) => theme.mediumBoxShadow};
 
   &:hover {
     transform: translateY(-5px) scale(1.05);
@@ -101,6 +110,10 @@ const Footer = styled.footer`
   border-radius: 12px;
   animation: ${fadeIn} 1.8s ease-in-out;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const Home: React.FC = () => {
@@ -124,7 +137,13 @@ const Home: React.FC = () => {
       <Hero>
         <h1>Welcome to ThunderCart</h1>
         <p>Exclusive deals on the latest trends. Shop Now!</p>
-        <Button>Shop Now</Button>
+        <Button
+          onClick={() => {
+            navigate("/products");
+          }}
+        >
+          Shop Now
+        </Button>
       </Hero>
 
       <Categories>
