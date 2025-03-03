@@ -83,6 +83,7 @@ const Rating: React.FC<RatingProps> = ({
   const displayedRating = hoveredRating ?? userRating;
   const fullStars = Math.floor(displayedRating);
   const hasHalfStar = displayedRating % 1 !== 0;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (

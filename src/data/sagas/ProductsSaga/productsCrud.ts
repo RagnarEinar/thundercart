@@ -1,6 +1,5 @@
 import {
   addDoc,
-  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -142,7 +141,7 @@ export const getFilterProd = (
 
       const matchesAvailability =
         filters.availability === null ||
-        product.availableQuantity > 0 === filters.availability;
+        (product.availableQuantity > 0) === filters.availability;
 
       const matchesRating =
         !filters.rating ||

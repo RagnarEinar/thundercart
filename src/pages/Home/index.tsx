@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { FaStar, FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";

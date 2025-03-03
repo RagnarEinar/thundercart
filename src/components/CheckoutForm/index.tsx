@@ -17,7 +17,7 @@ import { RootState } from "../../data/store";
 import styled from "styled-components";
 import { Button } from "../../pages/Login/styled.components";
 import Loader from "../Loader";
-import { Container, Title } from "../Payment";
+import {  Title } from "../Payment";
 
 const CheckoutForm: React.FC = () => {
   const [stripeLoaded, setStripeLoaded] = useState(false);

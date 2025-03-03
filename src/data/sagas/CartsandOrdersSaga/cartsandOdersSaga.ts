@@ -82,6 +82,7 @@ function* updateFirebaseCartItemQuantity(
 ) {
   const { productId, quantity } = action.payload;
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const updatedItem: CartItemState = yield call(
       updateCartItemQuantityInDb,
       productId,

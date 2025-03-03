@@ -19,7 +19,6 @@ import {
   Wrapper,
   DetailsButtonContainer,
   AddToCart,
-  Back,
   SpecialPrice,
   RatingHeading,
   AddToCartWrapper,
@@ -123,7 +122,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     discountedprice,
     rating,
     reviews,
-    prdimg,
   } = product;
 
   return (

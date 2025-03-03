@@ -20,8 +20,6 @@ import {
 } from "./styled.components";
 
 import { useDispatch, useSelector } from "react-redux";
-import cart1 from "../../../assets/cart1.png";
-import cart2 from "../../../assets/cart2.png";
 import cart3 from "../../../assets/cart3.png";
 import { RootState } from "../../../data/store";
 import { LoginState } from "../../../data/slices/login";
@@ -46,6 +44,7 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
   const [selectedProductId, setSelectedProductId] = useState<string>("");
   const { userDetails } = useSelector<RootState, LoginState>((s) => s.login);
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
