@@ -82,24 +82,42 @@ export const OrderItem = styled.div`
 export const ItemDetailsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 export const ItemDetails = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  order: 1;
+  @media (max-width: 480px) {
+    order: 2;
+  }
+`;
+
+export const ItemImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  order: 2;
+  @media (max-width: 480px) {
+    order: 1;
+  }
 `;
 
 export const ItemTitle = styled.h4`
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
+  padding: 5px 0px 0px 5px;
 `;
 
 export const ItemSubTitle = styled.div`
   display: flex;
   font-size: 0.9rem;
+  padding: 0px 0px 0px 5px;
   align-items: baseline;
   margin: 0;
   p {
@@ -121,8 +139,8 @@ export const ItemRow = styled.div`
   align-items: center;
 `;
 export const PrdImage = styled.img`
-  width: 70px;
-  height: 50px;
+  width: 120px;
+  height: 100px;
   object-fit: cover;
   border-radius: 10px;
   border: 0.5px solid lightgrey;
@@ -232,16 +250,18 @@ const MyOrders: React.FC<MyOrdersProps> = ({ selectedOrderId, closeModal }) => {
                     {item.userSelectedQuantity}
                   </ItemSubTitle>
                 </ItemDetails>
-                <ItemDetails>
+                <ItemImgWrapper>
                   <PrdImage
                     src={cart3}
                     onClick={() => {
-                      navigate(`/products/productDetails/${item.item.prduniqueid}`);
+                      navigate(
+                        `/products/productDetails/${item.item.prduniqueid}`
+                      );
                     }}
                   />
                   {/* <PrdImage src={item.item.prdimg} alt="Image not available" /> */}
                   {/* TODO */}
-                </ItemDetails>
+                </ItemImgWrapper>
               </ItemDetailsWrapper>
               <OrdersFeedBack
                 rating={item.rating || null}
