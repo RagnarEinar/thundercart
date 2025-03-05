@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import cart3 from "../../assets/cart3.png";
 import { ProductDetailsState } from "../../data/slices/products";
 import { RootState } from "../../data/store";
-import { Ruppeeicon } from "../../pages/Products/CataLogItem/styled.components";
 import { useNavigate } from "react-router-dom";
 
 const slide = keyframes`

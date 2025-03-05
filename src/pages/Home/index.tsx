@@ -46,7 +46,7 @@ const HeroTitle = styled.h1`
   margin-bottom: 15px;
   font-weight: bold;
   text-shadow: 3px 3px 15px rgba(0, 89, 255, 0.8); /* Strong blue glow */
-  color:rgb(0, 153, 255); /* Electric Blue */
+  color: rgb(0, 153, 255); /* Electric Blue */
   @media (max-width: 480px) {
     font-size: 2rem;
   }
@@ -59,7 +59,7 @@ const HeroText = styled.p`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  color:rgb(191, 0, 255); /* Neon Cyan */
+  color: rgb(191, 0, 255); /* Neon Cyan */
   @media (max-width: 480px) {
     font-size: 1rem;
   }
@@ -98,7 +98,7 @@ const Categories = styled.div`
 
 // Inside CategoryCard component
 const CategoryCard = styled.div`
-  background: rgba(255, 255, 255, 0.2); 
+  background: rgba(255, 255, 255, 0.2);
   padding: 15px;
   text-align: center;
   border-radius: 20px;
@@ -134,15 +134,14 @@ const CategoryCard = styled.div`
   }
 
   .category-title:hover {
-    color: #00bfff;  /* Color change on hover */
-    transform: scale(1.05);  /* Slight scaling effect */
+    color: #00bfff; /* Color change on hover */
+    transform: scale(1.05); /* Slight scaling effect */
   }
 
   @media (max-width: 480px) {
     padding: 10px;
   }
 `;
-
 
 const PromoSection = styled.div`
   display: flex;
