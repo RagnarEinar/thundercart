@@ -100,7 +100,10 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
               <CartContentContainer
                 onClick={() => goToProductDetails(item.prduniqueid as string)}
               >
-                <PrdImage src={cart3} alt="Image not available" />
+                <PrdImage
+                  src={cart3 || item.prdimg}
+                  alt="Image not available"
+                />
                 <ItemDetails>
                   <ItemName>{item.prdname}</ItemName>
                   <ItemDesc>{item.prddesc}</ItemDesc>
@@ -149,7 +152,9 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
         );
       })}
       {isModalOpen && (
-        <ProductForm selectedProduct={selectedProduct} onClose={closeModal} />
+        <ProductsPopModal closeModal={closeModal}>
+          <ProductForm selectedProduct={selectedProduct} onClose={closeModal} />
+        </ProductsPopModal>
       )}
 
       {openProductsInModal && (

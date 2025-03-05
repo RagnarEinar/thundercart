@@ -115,7 +115,7 @@ const HomeCartSlider = () => {
             key={item.prduniqueid || item.prdname}
             onClick={() => goToProductDetails(item.prduniqueid)}
           >
-            <CartImage src={cart3} alt={item.prdname} />
+            <CartImage src={cart3 || item.prdimg} alt={item.prdname} />
             <ProductName>{item.prdname}</ProductName>
             <PriceContainer>
               {item.orgprice && <OriginalPrice>₹{item.orgprice}</OriginalPrice>}

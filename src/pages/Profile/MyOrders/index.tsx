@@ -252,15 +252,13 @@ const MyOrders: React.FC<MyOrdersProps> = ({ selectedOrderId, closeModal }) => {
                 </ItemDetails>
                 <ItemImgWrapper>
                   <PrdImage
-                    src={cart3}
+                    src={cart3 || item.item.prdimg}
                     onClick={() => {
                       navigate(
                         `/products/productDetails/${item.item.prduniqueid}`
                       );
                     }}
                   />
-                  {/* <PrdImage src={item.item.prdimg} alt="Image not available" /> */}
-                  {/* TODO */}
                 </ItemImgWrapper>
               </ItemDetailsWrapper>
               <OrdersFeedBack

@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Button } from "../Login/styled.components";
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,42 +9,42 @@ const Wrapper = styled.div`
   }
 `;
 
-const Sidebar = styled.div`
-  width: 15%;
-  background-color: #1a202c;
-  color: white;
-  padding: 1rem;
-  display: flex;
-  height: 150px;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
+// const Sidebar = styled.div`
+//   width: 15%;
+//   background-color: #1a202c;
+//   color: white;
+//   padding: 1rem;
+//   display: flex;
+//   height: 150px;
+//   flex-direction: column;
+//   gap: 1rem;
+//   justify-content: center;
+//   align-items: center;
 
-  @media (max-width: 768px) {
-    width: 80%;
-    flex-direction: row;
-    justify-content: space-around;
-    align-self: center;
-    padding: 0.5rem;
-    height: 100%;
-    margin-top:10px;
-  }
-`;
+//   @media (max-width: 768px) {
+//     width: 80%;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     align-self: center;
+//     padding: 0.5rem;
+//     height: 100%;
+//     margin-top: 10px;
+//   }
+// `;
 
-const SidebarButton = styled(Button)`
-  background: none;
-  text-align: left;
-  padding: 0.75rem;
-  font-size: 1rem;
-  &:hover {
-    color: #63b3ed;
-  }
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    padding: 0.5rem;
-  }
-`;
+// const SidebarButton = styled(Button)`
+//   background: none;
+//   text-align: left;
+//   padding: 0.75rem;
+//   font-size: 1rem;
+//   &:hover {
+//     color: #63b3ed;
+//   }
+//   @media (max-width: 768px) {
+//     font-size: 0.9rem;
+//     padding: 0.5rem;
+//   }
+// `;
 
 const Content = styled.div`
   flex: 1;
@@ -56,18 +55,19 @@ const Content = styled.div`
 `;
 
 const AdminDashboard = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate();
 
   return (
     <Wrapper>
-      <Sidebar>
+      {/* <Sidebar>
         <SidebarButton onClick={() => navigate("/admin/manageproducts")}>
           Manage Products
         </SidebarButton>
         <SidebarButton onClick={() => navigate("/admin/manageusers")}>
           Manage Users
         </SidebarButton>
-      </Sidebar>
+      </Sidebar> */}
       <Content>
         <Outlet />
       </Content>

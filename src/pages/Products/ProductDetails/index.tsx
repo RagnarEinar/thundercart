@@ -122,14 +122,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     discountedprice,
     rating,
     reviews,
+    prdimg,
   } = product;
 
   return (
     <Wrapper $isPage={!!id}>
       <ImageContainer>
-        <ProductImage src={cart2} alt={"Image not available"} />
-        {/* <ProductImage src={prdimg} alt={"Image not available"} /> */}
-        {/* //TODO */}
+        <ProductImage src={cart2 || prdimg} alt={"Image not available"} />
       </ImageContainer>
       <DetailsContainer>
         <ProductName>{prdname}</ProductName>

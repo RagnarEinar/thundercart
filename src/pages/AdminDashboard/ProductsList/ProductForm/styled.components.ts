@@ -20,6 +20,7 @@ export const ModalContent = styled.div`
   border-radius: 12px;
   max-width: 500px;
   width: 90%;
+  height: 90vh;
   box-shadow: 0px 4px 12px ${({ theme }) => theme.mediumBoxShadow};
   max-height: 80vh;
   overflow-y: auto;

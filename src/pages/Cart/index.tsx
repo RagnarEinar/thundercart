@@ -161,20 +161,12 @@ const Cart: React.FC = () => {
                   <CartItemWrapper key={item.item.prduniqueid}>
                     <ItemContent>
                       <ItemImage
-                        src={cart2}
+                        src={cart2 || item.item.prdimg}
                         alt={"Image not available"}
                         onClick={() => {
                           goToProductDetails(item.item.prduniqueid as string);
                         }}
                       />
-                      {/* //TODO */}
-                      {/* <ItemImage
-                        src={item.item.prdimg}
-                        alt={item.item.prdname}
-                        onClick={() => {
-                          goToProductDetails(item.item.prduniqueid as string);
-                        }}
-                      /> */}
 
                       <DetailsWrapper>
                         <ItemName>{item.item.prdname}</ItemName>

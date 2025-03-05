@@ -24,11 +24,7 @@ import {
 } from "./styled.components";
 import Sidebar from "../../components/SideBar";
 import CataLogItem from "./CataLogItem";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { LoginState } from "../../data/slices/login";
 import { AddButton } from "./CataLogItem/styled.components";
 import ProductForm from "../AdminDashboard/ProductsList/ProductForm"; // Ensure the import is correct
@@ -38,6 +34,7 @@ import {
   fetchCartsandOrders,
 } from "../../data/slices/cartsandOrders";
 import ErrorModal from "../../components/ErrorModel";
+import ProductsPopModal from "../../components/ProductsPopModal";
 
 const Products: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -58,8 +55,6 @@ const Products: React.FC = () => {
   const [selectedProduct, setSelectedProduct] =
     useState<CrudProductState | null>(null);
   const [showSidebar, setShowSidebar] = useState(false);
-
-
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -92,8 +87,6 @@ const Products: React.FC = () => {
   const setShowFilter = () => {
     setShowSidebar(!showSidebar);
   };
-
-
 
   // Fetch carts and orders on initial load if cart is empty
   useEffect(() => {
@@ -219,10 +212,12 @@ const Products: React.FC = () => {
               </CataLogWrapper>
             </ProductsWrapper>
             {isModalOpen && (
-              <ProductForm
-                selectedProduct={selectedProduct}
-                onClose={closeModal}
-              />
+              <ProductsPopModal closeModal={closeModal}>
+                <ProductForm
+                  selectedProduct={selectedProduct}
+                  onClose={closeModal}
+                />
+              </ProductsPopModal>
             )}
           </ContentWrapper>
         </ProductsPageContainer>

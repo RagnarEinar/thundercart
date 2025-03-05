@@ -8,8 +8,6 @@ import { useDispatch } from "react-redux";
 import {
   FormContainer,
   FormField,
-  ModalContent,
-  ModalOverlay,
   SubmitButton,
   Error,
   DropDown,
@@ -20,7 +18,10 @@ interface ProductFormProps {
   onClose: () => void;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ selectedProduct, onClose }) => {
+const ProductForm: React.FC<ProductFormProps> = ({
+  selectedProduct,
+  onClose,
+}) => {
   const dispatch = useDispatch();
 
   const [productData, setProductData] = useState<CrudProductState>({
@@ -54,13 +55,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ selectedProduct, onClose }) =
   }, [selectedProduct]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
-    const parsedValue =
-      ["orgprice", "discountedprice", "availableQuantity"].includes(name)
-        ? value ? parseFloat(value) : 0
-        : value;
+
+    // Convert numeric fields to valid numbers
+    const parsedValue = [
+      "orgprice",
+      "discountedprice",
+      "availableQuantity",
+    ].includes(name)
+      ? value.replace(/^0+/, "") || "0" // Remove leading zeros but keep "0" if empty
+      : value;
 
     setProductData((prev) => ({ ...prev, [name]: parsedValue }));
     setErrors((prev) => ({ ...prev, [name]: "" })); // Clear field error
@@ -68,7 +76,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ selectedProduct, onClose }) =
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-  
+
     if (!productData.prdname.trim()) {
       newErrors.prdname = "Product Name is required";
     }
@@ -94,14 +102,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ selectedProduct, onClose }) =
       newErrors.discountedprice =
         "Discounted Price must be less than Original Price";
     }
-    if (productData.availableQuantity < 1) {
-      newErrors.quantity = "Quantity must be at least 1";
+    if (productData.availableQuantity < 0) {
+      newErrors.availableQuantity = "Quantity cannot be negative";
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // No errors mean form is valid
   };
-  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,114 +123,110 @@ const ProductForm: React.FC<ProductFormProps> = ({ selectedProduct, onClose }) =
   };
 
   return (
-    <ModalOverlay onClick={onClose}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
-        <FormContainer onSubmit={handleSubmit}>
-          <h2>{selectedProduct ? "Edit Product" : "Add Product"}</h2>
+    <FormContainer onSubmit={handleSubmit}>
+      <h2>{selectedProduct ? "Edit Product" : "Add Product"}</h2>
 
-          <FormField>
-            <label htmlFor="prdname">Product Name</label>
-            <input
-              type="text"
-              id="prdname"
-              name="prdname"
-              value={productData.prdname}
-              onChange={handleChange}
-            />
-            {errors.prdname && <Error>{errors.prdname}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="prdname">Product Name</label>
+        <input
+          type="text"
+          id="prdname"
+          name="prdname"
+          value={productData.prdname}
+          onChange={handleChange}
+        />
+        {errors.prdname && <Error>{errors.prdname}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="prddesc">Product Description</label>
-            <textarea
-              id="prddesc"
-              name="prddesc"
-              value={productData.prddesc}
-              onChange={handleChange}
-            />
-            {errors.prddesc && <Error>{errors.prddesc}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="prddesc">Product Description</label>
+        <textarea
+          id="prddesc"
+          name="prddesc"
+          value={productData.prddesc}
+          onChange={handleChange}
+        />
+        {errors.prddesc && <Error>{errors.prddesc}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="prdsummary">Product Summary</label>
-            <textarea
-              id="prdsummary"
-              name="prdsummary"
-              value={productData.prdsummary}
-              onChange={handleChange}
-            />
-            {errors.prdsummary && <Error>{errors.prdsummary}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="prdsummary">Product Summary</label>
+        <textarea
+          id="prdsummary"
+          name="prdsummary"
+          value={productData.prdsummary}
+          onChange={handleChange}
+        />
+        {errors.prdsummary && <Error>{errors.prdsummary}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="prdimg">Product Image URL</label>
-            <input
-              type="text"
-              id="prdimg"
-              name="prdimg"
-              value={productData.prdimg}
-              onChange={handleChange}
-            />
-            {errors.prdimg && <Error>{errors.prdimg}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="prdimg">Product Image URL</label>
+        <input
+          type="text"
+          id="prdimg"
+          name="prdimg"
+          value={productData.prdimg}
+          onChange={handleChange}
+        />
+        {errors.prdimg && <Error>{errors.prdimg}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="orgprice">Original Price</label>
-            <input
-              type="number"
-              id="orgprice"
-              name="orgprice"
-              value={productData.orgprice}
-              onChange={handleChange}
-            />
-            {errors.orgprice && <Error>{errors.orgprice}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="orgprice">Original Price</label>
+        <input
+          type="number"
+          id="orgprice"
+          name="orgprice"
+          value={productData.orgprice}
+          onChange={handleChange}
+        />
+        {errors.orgprice && <Error>{errors.orgprice}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="discountedprice">Discounted Price</label>
-            <input
-              type="number"
-              id="discountedprice"
-              name="discountedprice"
-              value={productData.discountedprice}
-              onChange={handleChange}
-            />
-            {errors.discountedprice && <Error>{errors.discountedprice}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="discountedprice">Discounted Price</label>
+        <input
+          type="number"
+          id="discountedprice"
+          name="discountedprice"
+          value={productData.discountedprice}
+          onChange={handleChange}
+        />
+        {errors.discountedprice && <Error>{errors.discountedprice}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="category">Category</label>
-            <DropDown
-              id="category"
-              name="category"
-              value={productData.category}
-              onChange={handleChange}
-            >
-              <option value="">Select a category</option>
-              <option value="electronics">Electronics</option>
-              <option value="clothing">Clothing</option>
-              <option value="books">Books</option>
-              <option value="toys">Toys</option>
-            </DropDown>
-            {errors.category && <Error>{errors.category}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="category">Category</label>
+        <DropDown
+          id="category"
+          name="category"
+          value={productData.category}
+          onChange={handleChange}
+        >
+          <option value="">Select a category</option>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="books">Books</option>
+          <option value="toys">Toys</option>
+        </DropDown>
+        {errors.category && <Error>{errors.category}</Error>}
+      </FormField>
 
-          <FormField>
-            <label htmlFor="availableQuantity">Available Quantity</label>
-            <input
-              type="number"
-              id="availableQuantity"
-              name="availableQuantity"
-              value={productData.availableQuantity}
-              onChange={handleChange}
-            />
-            {errors.availableQuantity && <Error>{errors.availableQuantity}</Error>}
-          </FormField>
+      <FormField>
+        <label htmlFor="availableQuantity">Available Quantity</label>
+        <input
+          type="number"
+          id="availableQuantity"
+          name="availableQuantity"
+          value={productData.availableQuantity}
+          onChange={handleChange}
+        />
+        {errors.availableQuantity && <Error>{errors.availableQuantity}</Error>}
+      </FormField>
 
-          <SubmitButton type="submit">Submit</SubmitButton>
-        </FormContainer>
-      </ModalContent>
-    </ModalOverlay>
+      <SubmitButton type="submit">Submit</SubmitButton>
+    </FormContainer>
   );
 };
 
