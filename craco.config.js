@@ -1,32 +1,33 @@
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   webpack: {
     configure: (webpackConfig, { env }) => {
-      // webpackConfig.plugins.push(
-      //   new ModuleFederationPlugin({
-      //     name: "ThunderCartWrapperApp", // Unique name for the host
-      //     remotes: {
-      //       FirstChildApp: "FirstChildApp@http://localhost:3001/remoteEntry.js", // Import Child MFE
-      //     },
-      //     shared: {
-      //       react: { singleton: true, requiredVersion: "^18.3.1" },
-      //       "react-dom": { singleton: true, requiredVersion: "^18.3.1" },
-      //     },
-      //   })
-      // );
-      if (env === 'production') {
-        // Use terser-webpack-plugin to remove console logs
+      const isProd = env === "production";
+
+      if (isProd) {
+        // ✅ Disable source maps (prevents readable code in DevTools)
+        webpackConfig.devtool = false;
+
+        // ✅ Ensure aggressive minification & obfuscation
         webpackConfig.optimization.minimizer = [
           new TerserPlugin({
             terserOptions: {
               compress: {
-                drop_console: true, // Remove console logs
+                drop_console: true, // Remove all console logs
+                drop_debugger: true, // Remove debugger statements
+                pure_funcs: ["console.info", "console.debug", "console.warn"], // Remove specific console functions
+                passes: 3, // Run compression multiple times
+              },
+              mangle: true, // Shortens variable names
+              format: {
+                comments: false, // Remove comments
               },
             },
           }),
         ];
       }
+
       return webpackConfig;
     },
   },

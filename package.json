@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "cross-env craco start",
-    "build": "craco build",
+    "build": "cross-env NODE_ENV=production craco build",
     "test": "craco test",
     "eject": "craco eject",
     "serve": "serve -s build",
@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "serve": "^14.2.4",
-    "terser-webpack-plugin": "^5.3.11"
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }
