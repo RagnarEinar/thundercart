@@ -24,7 +24,7 @@ export const OrderModal = styled(motion.div)`
 `;
 
 export const ModalContent = styled(motion.div)`
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.wrapperBack};
   border-radius: 10px;
   max-width: 900px;
   width: 90%;
@@ -38,7 +38,7 @@ export const CloseIcon = styled(RiCloseLine)`
   position: sticky;
   top: 0;
   left: 100%;
-  margin: 2px 5px 0px 5px;
+  margin: 0.1rem 0.3rem 0 0.3rem;
   cursor: pointer;
   z-index: 10;
   width: 26px;
@@ -46,7 +46,7 @@ export const CloseIcon = styled(RiCloseLine)`
   @media (max-width: 786px) {
     width: 22px;
     height: 22px;
-    margin: 1px 3px;
+    margin: 0.5rem 0.15rem;
   }
 `;
 
@@ -55,13 +55,13 @@ export const ModalBody = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 80vh;
-  padding: 0px 20px 20px 20px;
+  padding: 0rem 0.6rem 0.6rem 0.6rem;
   @media (max-width: 786px) {
     max-height: 85vh;
   }
   @media (max-width: 480px) {
     max-height: 90vh;
-    padding: 0px 10px 20px 10px;
+    padding: 0rem 0.6rem 1.2rem 0.6rem;
   }
 `;
 

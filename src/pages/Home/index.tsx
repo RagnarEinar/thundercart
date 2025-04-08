@@ -27,23 +27,23 @@ const Container = styled.div`
   height: 100%;
   background-attachment: fixed;
   overflow-x: hidden;
-  padding: 0px 5px;
+  padding: 0rem 0.3rem;
   scroll-behavior: smooth; // Enables smooth scrolling
 `;
 
 const Hero = styled.section`
   position: relative;
   text-align: center;
-  padding: 100px 20px;
+  padding: 6.2rem 1.2rem;
   background: url(${herobackimg}) center/cover no-repeat;
   border-radius: 12px;
   animation: ${fadeIn} 1s ease-in-out;
-  margin-top: 5px;
+  margin-top: 0.3rem;
 `;
 
 const HeroTitle = styled.h1`
   font-size: 3.5rem;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   font-weight: bold;
   text-shadow: 3px 3px 15px rgba(0, 89, 255, 0.8); /* Strong blue glow */
   color: rgb(0, 153, 255); /* Electric Blue */
@@ -54,7 +54,7 @@ const HeroTitle = styled.h1`
 
 const HeroText = styled.p`
   font-size: 1.4rem;
-  margin-bottom: 25px;
+  margin-bottom: 1.5rem;
   text-shadow: 2px 2px 10px rgba(191, 0, 255, 0.8); /* Neon Cyan glow */
   max-width: 600px;
   margin-left: auto;
@@ -69,12 +69,12 @@ const Button = styled.button`
   background: rgba(99, 99, 99, 0.69);
   color: white;
   border: none;
-  padding: 16px 32px;
+  padding: 1rem 2rem;
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
-  margin-top: 20px;
+  margin-top: 1.2rem;
 
   &:hover {
     background: rgba(44, 42, 42, 0.93);
@@ -82,7 +82,7 @@ const Button = styled.button`
   }
   @media (max-width: 480px) {
     font-size: 0.8rem;
-    padding: 10px 20px;
+    padding: 0.6rem 1.2rem;
   }
 `;
 
@@ -90,8 +90,8 @@ const Categories = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 25px;
-  margin: 50px 0;
+   gap: 1.5rem;
+  margin: 3.1rem 0;
   text-align: center;
   animation: ${fadeIn} 1.2s ease-in-out;
 `;
@@ -99,7 +99,7 @@ const Categories = styled.div`
 // Inside CategoryCard component
 const CategoryCard = styled.div`
   background: rgba(255, 255, 255, 0.2);
-  padding: 15px;
+  padding: 1rem;
   text-align: center;
   border-radius: 20px;
   cursor: pointer;
@@ -127,7 +127,7 @@ const CategoryCard = styled.div`
     font-size: 1.4rem;
     font-weight: bold;
     color: #ff4b2b;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -139,15 +139,15 @@ const CategoryCard = styled.div`
   }
 
   @media (max-width: 480px) {
-    padding: 10px;
+    padding: 0.6rem;
   }
 `;
 
 const PromoSection = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
-  margin: 60px 0;
+  gap: 1.5rem;
+  margin: 3.8rem 0;
   text-align: center;
   animation: ${fadeIn} 1.5s ease-in-out;
   justify-content: center; /* Centers the promo cards */
@@ -156,7 +156,7 @@ const PromoSection = styled.div`
 const PromoCard = styled.div`
   background: linear-gradient(135deg, #ff7eb3, #ff758c);
   color: white;
-  padding: 20px;
+  padding: 1.2rem;
   border-radius: 15px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -172,7 +172,7 @@ const PromoCard = styled.div`
 
   h3 {
     font-size: 1.5rem
-    margin-bottom: 12px;
+    margin-bottom: 0.7rem;
     @media (max-width: 480px) {
       font-size: 1.3rem;
     }
@@ -181,17 +181,17 @@ const PromoCard = styled.div`
   p {
     font-size: 1.2rem;
     opacity: 0.9;
-    margin-bottom: 20px;
+    margin-bottom: 1.2rem;
      @media (max-width: 480px) {
       font-size: 0.8rem;
     }
   }
 
   button {
-    margin-top: 20px;
+    margin-top: 1.2rem;
     background: white;
     color: #ff4b2b;
-    padding: 14px 28px;
+    padding: 0.9rem 1.8rem;
     font-size: 16px;
     border-radius: 8px;
     border: none;
@@ -221,16 +221,15 @@ const PromoCard = styled.div`
     transform: scale(2.5);
     opacity: 0;
   }
-         @media (max-width: 480px) {
- padding: 20px;
+   @media (max-width: 480px) {
+     padding: 1.2rem;
     }
-
 `;
 
 const SocialIcons = styled.div`
   display: flex;
-  gap: 10px;
-  margin: 15px 0px;
+  gap: 0.6rem;
+  margin: 1rem 0;
   a {
     svg {
       fill: white;
@@ -248,17 +247,17 @@ const Footer = styled.footer`
   flex-direction: column;
   background: #222;
   color: white;
-  padding: 40px;
+  padding: 2.5rem;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 5rem;
   animation: ${fadeIn} 1.8s ease-in-out;
-  gap: 20px;
+  gap: 1.2rem;
 `;
 
 const FooterGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1.2rem;
   justify-content: center;
   text-align: left;
   max-width: 1000px;
@@ -274,7 +273,7 @@ const FooterColumn = styled.div`
   min-width: 200px; /* Ensures the footer columns don't become too small */
   h4 {
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 0.6rem;
     color: #00bfff;
   }
 
@@ -283,7 +282,7 @@ const FooterColumn = styled.div`
     padding: 0;
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
     }
 
     a {
@@ -299,7 +298,7 @@ const FooterColumn = styled.div`
 `;
 
 const FooterBottom = styled.div`
-  margin-top: 20px;
+  margin-top: 1.2rem;
   font-size: 14px;
   opacity: 0.7;
 `;
@@ -352,7 +351,7 @@ const Home: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "8px",
+              gap: "0.5rem",
             }}
           >
             <h3 style={{ marginBottom: "15px" }}>Top Rated Products</h3>

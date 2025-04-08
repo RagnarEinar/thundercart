@@ -16,7 +16,7 @@ export const OrderHeaderContainer = styled.div`
   top: 0;
   z-index: 1;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 8px 15px;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
 
   @media (max-width: 480px) {
@@ -42,10 +42,10 @@ export const OrderHeader = styled.h3`
 
 export const OrderInfo = styled.h3`
   font-size: 1rem;
-  margin: 5px 0;
+  margin: 0.3rem 0;
   span {
     color: ${({ theme }) => theme.cartItemDescColor};
-    margin-left: 5px;
+    margin-left: 0.3rem;
   }
   @media (max-width: 480px) {
     font-size: 0.8rem;
@@ -58,13 +58,13 @@ export const OrderItemsContainer = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   max-height: 60vh;
-  padding: 10px 5px;
+  padding: 0.6rem 0.3rem;
   border-radius: 8px;
-  gap: 15px;
+  gap: 1rem;
 `;
 
 export const OrderItem = styled.div`
-  padding: 10px 10px;
+  padding: 0.6rem;
   background: ${({ theme }) => theme.cardBackground};
   display: flex;
   flex-direction: column;
@@ -90,7 +90,7 @@ export const ItemDetailsWrapper = styled.div`
 export const ItemDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.6rem;
   order: 1;
   @media (max-width: 480px) {
     order: 2;
@@ -100,7 +100,7 @@ export const ItemDetails = styled.div`
 export const ItemImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.6rem;
   order: 2;
   @media (max-width: 480px) {
     order: 1;
@@ -111,25 +111,25 @@ export const ItemTitle = styled.h4`
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
-  padding: 5px 0px 0px 5px;
+  padding: 0.3rem 0rem 0rem 0.3rem;
 `;
 
 export const ItemSubTitle = styled.div`
   display: flex;
   font-size: 0.9rem;
-  padding: 0px 0px 0px 5px;
+  padding: 0rem 0rem 0rem 0.3rem;
   align-items: baseline;
   margin: 0;
   p {
-    margin-right: 10px;
+    margin-right: 0.6rem;
   }
   svg {
-    color: rgb(44, 239, 18);
+    color: rgb(239, 18, 25);
     display: flex;
   }
 
   span {
-    color: rgb(44, 239, 18);
+    color: rgb(239, 18, 18);
   }
 `;
 
@@ -150,17 +150,17 @@ export const PrdImage = styled.img`
 export const ActionItemRow = styled.div`
   font-size: 0.8rem;
   display: flex;
-  gap: 30px;
+  gap: 1.9rem;
   div {
     display: flex;
-    gap: 10px;
+    gap: 0.6rem;
     button {
       padding: 0.2rem 0.5rem;
     }
   }
   @media (max-width: 480px) {
     flex-direction: column;
-    gap: 10px;
+    gap: 0.6rem;
   }
 `;
 
@@ -169,14 +169,14 @@ export const OrderTotal = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 2px solid #f0f0f0;
-  padding-top: 10px;
+  padding-top: 0.6rem;
   @media (max-width: 768px) {
     font-size: 0.8rem;
   }
   @media (max-width: 480px) {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 0.6rem;
   }
 `;
 
@@ -184,22 +184,22 @@ export const TotalAmount = styled.div`
   color: ${({ theme }) => theme.cartBackBackground};
   strong {
     color: ${({ theme }) => theme.color};
-    margin-right: 10px;
+    margin-right: 0.6rem;
   }
 `;
 
 export const SavedAmount = styled.div`
   display: flex;
-  color: rgba(40, 240, 13, 0.9);
+  color: rgba(240, 13, 17, 0.9);
   justify-content: center;
   span {
-    margin: 0px 5px;
+    margin: 0 0.3rem;
   }
 `;
 
 export const FeedbackButtonContainer = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 1rem;
   align-self: flex-end;
 `;
 

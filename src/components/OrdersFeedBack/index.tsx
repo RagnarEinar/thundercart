@@ -12,16 +12,16 @@ import {
 import { FeedbackButtonContainer } from "../../pages/Profile/MyOrders";
 
 export const FeedbackSection = styled.div`
-  margin-top: 30px;
+  margin-top: 1.9rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.6rem;
 `;
 
 export const FeedbackItem = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+   gap: 0.6rem;
 `;
 
 export const FeedbackHeading = styled.h3`
@@ -33,9 +33,9 @@ export const FeedbackHeading = styled.h3`
 export const FeedbackContent = styled.div`
   color: ${({ theme }) => theme.cartItemDescColor};
   display: flex;
-  margin-left: 20px;
+  margin-left: 1.2rem;
   font-size: 0.9rem;
-  gap: 10px;
+  gap: 0.6rem;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -43,7 +43,7 @@ export const FeedbackContent = styled.div`
 
 export const ReviewTextarea = styled.textarea`
   width: 60%;
-  padding: 5px 0px 0px 5px;
+  padding: 0.3rem 0rem 0rem 0.3rem;
   font-size: 0.8rem;
   border: 1px solid lightgrey;
   border-radius: 8px;

@@ -4,13 +4,13 @@ import { Button } from "../../pages/Login/styled.components";
 const HeroContainer = styled.section`
   display: flex;
   justify-content: space-between;
-  padding: 60px 20px;
+  padding: 3.5rem 1.2rem;
   background: #f8f8f8;
 `;
 
 const HeroContent = styled.div`
   flex: 1;
-  padding: 40px;
+  padding: 2.5rem;
   text-align: left;
 `;
 

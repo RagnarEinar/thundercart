@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const TestimonialsSection = styled.section`
-  padding: 40px;
+  padding: 2.5rem;
   background: #f8f8f8;
   text-align: center;
 `;
@@ -14,9 +14,9 @@ const TestimonialList = styled.div`
 
 const TestimonialCard = styled.div`
   width: 30%;
-  margin: 15px;
+  margin: 1rem;
   background: #fff;
-  padding: 20px;
+  padding: 1.2rem;
 `;
 
 const Testimonials: React.FC = () => {

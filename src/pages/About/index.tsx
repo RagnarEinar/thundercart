@@ -1,31 +1,27 @@
 // About.tsx
 import styled, { keyframes } from "styled-components";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaGithub,
-} from "react-icons/fa";
-import herobackimg from "../../assets/herobackimg.webp";
+import { FaFacebook, FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
 
-// Animations
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 `;
 
-// Styled Components (keep as-is or optimize for brevity)
 const Container = styled.div`
+  background: rgba(24, 24, 24, 0.74);
   font-family: "Arial", sans-serif;
-  padding: 0 10px;
   scroll-behavior: smooth;
+  margin: 2.5rem auto 0 auto;
+  padding: 0 1.2rem;
+  border-radius: 12px;
+  max-width: 900px;
+  color: white;
 `;
 
 const Hero = styled.section`
   position: relative;
   text-align: center;
-  padding: 20px 20px;
-  // background: url(${herobackimg}) center/cover no-repeat;
+  padding: 1.2rem;
   border-radius: 12px;
   animation: ${fadeIn} 1s ease-in-out;
 `;
@@ -33,28 +29,27 @@ const Hero = styled.section`
 const HeroTitle = styled.h1`
   font-size: 2rem;
   font-weight: bold;
-  color:rgba(236, 14, 14, 0.93);
+  color: rgba(236, 14, 14, 0.93);
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 `;
 
 const HeroText = styled.p`
   font-size: 1.4rem;
-  margin: 15px auto;
+  margin: 1rem auto;
   max-width: 700px;
-  color: rgb(0, 0, 0);
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
 `;
 
 const Section = styled.section`
   max-width: 900px;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 1.2rem auto;
+  padding: 1.2rem;
   animation: ${fadeIn} 1s ease-in-out;
   text-align: center;
 
   h2 {
     color: #ff4b2b;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
   }
 
   p {
@@ -65,35 +60,33 @@ const Section = styled.section`
 
 const SocialIcons = styled.div`
   display: flex;
-  gap: 10px;
-  margin: 15px 0px;
+  gap: 1.9rem;
+  margin: 1rem 0rem;
   a svg {
-    fill: white;
-    width: 20px;
-    height: 20px;
+    fill: rgba(1, 1, 1, 1);
+    width: 25px;
+    height: 25px;
   }
 
   @media (max-width: 480px) {
     justify-content: center;
+    gap: 0.3rem;
   }
 `;
 
 const Footer = styled.footer`
-  background: #222;
-  color: white;
-  padding: 40px;
+  padding: 2.5rem;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 1.2rem;
   animation: ${fadeIn} 1.5s ease-in-out;
 `;
 
 const FooterGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1.2rem;
   justify-content: center;
   text-align: left;
-  max-width: 1000px;
   margin: 0 auto;
 
   @media (max-width: 600px) {
@@ -106,9 +99,9 @@ const FooterColumn = styled.div`
   min-width: 200px;
 
   h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #00bfff;
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+    color: rgba(8, 0, 255, 0.89);
   }
 
   ul {
@@ -116,12 +109,12 @@ const FooterColumn = styled.div`
     padding: 0;
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
     }
 
     a {
       text-decoration: none;
-      color: #ddd;
+      color: ${({ theme }) => theme.color};
       transition: color 0.3s ease;
 
       &:hover {
@@ -132,8 +125,8 @@ const FooterColumn = styled.div`
 `;
 
 const FooterBottom = styled.div`
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
   opacity: 0.7;
 `;
 
@@ -143,35 +136,43 @@ const About: React.FC = () => {
       <Hero id="hero">
         <HeroTitle>Welcome to ThunderCart</HeroTitle>
         <HeroText>
-          Revolutionizing the way you shop — with speed, style, and satisfaction.
+          Revolutionizing the way you shop — with speed, style, and
+          satisfaction.
         </HeroText>
       </Hero>
 
       <Section>
         <h2>Our Mission</h2>
         <p>
-          ThunderCart aims to deliver top-tier products at competitive prices while offering an unmatched shopping experience. We're driven by customer satisfaction, innovation, and trust.
+          ThunderCart aims to deliver top-tier products at competitive prices
+          while offering an unmatched shopping experience. We're driven by
+          customer satisfaction, innovation, and trust.
         </p>
       </Section>
 
       <Section>
         <h2>Our Story</h2>
         <p>
-          Started in 2022, ThunderCart began as a small team passionate about creating a seamless online shopping journey. We've grown into a brand known for quality, reliability, and customer-first service.
+          Started in 2022, ThunderCart began as a small team passionate about
+          creating a seamless online shopping journey. We've grown into a brand
+          known for quality, reliability, and customer-first service.
         </p>
       </Section>
 
       <Section>
         <h2>Why Shop with Us?</h2>
         <p>
-          We offer a curated selection of trending items, 24/7 support, secure payments, and swift delivery. Our growing community of satisfied customers speaks for our commitment.
+          We offer a curated selection of trending items, 24/7 support, secure
+          payments, and swift delivery. Our growing community of satisfied
+          customers speaks for our commitment.
         </p>
       </Section>
 
       <Section>
         <h2>Our Values</h2>
         <p>
-          Integrity, innovation, and inclusivity guide everything we do. At ThunderCart, you're not just a customer — you're family.
+          Integrity, innovation, and inclusivity guide everything we do. At
+          ThunderCart, you're not just a customer — you're family.
         </p>
       </Section>
 
@@ -180,19 +181,28 @@ const About: React.FC = () => {
           <FooterColumn>
             <h4>About ThunderCart</h4>
             <p>
-              Your one-stop shop for exclusive deals and high-quality products. Trusted by thousands globally.
+              Your one-stop shop for exclusive deals and high-quality products.
+              Trusted by thousands globally.
             </p>
           </FooterColumn>
 
-          <FooterColumn>
+          {/* <FooterColumn>
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/products">Shop</a></li>
-              <li><a href="#hero">About Us</a></li>
-              <li><a href="#hero">Contact</a></li>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/products">Shop</a>
+              </li>
+              <li>
+                <a href="#hero">About Us</a>
+              </li>
+              <li>
+                <a href="#hero">Contact</a>
+              </li>
             </ul>
-          </FooterColumn>
+          </FooterColumn> */}
 
           <FooterColumn>
             <h4>Support</h4>
@@ -206,10 +216,34 @@ const About: React.FC = () => {
           <FooterColumn>
             <h4>Connect with Us</h4>
             <SocialIcons>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaTwitter />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaGithub />
+              </a>
             </SocialIcons>
           </FooterColumn>
         </FooterGrid>

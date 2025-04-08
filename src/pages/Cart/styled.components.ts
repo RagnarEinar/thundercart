@@ -5,6 +5,7 @@ import { Button } from "../Login/styled.components";
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+
   margin: 1rem;
   padding: 1rem;
   border-radius: 8px;
@@ -22,7 +23,7 @@ export const CartWrapper = styled.div`
 
 export const CartHeader = styled.h2`
   text-align: center;
-  font-size: 1.3jjrem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 2rem;
   @media (max-width: 768px) {
@@ -54,6 +55,7 @@ export const CartItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: ${({ theme }) => theme.wrapperBack};
   padding: 1rem;
   // border: 0.5px solid rgba(214, 212, 212, 0.95);
   border-radius: 8px;
@@ -61,7 +63,7 @@ export const CartItemWrapper = styled.div`
 
   @media (max-width: 868px) {
     flex-direction: column;
-    gap: 20px;
+    gap: 1.2rem;
   }
 
   @media (max-width: 568px) {
@@ -118,7 +120,7 @@ export const ItemQuantity = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin: 5px 0px;
+  margin: 0.3rem 0;
   @media (max-width: 568px) {
     font-size: 0.7rem;
   }
@@ -195,7 +197,7 @@ export const QuantityButton = styled(Button)`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.color};
+  color: black;
   transition: background 0.2s ease-in-out;
   &:hover {
     background: #ddd;
@@ -228,6 +230,7 @@ export const OrderDetailsWrapper = styled.div`
   flex: 1;
   padding: 1rem;
   border-radius: 8px;
+  background-color: ${({ theme }) => theme.wrapperBack};
   // border: 0.5px solid rgba(214, 212, 212, 0.95);
   box-shadow: 0 6px 20px ${({ theme }) => theme.lightBoxShadow};
   max-height: 300px;

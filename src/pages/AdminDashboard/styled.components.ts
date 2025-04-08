@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 
 export const AdminOptions = styled.div`
   display: flex;
-  margin-top: 20px;
+  margin-top: 1.2rem;
 `;
 
 export const ManageProducts = styled(Button)`

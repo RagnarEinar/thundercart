@@ -155,12 +155,12 @@ const FormContainer = styled.form`
 
 const PaymentElementContainer = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.2rem;
 `;
 
 const SubmitButton = styled(Button)`
   width: 100%;
-  padding: 10px;
+  padding: 0.7rem;
   background-color: #007bff;
   &:hover {
     background-color: #0056b3;
@@ -172,7 +172,7 @@ const SubmitButton = styled(Button)`
 `;
 
 const MessageContainer = styled.div`
-  margin-top: 10px;
+  margin-top: 0.6rem;
   color: red;
-  font-size: 14px;
+  font-size: 0.9rem;
 `;

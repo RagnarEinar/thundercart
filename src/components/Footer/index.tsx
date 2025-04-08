@@ -3,18 +3,18 @@ import styled from "styled-components";
 const FooterContainer = styled.footer`
   background: #333;
   color: white;
-  padding: 20px;
+  padding: 1rem;
   text-align: center;
 `;
 
 const FooterLinks = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 1.2rem;
 `;
 
 const FooterLink = styled.a`
   color: white;
   text-decoration: none;
-  margin: 0 10px;
+  margin: 0 0.6rem;
   cursor: pointer;
 `;
 

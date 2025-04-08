@@ -99,17 +99,17 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 20px;
+  padding: 1.2rem;
 `;
 
 export const Title = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
 `;
 
 const CheckoutFormContainer = styled.div`
   background: white;
-  padding: 20px;
+  padding: 1.2rem;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;

@@ -13,14 +13,16 @@ export const FullPageLoader = styled.div`
   text-align: center;
   @media (max-width: 768px) {
     p {
-      margin: 20px 20px;
+      margin: 1.2rem;
     }
   }
 `;
 
 export const Logo = styled.img`
+  background-color: ${({ theme }) => theme.wrapperBack};
   width: 60px;
   height: 60px;
+  border-radius: 50%;
   animation: logoSpin 3s ease-in-out infinite, glow 1.5s ease-in-out infinite;
   filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.8));
 
@@ -49,17 +51,21 @@ export const Logo = styled.img`
   }
 
   @media (max-width: 768px) {
-    margin: 30px;
+    margin: 1.9rem;
   }
 `;
 
 export const LoaderText = styled.p`
-  margin-top: 40px;
-  font-size: 1rem;
+  background-color: ${({ theme }) => theme.wrapperBack};
+  margin-top: 2.5rem;
+  font-size: 1.3rem;
   font-family: "Poppins", sans-serif;
-  color: rgb(39, 10, 228);
+  color: rgba(10, 21, 228, 0.89);
   text-align: center;
+  font-weight: 700;
+  border-radius: 15px;
   letter-spacing: 1.2px;
+  padding:0.3rem 1rem;
   animation: fadeIn 1.5s ease-in-out infinite alternate,
     scaleUp 1.5s ease-in-out infinite alternate;
 

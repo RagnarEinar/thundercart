@@ -7,13 +7,15 @@ import { useDispatch } from "react-redux";
 import { fetchProducts } from "./data/slices/products";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import backimg from "./assets/backimg4.webp";
 
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   box-sizing: border-box;
+  background: url(${backimg}) center/cover no-repeat;
 `;
 
 export const AppContentWrapper = styled.div`

@@ -4,15 +4,14 @@ import { Button } from "../../Login/styled.components";
 export const Wrapper = styled.div<{ $isPage?: boolean }>`
   display: flex;
   margin: 0 auto;
-  gap: 20px;
+  gap: 1.2rem;
   border-radius: 15px;
   overflow-y: auto;
   padding: ${({ $isPage }) => ($isPage ? "20px" : "0")};
-  background-color: ${({ theme }) => theme.background};
 
   @media (max-width: 786px) {
     flex-direction: column;
-    gap: 10px;
+    gap: 0.6rem;
   }
 `;
 
@@ -43,8 +42,8 @@ export const DetailsContainer = styled.div`
   flex: 3;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 5px 20px;
+  gap: 1rem;
+  padding: 0.3rem 1.2rem;
   @media (max-width: 786px) {
     padding: 0px;
   }
@@ -108,7 +107,7 @@ export const Quantity = styled.p`
 
 export const ProductRating = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   > p {
     align-self: center;
   }
@@ -128,7 +127,7 @@ export const ProductReviews = styled.div`
   margin-top: 5px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
 `;
 
 export const ReviewList = styled.ul`
@@ -138,9 +137,9 @@ export const ReviewList = styled.ul`
 
   li {
     background: ${({ theme }) => theme.cartListBackground};
-    padding: 5px 15px;
+    padding: 0.3rem 1rem;
     border-radius: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
     color: ${({ theme }) => theme.cartItemDescColor};
   }
@@ -148,11 +147,11 @@ export const ReviewList = styled.ul`
 
 export const DetailsButtonContainer = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 1.2rem;
   width: 100%;
-  padding: 10px 30px;
+  padding: 0.6rem 1.9rem;
   @media (max-width: 786px) {
-    gap: 10px;
+    gap: 0.6rem;
   }
 
   @media (max-width: 480px) {
@@ -182,7 +181,7 @@ export const AddToCart = styled(Button)`
   padding: 0.5rem 1rem;
   width: 100%;
   background: rgba(31, 242, 27, 0.97);
-  color: ${({ theme }) => theme.cartBtnTextColor};
+  color: black;
   &:disabled {
     background-color: #e0e0e0;
     cursor: not-allowed;
@@ -203,7 +202,7 @@ export const Tooltip = styled.div`
   background-color: #333;
   color: #fff;
   text-align: center;
-  padding: 5px 10px;
+  padding: 0.3rem 0.6rem;
   border-radius: 5px;
   position: absolute;
   z-index: 1;

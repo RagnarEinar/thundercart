@@ -3,12 +3,11 @@ import { FaRupeeSign } from "react-icons/fa";
 import { Button } from "../../Login/styled.components";
 
 export const CataLogWrapper = styled.div`
-  // background-color: ${({ theme }) => theme.cartListBackground};
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.6rem;
   @media (max-width: 768px) {
-    gap: 20px;
+  gap: 1.2rem;
   }
 `;
 
@@ -31,6 +30,7 @@ export const CatalogItemContainer = styled.div`
 `;
 
 export const CatalogItem = styled.div`
+ background-color: ${({ theme }) => theme.background};
   border-radius: 10px;
   cursor: pointer;
   flex: 1;
@@ -66,10 +66,10 @@ export const PrdImage = styled.img`
 export const ItemDetails = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px 15px;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
   @media (max-width: 768px) {
-    margin-top: 15px;
+    margin-top: 1rem;
   }
 `;
 
@@ -100,9 +100,9 @@ export const ItemDesc = styled.p`
 `;
 
 export const PriceContainer = styled.div`
-  margin-top: 10px;
+  margin-top: 0.6rem;
   display: flex;
-  gap: 5px;
+  gap: 0.3rem;
 `;
 
 export const DiscountedPrice = styled.p`
@@ -133,7 +133,6 @@ export const FreeDelivery = styled.p`
   font-size: 0.8rem;
   color: ${({ theme }) => theme.cartItemFreeDel};
   margin: 0;
-
   font-weight: bold;
   position: absolute;
   bottom: 15px;
@@ -141,14 +140,14 @@ export const FreeDelivery = styled.p`
 
 export const Ruppeeicon = styled(FaRupeeSign)`
   font-size: 0.6rem;
-  margin-right: 1px;
+  margin-right: 0.5rem;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  padding: 20px 0px 10px 0px;
-  gap: 10px;
+  padding: 1.2rem 0rem 0.6rem 0rem;
+  gap: 0.6rem;
 `;
 
 export const EditButton = styled(Button)`

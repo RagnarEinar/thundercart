@@ -15,7 +15,7 @@ const SliderContainer = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-  padding: 20px 0;
+  padding: 1.2rem 0;
 `;
 
 const Slider = styled.div<{ itemCount: number }>`
@@ -28,8 +28,8 @@ const Slider = styled.div<{ itemCount: number }>`
 const CartItem = styled.div`
   flex: 0 0 auto;
   width: 250px;
-  margin: 10px;
-  padding: 20px;
+  margin: 0.6rem;
+  padding: 1.rem;
   border-radius: 10%;
   text-align: center;
   box-shadow: 0px 4px 10px ${({ theme }) => theme.mediumBoxShadow};
@@ -47,43 +47,43 @@ const CartImage = styled.img`
   height: 140px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 0.6rem;
 `;
 
 const ProductName = styled.h4`
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 0.3rem;
 `;
 
 const PriceContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 `;
 
 const OriginalPrice = styled.span`
   color: rgba(238, 43, 25, 0.95);
   text-decoration: line-through;
-  font-size: 12px;
+  font-size: 0.7rem;
   align-self: center;
 `;
 
 const DiscountedPrice = styled.span`
   color: rgba(68, 238, 25, 0.95);
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1rem;
 `;
 
 const CategoryTag = styled.span`
   display: inline-block;
   background: #007bff;
   color: white;
-  font-size: 12px;
-  padding: 4px 10px;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 20px;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 `;
 
 const HomeCartSlider = () => {

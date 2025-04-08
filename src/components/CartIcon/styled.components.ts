@@ -19,7 +19,7 @@ export const CartIconWrapper = styled.div`
 
 export const CartIconStyled = styled(FaShoppingCart)`
   color: ${({ theme }) => theme.cartIconColor};
-  font-size: 20px;
+  font-size: 1.2rem;
 `;
 
 export const ItemCount = styled.span`
@@ -28,7 +28,7 @@ export const ItemCount = styled.span`
   right: 1px;
   background-color: ${({ theme }) => theme.badgeBackground};
   color: ${({ theme }) => theme.badgeColor};
-  font-size: 10px;
+  font-size: 0.6rem;
   font-weight: bold;
   border-radius: 50%;
   width: 14px;

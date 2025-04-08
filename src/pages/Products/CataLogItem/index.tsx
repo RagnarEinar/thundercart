@@ -128,7 +128,7 @@ const CataLogItem: React.FC<CataLogItemProps> = ({ productList }) => {
                       off
                     </DiscountedPercent>
                   </PriceContainer>
-                  {userDetails?.role === "customer" && (
+                  {userDetails?.role !== "admin" && (
                     <FreeDelivery>Free delivery</FreeDelivery>
                   )}
                   <ButtonContainer>

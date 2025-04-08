@@ -37,7 +37,7 @@ const ProgressContainer = styled.div`
   width: 100%;
   max-width: 600px; // Restrict the width of the progress bar
   margin: 0 auto; // Center the progress bar horizontally
-  padding: 10px 0;
+  padding: 0.6rem 0;
   position: relative;
 `;
 
@@ -52,11 +52,11 @@ const ProgressStep = styled.div`
 
   /* Ensure the step container doesn't overflow */
   max-width: 100%;
-  padding: 0px;
+  padding: 0rem;
 
   /* Add spacing between the steps */
   &:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 1.2rem;
   }
 
   &::after {
@@ -105,15 +105,15 @@ const StepCircle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 1rem;
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   transition: background-color 0.3s;
 `;
 
 const StepLabel = styled.div`
-  font-size: 14px;
-  margin-top: 5px;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
 `;
 
 export default OrderProgressBar;

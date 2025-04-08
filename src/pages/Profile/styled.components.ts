@@ -7,7 +7,7 @@ export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  gap: 20px;
+  gap: 1.2rem;
   @media (max-width: 500px) {
     padding: 0.5rem;
   }
@@ -16,6 +16,7 @@ export const ProfileContainer = styled.div`
 export const Section = styled.div`
   padding: 1rem;
   border-radius: 8px;
+  background-color: ${({ theme }) => theme.wrapperBack};
   box-shadow: 0 6px 20px ${({ theme }) => theme.lightBoxShadow};
 
   @media (max-width: 500px) {
@@ -24,7 +25,7 @@ export const Section = styled.div`
 
   @media (min-width: 800px) {
     width: 800px;
-    margin: 0px auto;
+    margin: 0 auto;
   }
 `;
 
@@ -32,12 +33,12 @@ export const SectionTitle = styled.h2`
   font-size: 1.5rem;
   padding-bottom: 0rem;
 
-  margin: 0px auto;
+  margin: 0 auto;
 `;
 
 export const ProfileHeader = styled.div`
   display: flex;
-  gap: 40px;
+  gap: 2.5rem;
   align-items: center;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -55,10 +56,10 @@ export const ProfilePicture = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px;
+  margin: 2.5rem;
   @media (max-width: 768px) {
     width: 100px;
-    margin: 10px;
+    margin: 0.6rem;
   }
 `;
 
@@ -73,19 +74,19 @@ export const UserDetails = styled.div`
 export const UserDetail = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
   font-size: 1rem;
   margin: 0.7rem 0;
   line-height: 1.5;
   span {
-    padding: 3px 5px;
+    padding: 0.2rem 0.3rem;
   }
 `;
 
 export const AddressInput = styled.input`
   width: 100%;
   font-size: 1rem;
-  padding: 5px 5px;
+  padding: 0.3rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
@@ -94,7 +95,7 @@ export const AddressInput = styled.input`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 1rem;
 `;
 
 export const EditButton = styled(Button)`
@@ -111,7 +112,7 @@ export const EditButton = styled(Button)`
 export const SaveButton = styled(Button)`
   padding: 0.4rem 0.9rem;
   background: #2e7d32;
-   font-size: 0.9rem;
+  font-size: 0.9rem;
   transition: background 0.3s ease, transform 0.2s ease;
   &:hover {
     background: #1b5e20;
@@ -125,7 +126,7 @@ export const OrdersList = styled.div`
 
 export const MyItem = styled.div`
   margin: 0rem 0rem 1rem 0rem;
-  padding: 15px;
+  padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 6px 20px ${({ theme }) => theme.mediumBoxShadow};
   &:hover {
@@ -185,7 +186,7 @@ export const TotalAmount = styled.div`
   }
   svg {
     color: #ff6347;
-    margin-left: 5px;
+    margin-left: 0.3rem;
   }
 `;
 
@@ -193,7 +194,7 @@ export const NoOrders = styled.div`
   margin: 20px;
   display: flex;
   font-size: 1rem;
-  gap: 20px;
+  gap: 1.2rem;
   align-items: center;
   p {
     align-self: center;

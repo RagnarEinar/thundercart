@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import herobackimg from "../../assets/herobackimg.webp";
 
 // Animation for error shake
 const shake = keyframes`
@@ -11,42 +10,42 @@ const shake = keyframes`
 
 export const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center; /* Center everything horizontally */
   padding: 1.5rem;
   width: 100%;
   font-size: 1rem;
   height: calc(100vh - 60px);
-  background: url(${herobackimg}) center/cover no-repeat;
   @media (max-width: 768px) {
     font-size: 0.9rem;
+    height: calc(100vh - 46px);
   }
 `;
+
 
 export const Container = styled.div<{ $hasError?: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 350px; /* Increased width for a better layout */
+  width: 350px;
   border-radius: 10px;
-  margin: 10px auto;
-  background: rgba(255, 255, 255, 0.57);
+  margin: 0.6rem 0rem;
+  background: ${({ theme }) => theme.wrapperBack};
   box-shadow: 0 10px 20px ${({ theme }) => theme.heavyBoxShadow};
   padding: 0.5rem 0.5rem 1rem 0.5rem;
+  transform: translateX(85%); /* Push it to the right from center */
+
   ${({ $hasError }) =>
     $hasError &&
     css`
       animation: ${shake} 0.3s ease;
     `}
 
-  @media (max-width: 440px) {
-    width: 100%;
-    padding: 0.5rem 0.5rem 2rem 0.5rem;
-  }
-
   @media (max-width: 768px) {
+    transform: none; /* Reset transform on mobile for better UX */
     padding: 0.5rem 0.5rem 2rem 0.5rem;
   }
 `;
+
 
 export const Title = styled.h1`
   font-size: 1.3rem;
@@ -61,7 +60,7 @@ export const LoginForm = styled.form`
   padding: 0px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.3rem;
 `;
 
 export const RegisterForm = styled.form`
@@ -69,26 +68,26 @@ export const RegisterForm = styled.form`
   padding: 0px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.3rem;
 `;
 
 export const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
-  gap: 5px; /* Increased gap between label and input */
+  gap: 0.3rem; /* Increased gap between label and input */
 `;
 
 export const Label = styled.label`
   font-weight: 500;
   color: ${({ theme }) => theme.color};
-  margin-bottom: 5px;
+  margin-bottom: 0.6rem;
   font-size: 0.9rem;
 `;
 
 export const ErrorMessage = styled.span`
   color: rgb(234, 26, 26);
-  margin-top: 5px;
+  margin-top: 0.6rem;
   font-size: 0.9rem;
   align-self: center;
 `;
@@ -115,7 +114,7 @@ export const Input = styled.input`
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1rem;
   margin: auto;
   width: 80%;
 `;

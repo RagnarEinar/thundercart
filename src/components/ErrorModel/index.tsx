@@ -22,11 +22,11 @@ const ModalWrapper = styled.div`
   align-items: center;
   z-index: 1000;
   backdrop-filter: blur(6px);
-  padding: 20px;
+  padding: 1.3px;
 `;
 
 const ModalContent = styled.div`
-  background-color: ${({ theme }) => theme.background};
+  background-color: ${({ theme }) => theme.wrapperBack};
   border-radius: 12px;
   width: 100%;
   max-width: 500px;
@@ -37,7 +37,7 @@ const ModalContent = styled.div`
 
   @media (max-width: 768px) {
     max-width: 90%;
-    padding: 16px;
+    padding: 1rem;
   }
 
   @media (max-width: 480px) {
@@ -48,7 +48,7 @@ const ModalContent = styled.div`
 
 const ModalHeader = styled.h2`
   font-size: 1.2rem;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   color: #d32f2f;
   font-weight: 700;
 
@@ -70,7 +70,7 @@ const ModalBody = styled.p`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  gap: 16px;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
 `;
@@ -91,12 +91,12 @@ const ModalButton = styled(Button)<{ primary?: boolean }>`
   }
 
   @media (max-width: 768px) {
-    padding: 10px 20px;
+    padding: 0.6rem 1.2rem;
     font-size: 0.95rem;
   }
 
   @media (max-width: 480px) {
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
 `;

@@ -6,8 +6,9 @@ export const SidebarWrapper = styled.div``;
 export const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.wrapperBack};
   width: 250px;
-  padding: 20px;
+  padding: 1.2rem;
   border-radius: 12px;
   overflow-y: auto;
   z-index: 1000;
@@ -26,20 +27,20 @@ export const HeaderContainer = styled.div`
 export const SidebarHeader = styled.h3`
   font-size: 1.5rem;
   margin: auto;
-  padding-bottom: 15px;
+  padding-bottom: 0.9rem;
 `;
 
 export const FilterSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.7rem;
 `;
 
 export const FilterSection = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  gap: 10px;
+  padding: 1rem;
+  gap: 0.6rem;
   border-radius: 10px;
   box-shadow: 0 2px 8px ${({ theme }) => theme.mediumBoxShadow};
   transition: all 0.3s ease;
@@ -61,7 +62,7 @@ export const CategoryDropdown = styled.select`
   background-color: ${({ theme }) => theme.sidebarBackground || "#fff"};
   color: ${({ theme }) => theme.color};
   font-size: 0.7rem;
-  padding: 10px 14px;
+  padding: 0.6rem 0.8rem;
   border-radius: 8px;
   border: 1px solid #ccc;
   cursor: pointer;
@@ -95,7 +96,7 @@ export const LeftRangeSlider = styled.input.attrs({
   width: 100%;
   height: 8px;
   outline: none;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   background: linear-gradient(
     to right,
     #ccc ${({ min, max, value }) => `${((value - min) / (max - min)) * 100}%`},
@@ -128,7 +129,7 @@ export const RightRangeSlider = styled.input.attrs({
   width: 100%;
   height: 8px;
   outline: none;
-  margin-bottom: 8px;
+  margin-bottom:  0.5rem;
   background: linear-gradient(
     to right,
     rgba(29, 254, 17, 0.94)
@@ -169,17 +170,17 @@ export const SliderPrice = styled.div`
 export const AvailabilityOption = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.1rem;
 
   label {
-    margin-bottom: 8px;
+    margin-bottom:  0.5rem;
     display: flex;
     align-items: center;
     cursor: pointer;
     font-size: 0.7rem;
 
     input {
-      margin-right: 12px;
+      margin-right:  0.5rem;
       accent-color: rgba(85, 0, 255, 0.9);
     }
   }
@@ -192,9 +193,9 @@ export const RatingContainer = styled.div`
 
 export const RatingOption = styled.div`
   font-size: 0.7rem;
-  margin-bottom: 8px;
+  margin-bottom:  0.5rem;
   input[type="radio"] {
-    margin-right: 12px;
+    margin-right:  0.5rem;
     accent-color: rgba(85, 0, 255, 0.9);
   }
 `;
@@ -202,7 +203,7 @@ export const RatingOption = styled.div`
 export const FilterButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  margin-bottom: 10px;
+  margin-bottom:  0.5rem;
 `;
 
 export const ApplyButton = styled(Button)`

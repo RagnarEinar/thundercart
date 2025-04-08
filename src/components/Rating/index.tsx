@@ -13,13 +13,13 @@ interface RatingProps {
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 8px;
+    gap: 0.5rem;
   cursor: pointer;
 `;
 
 const StarsWrapper = styled.div<{ editable: boolean }>`
   display: flex;
-  gap: 2px;
+  gap: 0.1rem;
   align-items: center;
   ${({ editable }) => editable && "cursor: pointer;"} // Only cursor if editable
 `;

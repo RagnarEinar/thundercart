@@ -3,6 +3,8 @@ import { createGlobalStyle } from "styled-components";
 const lightTheme = {
   background: "rgba(255, 255, 255, 1)", // Pure white
   color: "rgba(0, 0, 0, 0.87)", // Dark text
+  whiteText: "rgba(255, 255, 255, 1)",
+  wrapperBack: "rgba(244, 236, 236, 0.68)",
   secondaryBackground: "rgba(18, 18, 18, 1)", // Near-black
   secondaryColor: "rgba(255, 255, 255, 0.97)", // Light text
   lightColor: "rgba(84, 84, 84, 0.97)",
@@ -25,7 +27,7 @@ const lightTheme = {
   cartEditBtnBackground: "rgba(100, 222, 2, 1)", // Green button for editing
   cartAddBtnBackground: "rgba(4, 49, 248, 1)", // Blue button for adding items
   cartDeleteBtnBackground: "rgba(249, 118, 3, 1)", // Orange delete button background
-  cartAddToCartBtnBackground:  "rgba(133, 246, 63, 0.91)", // Orange background for add to cart button
+  cartAddToCartBtnBackground: "rgba(133, 246, 63, 0.91)", // Orange background for add to cart button
   cartBackBackground: "rgba(249, 118, 3, 1)", // Orange background for back button
   cartBtnTextColor: "rgba(249, 249, 249, 1)", // White text for buttons
   cartBackBtnColor: "rgba(0, 0, 0, 0.95)", //  White text for buttons
@@ -35,8 +37,10 @@ const lightTheme = {
 const darkTheme = {
   background: "rgba(18, 18, 18, 1)", // Near-black
   color: "rgba(255, 255, 255, 0.97)", // Light text
+  whiteText: "rgba(255, 255, 255, 1)",
+  wrapperBack: "rgba(24, 24, 24, 0.74)",
   secondaryBackground: "rgba(255, 255, 255, 1)", // Pure white
-  secondarycolor: "rgba(0, 0, 0, 0.87)", // Dark text
+  secondaryColor: "rgba(0, 0, 0, 0.87)", // Dark text
   lightColor: "rgba(204, 200, 200, 0.97)",
   hoverBackground: "rgba(51, 51, 51, 1)", // Dark grey on hover
   cartIconColor: "rgba(249, 249, 249, 1)", // Light cart icon
@@ -52,7 +56,7 @@ const darkTheme = {
   cartItemSummColor: "rgba(255, 255, 255, 0.87)", // Lighter cart total summary text
   cartItemDisPrice: "rgba(255, 255, 255, 0.7)", // Discount price text
   cartItemOrgPrice: "rgba(119, 119, 119, 1)", // Lighter original price
-  cartItemDiscountPercent:"rgba(32, 230, 25, 0.91)", // Green for discount percentage
+  cartItemDiscountPercent: "rgba(32, 230, 25, 0.91)", // Green for discount percentage
   cartItemFreeDel: "rgba(18, 25, 245, 0.91)", // Highlighted green for free delivery
   cartEditBtnBackground: "rgba(100, 222, 2, 1)", // Green background for edit button
   cartAddBtnBackground: "rgba(4, 49, 248, 1)", // Blue background for add button
@@ -65,6 +69,10 @@ const darkTheme = {
 };
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    font-size: 16px;
+  }
+
   body {
     font-family: 'Roboto', sans-serif;
     background-color: ${({ theme }) => theme.background};

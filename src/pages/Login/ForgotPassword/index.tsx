@@ -30,7 +30,7 @@ export const OrderModal = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background: ${({ theme }) => theme.background};
+  background: ${({ theme }) => theme.wrapperBack};
   border-radius: 10px;
   padding: 1rem;
   width: 400px;
