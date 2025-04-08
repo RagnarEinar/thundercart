@@ -49,10 +49,10 @@ const AppRoutes: React.FC = () => {
       <Routes>
         <Route element={<AppProvider />}>
           {/* Customer Routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Products />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About/>} />
+          <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />}>
             <Route path="productDetails/:id" element={<ProductDetails />} />
           </Route>
