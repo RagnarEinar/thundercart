@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   box-sizing: border-box;
 `;

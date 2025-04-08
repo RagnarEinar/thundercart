@@ -58,21 +58,24 @@ const Navbar: React.FC<ThemeContextType> = ({ isDarkMode, toggleTheme }) => {
 
     if (!userDetails || userDetails.email === "") {
       links = [
-        { to: "/", label: "Home" },
+        // { to: "/", label: "Home" },
         { to: "/products", label: "Products" },
         { to: "/register", label: "Register" },
         { to: "/login", label: "Login" },
+        { to: "/about", label: "About" },
       ];
     } else if (userDetails.role === "admin") {
       links = [
-        { to: "/", label: "Home" },
+        // { to: "/", label: "Home" },
         { to: "/admin", label: "Dashboard" },
+        { to: "/about", label: "About" },
       ];
     } else {
       links = [
-        { to: "/", label: "Home" },
+        // { to: "/", label: "Home" },
         { to: "/products", label: "Products" },
         { to: "/profile", label: "Profile" },
+        { to: "/about", label: "About" },
       ];
     }
 

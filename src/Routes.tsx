@@ -19,6 +19,7 @@ import { PageNotFound } from "./pages/Login/styled.components";
 import Register from "./pages/Register";
 import Payment from "./components/Payment";
 import AdminDashboard from "./pages/AdminDashboard";
+import About from "./pages/About";
 
 const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { userDetails } = useSelector<RootState, LoginState>(
@@ -51,6 +52,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About/>} />
           <Route path="/products" element={<Products />}>
             <Route path="productDetails/:id" element={<ProductDetails />} />
           </Route>

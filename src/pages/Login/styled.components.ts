@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import herobackimg from "../../assets/herobackimg.webp";
 
 // Animation for error shake
 const shake = keyframes`
@@ -15,6 +16,8 @@ export const Wrapper = styled.div`
   padding: 1.5rem;
   width: 100%;
   font-size: 1rem;
+  height: calc(100vh - 60px);
+  background: url(${herobackimg}) center/cover no-repeat;
   @media (max-width: 768px) {
     font-size: 0.9rem;
   }
@@ -26,6 +29,7 @@ export const Container = styled.div<{ $hasError?: boolean }>`
   width: 350px; /* Increased width for a better layout */
   border-radius: 10px;
   margin: 10px auto;
+  background: rgba(255, 255, 255, 0.57);
   box-shadow: 0 10px 20px ${({ theme }) => theme.heavyBoxShadow};
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   ${({ $hasError }) =>
@@ -154,6 +158,7 @@ export const SignUpText = styled.p`
 
 export const SignUpLink = styled.span`
   font-size: 0.9rem;
+  font-weight: 700;
   color: rgba(249, 118, 3, 1);
   cursor: pointer;
   margin-left: 0.7rem;

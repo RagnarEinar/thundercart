@@ -63,12 +63,17 @@ export const BacktoLogin = styled.p`
   color: rgba(249, 118, 3, 1);
   cursor: pointer;
   font-size: 0.9rem;
+  align-self: center;
+`;
+export const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 `;
 
 export const ForgotPasswordButton = styled(Button)`
   padding: 0.4rem 1rem;
   align-self: center;
-  width: 50%;
   font-size: 1rem;
   background: rgba(67, 247, 18, 0.92);
   &:hover {
@@ -131,11 +136,12 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ closeModal }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
           {message && <ErrorMessage>{message}</ErrorMessage>}
-
-          <ForgotPasswordButton onClick={handleForgotPassword}>
-            Continue
-          </ForgotPasswordButton>
-          <BacktoLogin onClick={closeModal}>Back to Login</BacktoLogin>
+          <ButtonContainer>
+            <BacktoLogin onClick={closeModal}>Back to Login</BacktoLogin>
+            <ForgotPasswordButton onClick={handleForgotPassword}>
+              Continue
+            </ForgotPasswordButton>
+          </ButtonContainer>
         </ForgotPasswordContainer>
       </ModalContent>
     </OrderModal>

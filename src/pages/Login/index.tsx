@@ -68,7 +68,7 @@ const Login: React.FC = () => {
     return message ? <ErrorMessage>{message}</ErrorMessage> : null;
   };
   if (isLogging) {
-    return <Loader message="Logging in..."/>;
+    return <Loader message="Logging in..." />;
   }
 
   return (

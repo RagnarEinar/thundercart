@@ -11,6 +11,11 @@ export const FullPageLoader = styled.div`
   flex-direction: column;
   z-index: 9999;
   text-align: center;
+  @media (max-width: 768px) {
+    p {
+      margin: 20px 20px;
+    }
+  }
 `;
 
 export const Logo = styled.img`
