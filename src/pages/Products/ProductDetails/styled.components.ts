@@ -8,6 +8,7 @@ export const Wrapper = styled.div<{ $isPage?: boolean }>`
   border-radius: 15px;
   overflow-y: auto;
   padding: ${({ $isPage }) => ($isPage ? "20px" : "0")};
+  background: ${({ theme }) => theme.wrapperBack};
 
   @media (max-width: 786px) {
     flex-direction: column;

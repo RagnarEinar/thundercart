@@ -87,6 +87,9 @@ export const NavLinkStyled = styled(NavLink)`
     padding: 0rem;
     font-weight: 800;
   }
+  @media (max-width: 768px) {
+    color: ${({ theme }) => theme.color};
+  }
   @media (max-width: 480px) {
     color: ${({ theme }) => theme.color};
     padding: 0rem;

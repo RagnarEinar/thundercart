@@ -24,7 +24,6 @@ export const OrderModal = styled(motion.div)`
 `;
 
 export const ModalContent = styled(motion.div)`
-  background: ${({ theme }) => theme.wrapperBack};
   border-radius: 10px;
   max-width: 900px;
   width: 90%;
@@ -32,6 +31,7 @@ export const ModalContent = styled(motion.div)`
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  background: ${({ theme }) => theme.wrapperBack};
 `;
 
 export const CloseIcon = styled(RiCloseLine)`
